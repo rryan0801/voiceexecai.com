@@ -1,0 +1,83 @@
+{
+  "name": "Client",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "description": "Name of the client company"
+    },
+    "api_key": {
+      "type": "string",
+      "description": "Unique API key for widget authentication"
+    },
+    "heyrichy_account_id": {
+      "type": "string",
+      "description": "HeyRichyAI account ID for command execution"
+    },
+    "webhook_url": {
+      "type": "string",
+      "description": "Optional webhook URL to receive execution results"
+    },
+    "widget_config": {
+      "type": "object",
+      "description": "Widget customization settings",
+      "properties": {
+        "primary_color": {
+          "type": "string",
+          "default": "#000000"
+        },
+        "secondary_color": {
+          "type": "string",
+          "default": "#FFFFFF"
+        },
+        "accent_color": {
+          "type": "string",
+          "default": "#0066FF"
+        },
+        "brand_logo_url": {
+          "type": "string"
+        },
+        "widget_title": {
+          "type": "string",
+          "default": "VoiceRep AI"
+        },
+        "enabled_tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of tool names available to this client"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "bottom-right",
+            "bottom-left",
+            "top-right",
+            "top-left"
+          ],
+          "default": "bottom-right"
+        }
+      }
+    },
+    "monthly_quota": {
+      "type": "number",
+      "default": 10000,
+      "description": "Monthly API call limit"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "suspended",
+        "inactive"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "company_name",
+    "api_key",
+    "heyrichy_account_id"
+  ]
+}

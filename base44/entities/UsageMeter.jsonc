@@ -1,0 +1,49 @@
+{
+  "name": "UsageMeter",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client entity"
+    },
+    "month": {
+      "type": "string",
+      "format": "date",
+      "description": "Month for billing (YYYY-MM-01)"
+    },
+    "total_requests": {
+      "type": "number",
+      "default": 0,
+      "description": "Total API requests this month"
+    },
+    "transcription_requests": {
+      "type": "number",
+      "default": 0
+    },
+    "intent_parsing_requests": {
+      "type": "number",
+      "default": 0
+    },
+    "execution_requests": {
+      "type": "number",
+      "default": 0
+    },
+    "failed_requests": {
+      "type": "number",
+      "default": 0
+    },
+    "average_response_time_ms": {
+      "type": "number",
+      "default": 0
+    },
+    "cost_estimate": {
+      "type": "number",
+      "default": 0,
+      "description": "Estimated cost for month (for future billing)"
+    }
+  },
+  "required": [
+    "client_id",
+    "month"
+  ]
+}

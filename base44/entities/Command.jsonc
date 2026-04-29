@@ -1,0 +1,58 @@
+{
+  "name": "Command",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client entity"
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "URL of uploaded audio file"
+    },
+    "transcription": {
+      "type": "string",
+      "description": "Transcribed text from audio"
+    },
+    "detected_intent": {
+      "type": "string",
+      "description": "Parsed intent/tool name (e.g., 'cold_call_script', 'follow_up_email')"
+    },
+    "intent_confidence": {
+      "type": "number",
+      "description": "Confidence score 0-1 for intent detection"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Extracted parameters for the detected intent"
+    },
+    "execution_result": {
+      "type": "object",
+      "description": "Result returned from HeyRichyAI execution"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "transcribing",
+        "parsing",
+        "executing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Error details if status is failed"
+    },
+    "processing_time_ms": {
+      "type": "number",
+      "description": "Total time to process command in milliseconds"
+    }
+  },
+  "required": [
+    "client_id",
+    "audio_url"
+  ]
+}
