@@ -14,28 +14,76 @@
       "type": "string",
       "description": "Transcribed text from audio"
     },
+    "context": {
+      "type": "object",
+      "description": "User-provided context (prospect_name, company, system_type, etc.)",
+      "properties": {
+        "prospect_name": {
+          "type": "string"
+        },
+        "prospect_company": {
+          "type": "string"
+        },
+        "system_type": {
+          "type": "string",
+          "enum": [
+            "email",
+            "crm",
+            "document",
+            "communication",
+            "task",
+            "other"
+          ]
+        },
+        "additional_context": {
+          "type": "string"
+        }
+      }
+    },
+    "claude_reasoning": {
+      "type": "string",
+      "description": "Claude's step-by-step reasoning (streamed live)"
+    },
     "detected_intent": {
       "type": "string",
-      "description": "Parsed intent/tool name (e.g., 'cold_call_script', 'follow_up_email')"
-    },
-    "intent_confidence": {
-      "type": "number",
-      "description": "Confidence score 0-1 for intent detection"
-    },
-    "parameters": {
-      "type": "object",
-      "description": "Extracted parameters for the detected intent"
+      "description": "What Claude determined to do"
     },
     "execution_result": {
       "type": "object",
-      "description": "Result returned from HeyRichyAI execution"
+      "description": "Result of action execution"
+    },
+    "streaming_output": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "transcription_chunk",
+              "reasoning_chunk",
+              "execution_start",
+              "execution_complete",
+              "error"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "description": "Real-time streaming events for live UI updates"
     },
     "status": {
       "type": "string",
       "enum": [
         "pending",
         "transcribing",
-        "parsing",
+        "reasoning",
         "executing",
         "completed",
         "failed"
