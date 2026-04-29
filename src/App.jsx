@@ -6,6 +6,8 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Dashboard from '@/pages/Dashboard';
+import CommandManagement from '@/pages/CommandManagement';
+import WidgetTest from '@/pages/WidgetTest';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -35,6 +37,8 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
+      <Route path="/commands" element={<CommandManagement />} />
+      <Route path="/widget-test" element={<WidgetTest />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

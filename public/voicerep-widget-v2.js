@@ -224,6 +224,15 @@
           system_type: document.getElementById('voicerep-system').value
         };
 
+        // Create command record in database
+        const createRes = await fetch(`${API_URL}/createCommand`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+          body: JSON.stringify({ client_id, audio_url, context })
+        });
+
+        const { command_id } = await createRes.json();
+
         // Start streaming pipeline
         document.getElementById('voicerep-output').style.display = 'block';
         document.getElementById('voicerep-transcription').textContent = '';
@@ -234,7 +243,7 @@
         const transcribeRes = await fetch(`${API_URL}/transcribeAudioStream`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
-          body: JSON.stringify({ audio_url, client_id, command_id: 'temp_' + Date.now() })
+          body: JSON.stringify({ audio_url, client_id, command_id })
         });
 
         const { transcription } = await transcribeRes.json();
@@ -246,7 +255,7 @@
           headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
           body: JSON.stringify({
             client_id,
-            command_id: 'temp_' + Date.now(),
+            command_id,
             transcription,
             context
           })
