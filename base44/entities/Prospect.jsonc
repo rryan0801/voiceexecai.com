@@ -1,0 +1,50 @@
+{
+  "name": "Prospect",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client entity"
+    },
+    "prospect_name": {
+      "type": "string",
+      "description": "Name of the prospect"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "custom_fields": {
+      "type": "object",
+      "description": "Custom fields for extensibility",
+      "additionalProperties": true
+    },
+    "interaction_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of interactions"
+    },
+    "last_interaction_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last interaction timestamp"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about prospect"
+    }
+  },
+  "required": [
+    "client_id",
+    "prospect_name",
+    "company_name"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "ProspectInteraction",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect entity"
+    },
+    "command_id": {
+      "type": "string",
+      "description": "Reference to Command entity"
+    },
+    "interaction_type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "call",
+        "task",
+        "meeting",
+        "document",
+        "other"
+      ],
+      "description": "Type of interaction"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of what was done"
+    },
+    "result": {
+      "type": "object",
+      "description": "Result of the interaction",
+      "additionalProperties": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "failed"
+      ],
+      "default": "completed",
+      "description": "Interaction status"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "command_id",
+    "interaction_type",
+    "summary"
+  ]
+}

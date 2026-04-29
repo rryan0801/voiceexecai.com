@@ -9,10 +9,24 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'command_id and transcription required' }, { status: 400 });
     }
 
-    // Update to reasoning status
+    // Fetch prospect context if prospect name provided
+    let prospectContext = {};
+    if (context?.prospect_name) {
+      const getContextRes = await base44.asServiceRole.functions.invoke('getProspectContext', {
+        client_id,
+        prospect_name: context.prospect_name,
+        company_name: context.prospect_company
+      });
+      prospectContext = getContextRes.context || {};
+    }
+
+    // Update to reasoning status with enriched context
     await base44.asServiceRole.entities.Command.update(command_id, {
       status: 'reasoning',
-      context: context || {}
+      context: {
+        ...context,
+        prospect_context: prospectContext
+      }
     });
 
     // TODO: Replace with real Claude streaming API
@@ -95,10 +109,22 @@ Deno.serve(async (req) => {
       processing_time_ms: Date.now()
     });
 
+    // Save interaction record if prospect context exists
+    if (context?.prospect_name && prospectContext?.prospect_id) {
+      await base44.asServiceRole.functions.invoke('saveProspectInteraction', {
+        prospect_id: prospectContext.prospect_id,
+        command_id,
+        interaction_type: context?.system_type || 'other',
+        summary: context?.prospect_name ? `Action: ${mockResult.action} for ${context.prospect_name}` : mockResult.action,
+        result: mockResult
+      });
+    }
+
     return Response.json({
       success: true,
       reasoning: fullReasoning,
-      result: mockResult
+      result: mockResult,
+      prospect_id: prospectContext?.prospect_id
     });
   } catch (error) {
     if (command_id) {

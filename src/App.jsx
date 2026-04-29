@@ -8,6 +8,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Dashboard from '@/pages/Dashboard';
 import CommandManagement from '@/pages/CommandManagement';
 import WidgetTest from '@/pages/WidgetTest';
+import ProspectManagement from '@/pages/ProspectManagement';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -38,6 +39,7 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/commands" element={<CommandManagement />} />
+      <Route path="/prospects" element={<ProspectManagement />} />
       <Route path="/widget-test" element={<WidgetTest />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />

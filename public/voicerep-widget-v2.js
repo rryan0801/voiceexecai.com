@@ -82,13 +82,14 @@
       <div style="margin-bottom: 16px;">
         <h3 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600;">Voice Command</h3>
 
-        <!-- Context inputs -->
+        <!-- Context inputs with history -->
         <div style="margin-bottom: 12px;">
           <input 
             id="voicerep-prospect-name"
             placeholder="Prospect name (optional)"
             style="width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px;"
           />
+          <div id="voicerep-prospect-history" style="margin-bottom: 8px; font-size: 12px; color: #666; max-height: 80px; overflow-y: auto;"></div>
           <input 
             id="voicerep-company"
             placeholder="Company (optional)"
@@ -138,6 +139,11 @@
           <div style="margin-bottom: 12px; padding: 12px; background: #f9f3ff; border-radius: 6px;">
             <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #666;">Reasoning:</div>
             <div id="voicerep-reasoning" style="font-size: 12px; color: #555; line-height: 1.4; min-height: 30px; font-style: italic;"></div>
+          </div>
+
+          <div style="margin-bottom: 12px; padding: 12px; background: #f0f8ff; border-radius: 6px;">
+            <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #666;">Prospect Context:</div>
+            <div id="voicerep-context" style="font-size: 11px; color: #333; line-height: 1.4;"></div>
           </div>
 
           <div style="padding: 12px; background: #f0f8ff; border-radius: 6px;">
@@ -264,6 +270,17 @@
           .then(data => {
             document.getElementById('voicerep-reasoning').textContent = data.reasoning;
             document.getElementById('voicerep-result').textContent = JSON.stringify(data.result, null, 2);
+            
+            // Display prospect context if available
+            if (data.prospect_context) {
+              const ctx = data.prospect_context;
+              const contextHtml = `
+                <strong>${ctx.prospect_name}</strong> @ ${ctx.company_name}<br/>
+                Interactions: ${ctx.interaction_count} | Last: ${ctx.last_interaction_date ? new Date(ctx.last_interaction_date).toLocaleDateString() : 'N/A'}
+                ${ctx.notes ? `<br/>Notes: ${ctx.notes}` : ''}
+              `;
+              document.getElementById('voicerep-context').innerHTML = contextHtml;
+            }
           });
       };
 
