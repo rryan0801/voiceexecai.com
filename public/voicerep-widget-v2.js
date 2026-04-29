@@ -149,6 +149,7 @@
           <div style="padding: 12px; background: #f0f8ff; border-radius: 6px;">
             <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #666;">Result:</div>
             <div id="voicerep-result" style="font-size: 13px; color: #333; line-height: 1.4; white-space: pre-wrap; min-height: 30px;"></div>
+            <div id="voicerep-result-status" style="font-size: 11px; margin-top: 8px; padding: 8px; border-radius: 4px; display: none;"></div>
           </div>
 
           <button 
@@ -280,6 +281,20 @@
                 ${ctx.notes ? `<br/>Notes: ${ctx.notes}` : ''}
               `;
               document.getElementById('voicerep-context').innerHTML = contextHtml;
+            }
+
+            // Show execution status
+            const statusDiv = document.getElementById('voicerep-result-status');
+            if (data.result?.sent) {
+              statusDiv.style.display = 'block';
+              statusDiv.style.backgroundColor = '#d1fae5';
+              statusDiv.style.color = '#065f46';
+              statusDiv.textContent = '✓ Email sent to ' + data.result.sent_to;
+            } else if (data.result?.email_error) {
+              statusDiv.style.display = 'block';
+              statusDiv.style.backgroundColor = '#fee2e2';
+              statusDiv.style.color = '#991b1b';
+              statusDiv.textContent = '✗ Email failed: ' + data.result.email_error;
             }
           });
       };

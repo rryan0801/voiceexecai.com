@@ -93,15 +93,28 @@ Deno.serve(async (req) => {
       detected_intent: 'send_email'
     });
 
-    // Simulate execution
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    const mockResult = {
+    // Send email via Outlook if prospect has email
+    let mockResult = {
       action: 'send_email',
       recipient: `${context?.prospect_name || 'John'} at ${context?.prospect_company || 'TechCorp'}`,
       subject: 'Q2 Partnership Proposal Follow-Up',
       body: `Hi ${context?.prospect_name || 'John'},\n\nFollowing up on our Q2 partnership proposal discussion. I believe our solution could significantly streamline your operations.\n\nWould you have time next week for a brief call?\n\nBest regards`
     };
+
+    // Execute email if prospect context has email
+    if (prospectContext?.email) {
+      try {
+        const emailRes = await base44.asServiceRole.functions.invoke('sendEmailViaOutlook', {
+          to: prospectContext.email,
+          subject: mockResult.subject,
+          body: mockResult.body
+        });
+        mockResult.sent = true;
+        mockResult.sent_to = prospectContext.email;
+      } catch (emailError) {
+        mockResult.email_error = emailError.message;
+      }
+    }
 
     await base44.asServiceRole.entities.Command.update(command_id, {
       status: 'completed',
