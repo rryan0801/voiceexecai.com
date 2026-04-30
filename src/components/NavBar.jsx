@@ -13,6 +13,7 @@ const navItems = [
   { path: '/playbooks', label: 'Playbooks', icon: BookOpen },
   { path: '/email-engagement', label: 'Email', icon: Mail },
   { path: '/linkedin-monitor', label: 'LinkedIn', icon: TrendingUp },
+  { path: '/sms', label: 'SMS', icon: MessageCircle },
   { path: '/crm-adapter', label: 'CRM Adapter', icon: Zap },
   { path: '/analytics', label: 'Analytics', icon: BarChart3 },
   { path: '/commands', label: 'Commands', icon: Zap },

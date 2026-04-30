@@ -1,0 +1,94 @@
+{
+  "name": "SMSThread",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client"
+    },
+    "prospect_name": {
+      "type": "string",
+      "description": "Prospect name"
+    },
+    "prospect_phone": {
+      "type": "string",
+      "description": "Prospect phone number (E.164 format)"
+    },
+    "messages": {
+      "type": "array",
+      "description": "Conversation thread",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "sent",
+              "delivered",
+              "failed",
+              "read"
+            ]
+          },
+          "twilio_sid": {
+            "type": "string",
+            "description": "Twilio message SID"
+          }
+        }
+      }
+    },
+    "total_messages": {
+      "type": "number",
+      "default": 0
+    },
+    "last_message_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_message_from": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "rep"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "closed",
+        "archived"
+      ],
+      "default": "active"
+    },
+    "engagement_score": {
+      "type": "number",
+      "description": "0-100 engagement from SMS interaction"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "prospect_phone"
+  ]
+}

@@ -24,6 +24,7 @@ import ConversationContextManager from '@/pages/ConversationContextManager';
 import EmailEngagement from '@/pages/EmailEngagement';
 import LinkedInMonitor from '@/pages/LinkedInMonitor';
 import CRMAdapterSetup from '@/pages/CRMAdapterSetup';
+import SMSThreads from '@/pages/SMSThreads';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -71,6 +72,7 @@ const AuthenticatedApp = () => {
       <Route path="/email-engagement" element={<EmailEngagement />} />
       <Route path="/linkedin-monitor" element={<LinkedInMonitor />} />
       <Route path="/crm-adapter" element={<CRMAdapterSetup />} />
+      <Route path="/sms" element={<SMSThreads />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
