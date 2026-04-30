@@ -13,6 +13,7 @@ import Analytics from '@/pages/Analytics';
 import MobileWidget from '@/pages/MobileWidget';
 import TeamView from '@/pages/TeamView';
 import AutoPilot from '@/pages/AutoPilot';
+import DealIntelligence from '@/pages/DealIntelligence';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -49,6 +50,7 @@ const AuthenticatedApp = () => {
       <Route path="/mobile" element={<MobileWidget />} />
       <Route path="/team" element={<TeamView />} />
       <Route path="/autopilot" element={<AutoPilot />} />
+      <Route path="/deals" element={<DealIntelligence />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

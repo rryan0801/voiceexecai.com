@@ -1,0 +1,90 @@
+{
+  "name": "DealScore",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client"
+    },
+    "prospect_name": {
+      "type": "string",
+      "description": "Prospect name for easy reference"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "win_probability": {
+      "type": "number",
+      "description": "0-100 score"
+    },
+    "interaction_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Total interactions"
+    },
+    "recency_boost": {
+      "type": "number",
+      "default": 0,
+      "description": "Boost from recent activity (last 7 days)"
+    },
+    "autopilot_progress": {
+      "type": "number",
+      "default": 0,
+      "description": "% of AutoPilot sequence completed"
+    },
+    "reply_detected": {
+      "type": "boolean",
+      "default": false,
+      "description": "Has prospect replied"
+    },
+    "last_interaction_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When was the last interaction"
+    },
+    "recommended_action": {
+      "type": "string",
+      "enum": [
+        "send_email",
+        "schedule_call",
+        "send_proposal",
+        "check_in",
+        "nurture"
+      ],
+      "description": "Next recommended action"
+    },
+    "score_factors": {
+      "type": "object",
+      "description": "Breakdown of score calculation",
+      "properties": {
+        "interaction_score": {
+          "type": "number"
+        },
+        "recency_score": {
+          "type": "number"
+        },
+        "autopilot_score": {
+          "type": "number"
+        },
+        "engagement_score": {
+          "type": "number"
+        }
+      }
+    },
+    "calculated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When score was last calculated"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "win_probability"
+  ]
+}
