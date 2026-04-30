@@ -1,0 +1,118 @@
+{
+  "name": "CalendarEvent",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client"
+    },
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect"
+    },
+    "rep_email": {
+      "type": "string",
+      "description": "Sales rep email"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "event_title": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "discovery",
+        "demo",
+        "proposal",
+        "negotiation",
+        "close",
+        "check_in",
+        "other"
+      ],
+      "description": "Type of meeting"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "duration_minutes": {
+      "type": "number"
+    },
+    "attendees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "response": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "declined",
+              "tentative"
+            ]
+          }
+        }
+      }
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "no_show",
+        "rescheduled",
+        "cancelled"
+      ],
+      "description": "Meeting outcome"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Meeting notes/summary"
+    },
+    "next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deal_stage_before": {
+      "type": "string",
+      "description": "Deal stage before meeting"
+    },
+    "deal_stage_after": {
+      "type": "string",
+      "description": "Deal stage after meeting"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ]
+    },
+    "outlook_event_id": {
+      "type": "string",
+      "description": "Outlook calendar event ID"
+    }
+  },
+  "required": [
+    "client_id",
+    "event_title",
+    "started_at"
+  ]
+}

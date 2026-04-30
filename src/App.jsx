@@ -25,6 +25,10 @@ import EmailEngagement from '@/pages/EmailEngagement';
 import LinkedInMonitor from '@/pages/LinkedInMonitor';
 import CRMAdapterSetup from '@/pages/CRMAdapterSetup';
 import SMSThreads from '@/pages/SMSThreads';
+import CalendarAnalytics from '@/pages/CalendarAnalytics';
+import LinkedInMessaging from '@/pages/LinkedInMessaging';
+import ActionDashboard from '@/pages/ActionDashboard';
+import CoachingCenter from '@/pages/CoachingCenter';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -73,6 +77,10 @@ const AuthenticatedApp = () => {
       <Route path="/linkedin-monitor" element={<LinkedInMonitor />} />
       <Route path="/crm-adapter" element={<CRMAdapterSetup />} />
       <Route path="/sms" element={<SMSThreads />} />
+      <Route path="/calendar-analytics" element={<CalendarAnalytics />} />
+      <Route path="/linkedin-messaging" element={<LinkedInMessaging />} />
+      <Route path="/actions" element={<ActionDashboard />} />
+      <Route path="/coaching" element={<CoachingCenter />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

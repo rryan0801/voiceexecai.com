@@ -1,0 +1,77 @@
+{
+  "name": "CoachingFeedback",
+  "type": "object",
+  "properties": {
+    "rep_email": {
+      "type": "string",
+      "description": "Sales rep email"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Reference to ConversationSession"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "sentiment_shift",
+        "objection_detected",
+        "positive_signal",
+        "silence",
+        "closing_opportunity"
+      ],
+      "description": "What triggered the coaching"
+    },
+    "feedback_title": {
+      "type": "string",
+      "description": "Short coaching title"
+    },
+    "feedback_content": {
+      "type": "string",
+      "description": "Coaching guidance"
+    },
+    "suggested_response": {
+      "type": "string",
+      "description": "What to say next"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "How important is this coaching"
+    },
+    "sentiment_context": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "Current call sentiment"
+    },
+    "delivered_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "acted_upon": {
+      "type": "boolean",
+      "default": false
+    },
+    "effectiveness": {
+      "type": "number",
+      "description": "1-5 rating of coaching impact"
+    }
+  },
+  "required": [
+    "rep_email",
+    "client_id",
+    "trigger_type",
+    "feedback_title",
+    "feedback_content"
+  ]
+}
