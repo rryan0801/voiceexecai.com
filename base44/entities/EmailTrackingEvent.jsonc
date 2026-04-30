@@ -1,0 +1,101 @@
+{
+  "name": "EmailTrackingEvent",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client"
+    },
+    "email_id": {
+      "type": "string",
+      "description": "Unique email identifier"
+    },
+    "prospect_email": {
+      "type": "string",
+      "description": "Email address tracked"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line"
+    },
+    "sent_by": {
+      "type": "string",
+      "description": "Sender email/name"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When email was sent"
+    },
+    "open_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of times opened"
+    },
+    "first_open_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "First open timestamp"
+    },
+    "last_open_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Most recent open"
+    },
+    "click_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Total link clicks"
+    },
+    "first_click_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "First click timestamp"
+    },
+    "links_clicked": {
+      "type": "array",
+      "description": "Links clicked in email",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "click_count": {
+            "type": "number"
+          },
+          "first_click": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "engagement_score": {
+      "type": "number",
+      "description": "0-100 engagement rating"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "sent",
+        "opened",
+        "clicked",
+        "replied",
+        "bounced"
+      ],
+      "description": "Email status"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "email_id",
+    "prospect_email",
+    "subject"
+  ]
+}

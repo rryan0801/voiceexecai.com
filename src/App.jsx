@@ -21,6 +21,9 @@ import TestRunner from '@/pages/TestRunner';
 import CRMAndCommsHub from '@/pages/CRMAndCommsHub';
 import CallAnalysisDashboard from '@/pages/CallAnalysisDashboard';
 import ConversationContextManager from '@/pages/ConversationContextManager';
+import EmailEngagement from '@/pages/EmailEngagement';
+import LinkedInMonitor from '@/pages/LinkedInMonitor';
+import CRMAdapterSetup from '@/pages/CRMAdapterSetup';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -65,6 +68,9 @@ const AuthenticatedApp = () => {
       <Route path="/crm-comms" element={<CRMAndCommsHub />} />
       <Route path="/call-analysis" element={<CallAnalysisDashboard />} />
       <Route path="/conversation-context" element={<ConversationContextManager />} />
+      <Route path="/email-engagement" element={<EmailEngagement />} />
+      <Route path="/linkedin-monitor" element={<LinkedInMonitor />} />
+      <Route path="/crm-adapter" element={<CRMAdapterSetup />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

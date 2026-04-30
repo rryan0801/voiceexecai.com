@@ -1,0 +1,73 @@
+{
+  "name": "LinkedInSignal",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "linkedin_url": {
+      "type": "string",
+      "description": "LinkedIn profile URL"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "profile_view",
+        "connection_request",
+        "message",
+        "job_change",
+        "company_growth",
+        "content_engagement",
+        "headline_change",
+        "endorsement"
+      ],
+      "description": "Type of LinkedIn signal"
+    },
+    "signal_detail": {
+      "type": "string",
+      "description": "Details about the signal"
+    },
+    "signal_strength": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "How strong is this buying signal"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When signal occurred"
+    },
+    "buying_intent_score": {
+      "type": "number",
+      "description": "0-100 buying intent indicator"
+    },
+    "action_taken": {
+      "type": "string",
+      "description": "What action was taken (connect, message, etc)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional signal data",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "signal_type",
+    "linkedin_url"
+  ]
+}
