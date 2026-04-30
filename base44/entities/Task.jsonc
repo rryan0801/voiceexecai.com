@@ -1,0 +1,58 @@
+{
+  "name": "Task",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Reference to Client entity"
+    },
+    "prospect_id": {
+      "type": "string",
+      "description": "Reference to Prospect entity"
+    },
+    "command_id": {
+      "type": "string",
+      "description": "Reference to Command entity that created this task"
+    },
+    "title": {
+      "type": "string",
+      "description": "Task title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Task details"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the task is due"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Email of the person assigned"
+    }
+  },
+  "required": [
+    "client_id",
+    "title"
+  ]
+}

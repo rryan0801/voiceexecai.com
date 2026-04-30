@@ -35,9 +35,9 @@ Deno.serve(async (req) => {
     const systemPrompt = `You are a sales assistant AI that interprets voice commands from sales reps and takes action.
 
 Given a voice command transcription and prospect context, you must:
-1. Determine the intent (send_email, create_task, log_call, schedule_meeting, other)
-2. If intent is send_email, draft a professional, personalized email
-3. Return a JSON response
+1. Determine the intent from: send_email, schedule_meeting, create_task, log_crm, generate_document, other
+2. Draft the appropriate content based on intent
+3. Extract relevant parameters
 
 Prospect context:
 - Name: ${prospectContext.prospect_name || context?.prospect_name || 'Unknown'}
@@ -50,17 +50,39 @@ Prospect context:
 Respond with valid JSON only:
 {
   "reasoning": "brief explanation of what you understood and why",
-  "intent": "send_email | create_task | log_call | schedule_meeting | other",
+  "intent": "send_email | schedule_meeting | create_task | log_crm | generate_document | other",
   "action": "description of what action to take",
-  "email_subject": "subject line (if send_email)",
-  "email_body": "full email body in plain text (if send_email)",
-  "summary": "one line summary of what was done"
+  "summary": "one line summary of what was done",
+
+  // For send_email:
+  "email_subject": "subject line",
+  "email_body": "full email body in plain text",
+
+  // For schedule_meeting:
+  "meeting_subject": "meeting title",
+  "meeting_start": "ISO datetime e.g. 2024-05-01T14:00:00Z",
+  "meeting_end": "ISO datetime e.g. 2024-05-01T15:00:00Z",
+  "meeting_location": "location or video link",
+  "meeting_body": "meeting description",
+
+  // For create_task:
+  "task_title": "task title",
+  "task_description": "details",
+  "task_due_date": "ISO datetime or null",
+  "task_priority": "low | medium | high",
+
+  // For log_crm:
+  "crm_note": "what to log in CRM",
+
+  // For generate_document:
+  "doc_type": "proposal | quote | follow_up | introduction | other",
+  "doc_instructions": "specific instructions for the document"
 }`;
 
     // Call Claude
     const message = await anthropic.messages.create({
       model: 'claude-opus-4-5',
-      max_tokens: 1024,
+      max_tokens: 1500,
       messages: [{ role: 'user', content: transcription }],
       system: systemPrompt
     });
@@ -88,16 +110,15 @@ Respond with valid JSON only:
       detected_intent: claudeResponse.intent
     });
 
-    // Build result
     let result = {
       action: claudeResponse.intent,
       summary: claudeResponse.summary,
-      recipient: prospectContext.prospect_name || context?.prospect_name,
-      subject: claudeResponse.email_subject,
-      body: claudeResponse.email_body
+      recipient: prospectContext.prospect_name || context?.prospect_name
     };
 
-    // Send real email via Outlook if intent is email and prospect has email
+    // ── Intent Routing ──────────────────────────────────────────────────────
+
+    // 1) Send Email via Outlook
     if (claudeResponse.intent === 'send_email' && prospectContext?.email) {
       try {
         await base44.asServiceRole.functions.invoke('sendEmailViaOutlook', {
@@ -107,11 +128,97 @@ Respond with valid JSON only:
         });
         result.sent = true;
         result.sent_to = prospectContext.email;
-      } catch (emailError) {
-        result.email_error = emailError.message;
+        result.subject = claudeResponse.email_subject;
+        result.body = claudeResponse.email_body;
+      } catch (e) {
+        result.email_error = e.message;
+        result.subject = claudeResponse.email_subject;
+        result.body = claudeResponse.email_body;
+      }
+    } else if (claudeResponse.intent === 'send_email') {
+      // No email on file — just return drafted content
+      result.subject = claudeResponse.email_subject;
+      result.body = claudeResponse.email_body;
+      result.note = 'Email drafted but not sent — no email address on file for this prospect.';
+    }
+
+    // 2) Schedule Meeting via Outlook Calendar
+    if (claudeResponse.intent === 'schedule_meeting') {
+      try {
+        const meetingRes = await base44.asServiceRole.functions.invoke('scheduleOutlookMeeting', {
+          subject: claudeResponse.meeting_subject || `Meeting with ${prospectContext.prospect_name || context?.prospect_name}`,
+          attendee_email: prospectContext.email || null,
+          start_datetime: claudeResponse.meeting_start,
+          end_datetime: claudeResponse.meeting_end,
+          body: claudeResponse.meeting_body || '',
+          location: claudeResponse.meeting_location || ''
+        });
+        result.meeting_scheduled = true;
+        result.event_id = meetingRes.event_id;
+        result.web_link = meetingRes.web_link;
+        result.meeting_start = claudeResponse.meeting_start;
+        result.meeting_end = claudeResponse.meeting_end;
+      } catch (e) {
+        result.meeting_error = e.message;
       }
     }
 
+    // 3) Create Internal Task
+    if (claudeResponse.intent === 'create_task') {
+      try {
+        const taskRes = await base44.asServiceRole.functions.invoke('createTask', {
+          client_id,
+          prospect_id: prospectContext.prospect_id || null,
+          command_id,
+          title: claudeResponse.task_title || claudeResponse.summary,
+          description: claudeResponse.task_description || '',
+          due_date: claudeResponse.task_due_date || null,
+          priority: claudeResponse.task_priority || 'medium'
+        });
+        result.task_created = true;
+        result.task_id = taskRes.task_id;
+        result.task_title = claudeResponse.task_title;
+      } catch (e) {
+        result.task_error = e.message;
+      }
+    }
+
+    // 4) Log to HubSpot CRM
+    if (claudeResponse.intent === 'log_crm') {
+      try {
+        const crmRes = await base44.asServiceRole.functions.invoke('logHubspotContact', {
+          prospect_name: prospectContext.prospect_name || context?.prospect_name,
+          prospect_email: prospectContext.email || null,
+          company_name: prospectContext.company_name || context?.prospect_company,
+          note: claudeResponse.crm_note || claudeResponse.summary,
+          interaction_type: 'voice_command'
+        });
+        result.crm_logged = true;
+        result.crm_contact_id = crmRes.contact_id;
+      } catch (e) {
+        result.crm_error = e.message;
+      }
+    }
+
+    // 5) Generate Document
+    if (claudeResponse.intent === 'generate_document') {
+      try {
+        const docRes = await base44.asServiceRole.functions.invoke('generateProposalDoc', {
+          prospect_name: prospectContext.prospect_name || context?.prospect_name,
+          company_name: prospectContext.company_name || context?.prospect_company,
+          doc_type: claudeResponse.doc_type || 'proposal',
+          custom_instructions: claudeResponse.doc_instructions || '',
+          prospect_context: prospectContext
+        });
+        result.document_generated = true;
+        result.doc_type = docRes.doc_type;
+        result.html = docRes.html;
+      } catch (e) {
+        result.doc_error = e.message;
+      }
+    }
+
+    // ── Finalize ────────────────────────────────────────────────────────────
     await base44.asServiceRole.entities.Command.update(command_id, {
       status: 'completed',
       execution_result: result,
@@ -120,10 +227,17 @@ Respond with valid JSON only:
 
     // Save interaction if prospect exists
     if (prospectContext?.prospect_id) {
+      const interactionTypeMap = {
+        send_email: 'email',
+        schedule_meeting: 'meeting',
+        create_task: 'task',
+        log_crm: 'other',
+        generate_document: 'document'
+      };
       await base44.asServiceRole.functions.invoke('saveProspectInteraction', {
         prospect_id: prospectContext.prospect_id,
         command_id,
-        interaction_type: claudeResponse.intent === 'send_email' ? 'email' : context?.system_type || 'other',
+        interaction_type: interactionTypeMap[claudeResponse.intent] || 'other',
         summary: claudeResponse.summary || result.action,
         result
       });
