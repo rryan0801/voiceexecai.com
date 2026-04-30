@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mic, LayoutDashboard, Users, Zap, BarChart3, TestTube, Bot, UsersRound, MessageCircle, Phone, BookOpen, TrendingUp } from 'lucide-react';
+import { Mic, LayoutDashboard, Users, Zap, BarChart3, TestTube, Bot, UsersRound, MessageCircle, Phone, BookOpen, TrendingUp, Beaker } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -14,6 +14,7 @@ const navItems = [
   { path: '/prospects', label: 'Prospects', icon: Users },
   { path: '/team', label: 'Team', icon: UsersRound },
   { path: '/autopilot', label: 'AutoPilot', icon: Bot },
+  { path: '/tests', label: 'Tests', icon: Beaker },
 ];
 
 export default function NavBar() {

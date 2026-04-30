@@ -17,6 +17,7 @@ import DealIntelligence from '@/pages/DealIntelligence';
 import ConversationAnalytics from '@/pages/ConversationAnalytics';
 import MeetingCopilot from '@/pages/MeetingCopilot';
 import PlaybookManager from '@/pages/PlaybookManager';
+import TestRunner from '@/pages/TestRunner';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -57,6 +58,7 @@ const AuthenticatedApp = () => {
       <Route path="/conversations" element={<ConversationAnalytics />} />
       <Route path="/meeting-prep" element={<MeetingCopilot />} />
       <Route path="/playbooks" element={<PlaybookManager />} />
+      <Route path="/tests" element={<TestRunner />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
