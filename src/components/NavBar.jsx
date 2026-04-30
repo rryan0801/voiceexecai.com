@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/deals', label: 'Deals', icon: TrendingUp },
+  { path: '/crm-comms', label: 'CRM+Comms', icon: Zap },
   { path: '/conversations', label: 'Conversations', icon: MessageCircle },
   { path: '/meeting-prep', label: 'Meeting Prep', icon: Phone },
   { path: '/playbooks', label: 'Playbooks', icon: BookOpen },
