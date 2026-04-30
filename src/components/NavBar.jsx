@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mic, LayoutDashboard, Users, Zap, BarChart3, TestTube, Bot, UsersRound, MessageCircle, Phone, BookOpen, TrendingUp, Beaker, Mail, AlertCircle, Target } from 'lucide-react';
+import { Mic, LayoutDashboard, Users, Zap, BarChart3, TestTube, Bot, UsersRound, MessageCircle, Phone, BookOpen, TrendingUp, Beaker, Mail, AlertCircle, Target, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -28,6 +28,7 @@ const navItems = [
   { path: '/leaderboard', label: 'Leaderboard', icon: BarChart3 },
   { path: '/email-studio', label: 'Email Studio', icon: Mail },
   { path: '/deal-rooms', label: 'Deal Rooms', icon: Users },
+  { path: '/billshield', label: 'BillShield', icon: DollarSign },
   { path: '/crm-adapter', label: 'CRM Adapter', icon: Zap },
   { path: '/analytics', label: 'Analytics', icon: BarChart3 },
   { path: '/commands', label: 'Commands', icon: Zap },

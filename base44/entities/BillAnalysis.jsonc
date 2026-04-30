@@ -1,0 +1,97 @@
+{
+  "name": "BillAnalysis",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email of user who uploaded"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "Uploaded bill/receipt file"
+    },
+    "analysis_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "analyzing",
+        "complete",
+        "error"
+      ],
+      "default": "pending"
+    },
+    "bills_detected": {
+      "type": "array",
+      "description": "List of detected bills/subscriptions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "monthly_cost": {
+            "type": "number"
+          },
+          "issue": {
+            "type": "string",
+            "description": "overcharge, forgotten_trial, price_hike, duplicate, etc"
+          }
+        }
+      }
+    },
+    "leaks_found": {
+      "type": "array",
+      "description": "Money leak items",
+      "items": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "leak_type": {
+            "type": "string"
+          },
+          "potential_monthly_savings": {
+            "type": "number"
+          },
+          "potential_yearly_savings": {
+            "type": "number"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "total_monthly_savings": {
+      "type": "number",
+      "description": "Total potential monthly savings"
+    },
+    "total_yearly_savings": {
+      "type": "number",
+      "description": "Total potential yearly savings"
+    },
+    "money_leak_score": {
+      "type": "number",
+      "description": "0-100 score of how much money is leaking"
+    },
+    "analysis_details": {
+      "type": "string",
+      "description": "Full AI analysis text"
+    },
+    "analyzed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "user_email",
+    "file_url"
+  ]
+}

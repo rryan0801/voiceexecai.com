@@ -39,6 +39,7 @@ import WinLossAnalyzer from '@/pages/WinLossAnalyzer';
 import TeamLeaderboard from '@/pages/TeamLeaderboard';
 import EmailTemplateStudio from '@/pages/EmailTemplateStudio';
 import DealCollaborationRooms from '@/pages/DealCollaborationRooms';
+import BillShield from '@/pages/BillShield';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -101,6 +102,7 @@ const AuthenticatedApp = () => {
       <Route path="/leaderboard" element={<TeamLeaderboard />} />
       <Route path="/email-studio" element={<EmailTemplateStudio />} />
       <Route path="/deal-rooms" element={<DealCollaborationRooms />} />
+      <Route path="/billshield" element={<BillShield />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
