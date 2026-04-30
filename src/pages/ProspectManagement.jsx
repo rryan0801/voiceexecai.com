@@ -6,11 +6,15 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { formatDistanceToNow } from 'date-fns';
-import { Users, Mail, Phone, Calendar } from 'lucide-react';
+import { Users, Mail, Phone, Pencil, Check, X } from 'lucide-react';
+import OutlookConnectBanner from '@/components/OutlookConnectBanner';
 
 export default function ProspectManagement() {
   const [selectedProspect, setSelectedProspect] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [editingEmail, setEditingEmail] = useState(false);
+  const [emailValue, setEmailValue] = useState('');
+  const [savingEmail, setSavingEmail] = useState(false);
 
   // Fetch prospects
   const { data: prospects = [], refetch } = useQuery({
@@ -32,6 +36,14 @@ export default function ProspectManagement() {
     enabled: !!selectedProspect
   });
 
+  const saveEmail = async () => {
+    setSavingEmail(true);
+    await base44.entities.Prospect.update(selectedProspect.id, { email: emailValue });
+    setSelectedProspect({ ...selectedProspect, email: emailValue });
+    setEditingEmail(false);
+    setSavingEmail(false);
+  };
+
   const filteredProspects = prospects.filter(p =>
     p.prospect_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.company_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -44,6 +56,8 @@ export default function ProspectManagement() {
           <h1 className="text-4xl font-bold text-slate-900">Prospect Database</h1>
           <p className="text-slate-600 mt-1">Track interactions and context for each prospect</p>
         </div>
+
+        <OutlookConnectBanner />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Prospects List */}
@@ -124,12 +138,35 @@ export default function ProspectManagement() {
                       <p className="text-slate-600">Company</p>
                       <p className="font-semibold text-slate-900">{selectedProspect.company_name}</p>
                     </div>
-                    {selectedProspect.email && (
-                      <div>
-                        <p className="text-slate-600">Email</p>
-                        <p className="font-semibold text-slate-900 break-all">{selectedProspect.email}</p>
-                      </div>
-                    )}
+                    <div>
+                      <p className="text-slate-600 mb-1">Email</p>
+                      {editingEmail ? (
+                        <div className="flex gap-1">
+                          <input
+                            className="flex-1 text-sm border border-slate-300 rounded px-2 py-1"
+                            value={emailValue}
+                            onChange={e => setEmailValue(e.target.value)}
+                            placeholder="email@company.com"
+                            autoFocus
+                          />
+                          <Button size="icon" variant="ghost" className="h-7 w-7" onClick={saveEmail} disabled={savingEmail}>
+                            <Check className="w-3 h-3 text-green-600" />
+                          </Button>
+                          <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => setEditingEmail(false)}>
+                            <X className="w-3 h-3 text-slate-400" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-slate-900 break-all text-sm">
+                            {selectedProspect.email || <span className="text-slate-400 font-normal">Not set</span>}
+                          </p>
+                          <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => { setEmailValue(selectedProspect.email || ''); setEditingEmail(true); }}>
+                            <Pencil className="w-3 h-3 text-slate-400" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                     {selectedProspect.phone && (
                       <div>
                         <p className="text-slate-600">Phone</p>
