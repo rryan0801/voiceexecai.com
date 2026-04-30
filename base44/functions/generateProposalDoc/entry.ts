@@ -1,8 +1,5 @@
-// Priority #5: Generate a proposal/document using Claude + return as PDF-ready HTML
+// Generate a proposal/document using Claude API (fetch-based, no SDK connection issues)
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
-import Anthropic from 'npm:@anthropic-ai/sdk@0.39.0';
-
-const anthropic = new Anthropic({ apiKey: Deno.env.get('CLAUDE_API_KEY') });
 
 Deno.serve(async (req) => {
   try {
@@ -24,16 +21,34 @@ Deno.serve(async (req) => {
 
 Return only the HTML body content of the document.`;
 
-    const message = await anthropic.messages.create({
-      model: 'claude-opus-4-5',
-      max_tokens: 2048,
-      messages: [{ role: 'user', content: userPrompt }],
-      system: systemPrompt
+    const rawKey = Deno.env.get('CLAUDE_API_KEY') || '';
+    // Sanitize: keep only printable ASCII characters
+    const apiKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
+    console.log('API key length:', apiKey.length, 'starts with:', apiKey.substring(0, 8));
+    const headers = new Headers();
+    headers.set('x-api-key', apiKey);
+    headers.set('anthropic-version', '2023-06-01');
+    headers.set('content-type', 'application/json');
+
+    const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        model: 'claude-opus-4-5',
+        max_tokens: 2048,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
     });
 
-    const htmlContent = message.content[0].text;
+    if (!claudeRes.ok) {
+      const err = await claudeRes.text();
+      throw new Error(`Claude API error: ${claudeRes.status} ${err}`);
+    }
 
-    // Wrap in a full printable HTML document
+    const claudeData = await claudeRes.json();
+    const htmlContent = claudeData.content[0].text;
+
     const fullHtml = `<!DOCTYPE html>
 <html>
 <head>
@@ -53,13 +68,7 @@ Return only the HTML body content of the document.`;
 </body>
 </html>`;
 
-    return Response.json({
-      success: true,
-      html: fullHtml,
-      doc_type,
-      prospect_name,
-      company_name
-    });
+    return Response.json({ success: true, html: fullHtml, doc_type, prospect_name, company_name });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
