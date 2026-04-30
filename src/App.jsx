@@ -19,6 +19,7 @@ import MeetingCopilot from '@/pages/MeetingCopilot';
 import PlaybookManager from '@/pages/PlaybookManager';
 import TestRunner from '@/pages/TestRunner';
 import CRMAndCommsHub from '@/pages/CRMAndCommsHub';
+import CallAnalysisDashboard from '@/pages/CallAnalysisDashboard';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
       <Route path="/playbooks" element={<PlaybookManager />} />
       <Route path="/tests" element={<TestRunner />} />
       <Route path="/crm-comms" element={<CRMAndCommsHub />} />
+      <Route path="/call-analysis" element={<CallAnalysisDashboard />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
