@@ -24,7 +24,7 @@ Return only the HTML body content of the document.`;
     const rawKey = Deno.env.get('CLAUDE_API_KEY') || '';
     // Sanitize: keep only printable ASCII characters
     const apiKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
-    console.log('API key length:', apiKey.length, 'starts with:', apiKey.substring(0, 8));
+
     const headers = new Headers();
     headers.set('x-api-key', apiKey);
     headers.set('anthropic-version', '2023-06-01');
