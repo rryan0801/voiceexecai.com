@@ -13,6 +13,7 @@ import ClientForm from '@/components/dashboard/ClientForm';
 import WidgetConfigurator from '@/components/dashboard/WidgetConfigurator';
 import CommandHistory from '@/components/dashboard/CommandHistory';
 import NavBar from '@/components/NavBar';
+import QuickTestRunner from '@/components/dashboard/QuickTestRunner';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -224,6 +225,9 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Quick Test Runner */}
+            <QuickTestRunner />
 
             {/* Recent Commands Feed */}
             {recentCommands.length > 0 && (
