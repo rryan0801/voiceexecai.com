@@ -1,0 +1,83 @@
+{
+  "name": "Playbook",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "manager_email": {
+      "type": "string",
+      "description": "Manager who created this playbook"
+    },
+    "name": {
+      "type": "string",
+      "description": "Playbook name (e.g., 'Q2 Enterprise Close')"
+    },
+    "description": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Target industry (optional)"
+    },
+    "deal_stage": {
+      "type": "string",
+      "enum": [
+        "prospecting",
+        "qualification",
+        "proposal",
+        "negotiation",
+        "closing"
+      ],
+      "description": "Deal stage this playbook targets"
+    },
+    "steps": {
+      "type": "array",
+      "description": "Sequence of actions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step_number": {
+            "type": "number"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "send_email",
+              "schedule_call",
+              "send_proposal",
+              "log_note"
+            ]
+          },
+          "delay_days": {
+            "type": "number"
+          },
+          "content_template": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0
+    },
+    "success_rate": {
+      "type": "number",
+      "description": "% of deals using this playbook that closed"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id",
+    "manager_email",
+    "name",
+    "steps"
+  ]
+}

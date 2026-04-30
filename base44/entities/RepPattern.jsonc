@@ -1,0 +1,64 @@
+{
+  "name": "RepPattern",
+  "type": "object",
+  "properties": {
+    "rep_email": {
+      "type": "string",
+      "description": "Rep's email address"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "pattern_type": {
+      "type": "string",
+      "enum": [
+        "closing_phrase",
+        "opening_approach",
+        "objection_response",
+        "tone",
+        "success_keyword"
+      ],
+      "description": "Type of pattern detected"
+    },
+    "pattern_value": {
+      "type": "string",
+      "description": "The actual pattern (e.g., 'ROI' or 'Let me ask you...')"
+    },
+    "success_rate": {
+      "type": "number",
+      "description": "Percentage of deals with this pattern that closed"
+    },
+    "frequency": {
+      "type": "number",
+      "description": "How many times this pattern appeared"
+    },
+    "recommendation": {
+      "type": "string",
+      "description": "Coaching tip for the rep"
+    },
+    "sample_deals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prospect_name": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "won",
+              "lost"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "rep_email",
+    "client_id",
+    "pattern_type",
+    "pattern_value"
+  ]
+}

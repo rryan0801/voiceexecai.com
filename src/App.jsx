@@ -14,6 +14,9 @@ import MobileWidget from '@/pages/MobileWidget';
 import TeamView from '@/pages/TeamView';
 import AutoPilot from '@/pages/AutoPilot';
 import DealIntelligence from '@/pages/DealIntelligence';
+import ConversationAnalytics from '@/pages/ConversationAnalytics';
+import MeetingCopilot from '@/pages/MeetingCopilot';
+import PlaybookManager from '@/pages/PlaybookManager';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -51,6 +54,9 @@ const AuthenticatedApp = () => {
       <Route path="/team" element={<TeamView />} />
       <Route path="/autopilot" element={<AutoPilot />} />
       <Route path="/deals" element={<DealIntelligence />} />
+      <Route path="/conversations" element={<ConversationAnalytics />} />
+      <Route path="/meeting-prep" element={<MeetingCopilot />} />
+      <Route path="/playbooks" element={<PlaybookManager />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
