@@ -58,7 +58,7 @@ export default function WidgetTest() {
       <div className="max-w-5xl mx-auto p-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900">Widget Integration</h1>
-          <p className="text-slate-500 mt-1">Test and embed the VoiceRep widget on any website</p>
+          <p className="text-slate-500 mt-1">Test and embed the VoiceExec widget on any website</p>
         </div>
 
         {/* Client Selector */}

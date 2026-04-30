@@ -67,7 +67,7 @@ Replace TODO sections in:
 ### Deploy Widget
 ```html
 <script 
-  src="https://your-app.com/voicerep-widget.js" 
+  src="https://your-app.com/voiceexec-widget.js" 
   data-api-key="vrep_xxx">
 </script>
 ```
@@ -142,7 +142,7 @@ See `VOICEREP_SETUP.md` for detailed setup instructions and API flow diagrams.
 
 ## 📝 License
 
-Proprietary - VoiceRep AI Platform
+Proprietary - VoiceExec AI Platform
 
 ---
 

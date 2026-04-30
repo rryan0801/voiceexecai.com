@@ -25,7 +25,7 @@ export default function NavBar() {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
               <Mic className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-slate-900 text-lg hidden sm:block">VoiceRep <span className="text-blue-600">AI</span></span>
+            <span className="font-bold text-slate-900 text-lg hidden sm:block">VoiceExec <span className="text-blue-600">AI</span></span>
           </Link>
 
           {/* Nav Links */}
