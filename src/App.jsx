@@ -11,6 +11,8 @@ import WidgetTest from '@/pages/WidgetTest';
 import ProspectManagement from '@/pages/ProspectManagement';
 import Analytics from '@/pages/Analytics';
 import MobileWidget from '@/pages/MobileWidget';
+import TeamView from '@/pages/TeamView';
+import AutoPilot from '@/pages/AutoPilot';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -45,6 +47,8 @@ const AuthenticatedApp = () => {
       <Route path="/widget-test" element={<WidgetTest />} />
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/mobile" element={<MobileWidget />} />
+      <Route path="/team" element={<TeamView />} />
+      <Route path="/autopilot" element={<AutoPilot />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

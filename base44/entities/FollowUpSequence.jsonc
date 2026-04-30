@@ -1,0 +1,106 @@
+{
+  "name": "FollowUpSequence",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "prospect_email": {
+      "type": "string"
+    },
+    "trigger_command_id": {
+      "type": "string",
+      "description": "The voice command that started this sequence"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "cancelled"
+      ],
+      "default": "active"
+    },
+    "steps": {
+      "type": "array",
+      "description": "Sequence of follow-up steps",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step_number": {
+            "type": "number"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "send_email",
+              "create_task",
+              "wait"
+            ]
+          },
+          "delay_days": {
+            "type": "number"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "task_title": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string",
+            "enum": [
+              "always",
+              "if_no_reply",
+              "if_replied"
+            ],
+            "default": "if_no_reply"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "executed",
+              "skipped"
+            ],
+            "default": "pending"
+          },
+          "executed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "next_step_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reply_detected": {
+      "type": "boolean",
+      "default": false
+    },
+    "total_steps": {
+      "type": "number",
+      "default": 0
+    },
+    "completed_steps": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "client_id",
+    "prospect_id"
+  ]
+}
