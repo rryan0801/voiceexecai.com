@@ -1,0 +1,94 @@
+{
+  "name": "QuietPeriodAlert",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "rep_email": {
+      "type": "string"
+    },
+    "silence_started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "silence_duration_days": {
+      "type": "number"
+    },
+    "channels_silent": {
+      "type": "array",
+      "description": "Which channels have gone quiet",
+      "items": {
+        "type": "string",
+        "enum": [
+          "email",
+          "sms",
+          "linkedin",
+          "call",
+          "all"
+        ]
+      }
+    },
+    "last_activity": {
+      "type": "object",
+      "description": "What was the last interaction",
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "alert_level": {
+      "type": "string",
+      "enum": [
+        "warning",
+        "critical",
+        "escalated"
+      ],
+      "description": "How urgent is this silence"
+    },
+    "intervention_triggered": {
+      "type": "boolean",
+      "default": false
+    },
+    "intervention_type": {
+      "type": "string",
+      "enum": [
+        "video_check_in",
+        "manager_escalation",
+        "multi_channel_blitz"
+      ]
+    },
+    "intervention_response": {
+      "type": "string",
+      "description": "Did prospect respond to intervention"
+    },
+    "deal_stage_at_silence": {
+      "type": "string",
+      "description": "Where was deal when silence started"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "prospect_name",
+    "silence_started_at"
+  ]
+}

@@ -29,6 +29,11 @@ import CalendarAnalytics from '@/pages/CalendarAnalytics';
 import LinkedInMessaging from '@/pages/LinkedInMessaging';
 import ActionDashboard from '@/pages/ActionDashboard';
 import CoachingCenter from '@/pages/CoachingCenter';
+import DealPhysicsEngine from '@/pages/DealPhysicsEngine';
+import RepDNA from '@/pages/RepDNA';
+import ObjectionPreFlight from '@/pages/ObjectionPreFlight';
+import ProspectReadinessPulse from '@/pages/ProspectReadinessPulse';
+import QuietPeriodMonitor from '@/pages/QuietPeriodMonitor';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -81,6 +86,11 @@ const AuthenticatedApp = () => {
       <Route path="/linkedin-messaging" element={<LinkedInMessaging />} />
       <Route path="/actions" element={<ActionDashboard />} />
       <Route path="/coaching" element={<CoachingCenter />} />
+      <Route path="/deal-physics" element={<DealPhysicsEngine />} />
+      <Route path="/rep-dna" element={<RepDNA />} />
+      <Route path="/objection-preflight" element={<ObjectionPreFlight />} />
+      <Route path="/readiness-pulse" element={<ProspectReadinessPulse />} />
+      <Route path="/quiet-monitor" element={<QuietPeriodMonitor />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

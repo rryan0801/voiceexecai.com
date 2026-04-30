@@ -1,0 +1,106 @@
+{
+  "name": "RepConversationDNA",
+  "type": "object",
+  "properties": {
+    "rep_email": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "winning_phrases": {
+      "type": "array",
+      "description": "Top phrases used in closed deals",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phrase": {
+            "type": "string"
+          },
+          "usage_count": {
+            "type": "number"
+          },
+          "close_rate_when_used": {
+            "type": "number",
+            "description": "% of deals using this that closed"
+          }
+        }
+      }
+    },
+    "question_patterns": {
+      "type": "array",
+      "description": "Types of questions rep asks",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "enum": [
+              "discovery",
+              "pain_point",
+              "solution_fit",
+              "budget",
+              "timeline",
+              "objection_handling"
+            ]
+          },
+          "frequency": {
+            "type": "number"
+          },
+          "success_rate": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "tone_signature": {
+      "type": "object",
+      "description": "Rep's natural communication style",
+      "properties": {
+        "formality": {
+          "type": "string",
+          "enum": [
+            "formal",
+            "conversational",
+            "casual"
+          ]
+        },
+        "confidence_level": {
+          "type": "number",
+          "description": "0-100"
+        },
+        "listening_ratio": {
+          "type": "number",
+          "description": "% of call rep lets prospect talk"
+        },
+        "urgency_creation": {
+          "type": "number",
+          "description": "How often they create urgency"
+        }
+      }
+    },
+    "closing_triggers": {
+      "type": "array",
+      "description": "What signals rep uses to close",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deal_count_analyzed": {
+      "type": "number",
+      "description": "How many closed deals analyzed"
+    },
+    "dna_strength": {
+      "type": "number",
+      "description": "0-100 confidence in DNA signature"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "rep_email",
+    "client_id"
+  ]
+}

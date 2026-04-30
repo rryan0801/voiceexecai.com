@@ -1,0 +1,87 @@
+{
+  "name": "ProspectReadinessPulse",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "readiness_score": {
+      "type": "number",
+      "description": "0-100 are they ready to buy NOW"
+    },
+    "pulse_status": {
+      "type": "string",
+      "enum": [
+        "flatline",
+        "rising",
+        "peak",
+        "critical",
+        "declining"
+      ],
+      "description": "Current pulse trend"
+    },
+    "indicators": {
+      "type": "array",
+      "description": "20+ signals contributing to readiness",
+      "items": {
+        "type": "object",
+        "properties": {
+          "indicator": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number",
+            "description": "How much it impacts score"
+          },
+          "current_value": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "positive",
+              "neutral",
+              "negative"
+            ]
+          }
+        }
+      }
+    },
+    "hours_to_peak": {
+      "type": "number",
+      "description": "Estimated hours until peak readiness"
+    },
+    "recommended_action": {
+      "type": "string",
+      "enum": [
+        "wait",
+        "nurture",
+        "engage",
+        "close_now",
+        "escalate"
+      ],
+      "description": "What to do based on pulse"
+    },
+    "last_spike": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When was last readiness spike"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "prospect_name",
+    "readiness_score"
+  ]
+}

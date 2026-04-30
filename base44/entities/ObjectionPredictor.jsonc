@@ -1,0 +1,68 @@
+{
+  "name": "ObjectionPredictor",
+  "type": "object",
+  "properties": {
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "predicted_objections": {
+      "type": "array",
+      "description": "Top objections this prospect likely to raise",
+      "items": {
+        "type": "object",
+        "properties": {
+          "objection": {
+            "type": "string"
+          },
+          "likelihood": {
+            "type": "number",
+            "description": "0-100 probability"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why we predict this"
+          },
+          "rebuttal": {
+            "type": "string",
+            "description": "Pre-written response"
+          },
+          "similar_closed_deals": {
+            "type": "number",
+            "description": "How many similar deals we overcame this on"
+          }
+        }
+      }
+    },
+    "company_industry_objection_pattern": {
+      "type": "string",
+      "description": "Common objections from this industry"
+    },
+    "company_size_objection_pattern": {
+      "type": "string",
+      "description": "Common objections from companies this size"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "0-100 confidence in predictions"
+    },
+    "predicted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "prospect_id",
+    "client_id",
+    "prospect_name",
+    "company_name"
+  ]
+}

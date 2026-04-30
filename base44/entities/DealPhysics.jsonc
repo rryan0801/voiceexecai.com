@@ -1,0 +1,81 @@
+{
+  "name": "DealPhysics",
+  "type": "object",
+  "properties": {
+    "deal_id": {
+      "type": "string",
+      "description": "Reference to DealScore"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "velocity": {
+      "type": "number",
+      "description": "Activity per day (interactions/day)"
+    },
+    "momentum": {
+      "type": "number",
+      "description": "-1 to 1, negative=decelerating, 1=accelerating"
+    },
+    "friction_points": {
+      "type": "array",
+      "description": "What's slowing the deal down",
+      "items": {
+        "type": "object",
+        "properties": {
+          "factor": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "number",
+            "description": "0-100 friction score"
+          }
+        }
+      }
+    },
+    "predicted_close_date": {
+      "type": "string",
+      "format": "date",
+      "description": "AI-predicted close based on physics"
+    },
+    "close_confidence": {
+      "type": "number",
+      "description": "0-100 confidence in prediction"
+    },
+    "acceleration_stage": {
+      "type": "string",
+      "enum": [
+        "stalled",
+        "slow",
+        "moderate",
+        "accelerating",
+        "hyperdrive"
+      ],
+      "description": "Current momentum stage"
+    },
+    "days_at_current_velocity": {
+      "type": "number"
+    },
+    "projected_vs_actual_delta": {
+      "type": "number",
+      "description": "Days ahead/behind original estimate"
+    },
+    "last_calculated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "deal_id",
+    "prospect_id",
+    "client_id",
+    "velocity",
+    "momentum"
+  ]
+}
