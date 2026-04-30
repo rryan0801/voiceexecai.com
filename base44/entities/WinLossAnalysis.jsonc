@@ -1,0 +1,88 @@
+{
+  "name": "WinLossAnalysis",
+  "type": "object",
+  "properties": {
+    "deal_id": {
+      "type": "string"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "won",
+        "lost"
+      ]
+    },
+    "win_loss_reason": {
+      "type": "string",
+      "description": "Primary reason"
+    },
+    "reason_category": {
+      "type": "string",
+      "enum": [
+        "price",
+        "product_fit",
+        "competitor",
+        "timeline",
+        "internal_change",
+        "no_decision",
+        "other"
+      ]
+    },
+    "deal_value": {
+      "type": "number"
+    },
+    "deal_duration_days": {
+      "type": "number"
+    },
+    "rep_email": {
+      "type": "string"
+    },
+    "rep_dna_aligned": {
+      "type": "boolean",
+      "description": "Did rep follow their winning patterns"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "company_size": {
+      "type": "string"
+    },
+    "competitor_if_lost": {
+      "type": "string"
+    },
+    "lost_to_price": {
+      "type": "boolean"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "analysis_notes": {
+      "type": "string"
+    },
+    "pattern_insights": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "deal_id",
+    "prospect_id",
+    "client_id",
+    "outcome"
+  ]
+}

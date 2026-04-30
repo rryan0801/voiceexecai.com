@@ -1,0 +1,76 @@
+{
+  "name": "EmailTemplate",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "rep_email": {
+      "type": "string"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "initial_outreach",
+        "follow_up",
+        "objection_response",
+        "proposal",
+        "check_in",
+        "closing"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "description": "Full email with personalization placeholders"
+    },
+    "tone": {
+      "type": "string",
+      "description": "Matches rep DNA signature"
+    },
+    "personalization_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What made this unique"
+    },
+    "inspired_by_rep_dna": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Winning phrases used"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "open_rate": {
+      "type": "number"
+    },
+    "click_rate": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "client_id",
+    "rep_email",
+    "prospect_id",
+    "template_type",
+    "subject",
+    "body"
+  ]
+}

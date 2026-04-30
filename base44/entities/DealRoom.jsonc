@@ -1,0 +1,118 @@
+{
+  "name": "DealRoom",
+  "type": "object",
+  "properties": {
+    "deal_id": {
+      "type": "string"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "room_name": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string",
+      "description": "Account owner/rep"
+    },
+    "collaborators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Team member emails"
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "target_close": {
+          "type": "string",
+          "format": "date"
+        },
+        "current_stage": {
+          "type": "string"
+        },
+        "estimated_days_to_close": {
+          "type": "number"
+        }
+      }
+    },
+    "strategy": {
+      "type": "string",
+      "description": "Agreed deal strategy"
+    },
+    "key_contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "engagement_level": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "due": {
+            "type": "string",
+            "format": "date"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "deal_id",
+    "prospect_id",
+    "client_id",
+    "prospect_name",
+    "owner_email"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "name": "TeamLeaderboard",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "rep_email": {
+      "type": "string"
+    },
+    "rep_name": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string",
+      "enum": [
+        "week",
+        "month",
+        "quarter"
+      ],
+      "default": "month"
+    },
+    "total_deals": {
+      "type": "number"
+    },
+    "deals_won": {
+      "type": "number"
+    },
+    "win_rate": {
+      "type": "number",
+      "description": "%"
+    },
+    "total_pipeline_value": {
+      "type": "number"
+    },
+    "weighted_expected": {
+      "type": "number"
+    },
+    "revenue_closed": {
+      "type": "number"
+    },
+    "avg_deal_velocity": {
+      "type": "number",
+      "description": "days to close"
+    },
+    "coaching_effectiveness": {
+      "type": "number",
+      "description": "% of coaching applied"
+    },
+    "dna_strength": {
+      "type": "number",
+      "description": "0-100"
+    },
+    "rank": {
+      "type": "number"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "down",
+        "stable"
+      ]
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id",
+    "rep_email",
+    "rep_name",
+    "period"
+  ]
+}

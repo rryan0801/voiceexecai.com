@@ -1,0 +1,62 @@
+{
+  "name": "DealAutomationRule",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "rule_name": {
+      "type": "string"
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "readiness_score",
+        "objection_handled",
+        "email_opened",
+        "reply_detected",
+        "meeting_booked"
+      ]
+    },
+    "trigger_value": {
+      "type": "number",
+      "description": "e.g., readiness >= 80"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "move_stage",
+        "send_email",
+        "create_task",
+        "notify_manager"
+      ]
+    },
+    "action_config": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Stage to move to, email template, etc."
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "deals_affected": {
+      "type": "number",
+      "default": 0
+    },
+    "success_count": {
+      "type": "number",
+      "default": 0
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "client_id",
+    "rule_name",
+    "trigger_type",
+    "action_type"
+  ]
+}

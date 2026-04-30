@@ -34,6 +34,11 @@ import RepDNA from '@/pages/RepDNA';
 import ObjectionPreFlight from '@/pages/ObjectionPreFlight';
 import ProspectReadinessPulse from '@/pages/ProspectReadinessPulse';
 import QuietPeriodMonitor from '@/pages/QuietPeriodMonitor';
+import RevenueForecasting from '@/pages/RevenueForecasting';
+import WinLossAnalyzer from '@/pages/WinLossAnalyzer';
+import TeamLeaderboard from '@/pages/TeamLeaderboard';
+import EmailTemplateStudio from '@/pages/EmailTemplateStudio';
+import DealCollaborationRooms from '@/pages/DealCollaborationRooms';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -91,6 +96,11 @@ const AuthenticatedApp = () => {
       <Route path="/objection-preflight" element={<ObjectionPreFlight />} />
       <Route path="/readiness-pulse" element={<ProspectReadinessPulse />} />
       <Route path="/quiet-monitor" element={<QuietPeriodMonitor />} />
+      <Route path="/forecasting" element={<RevenueForecasting />} />
+      <Route path="/win-loss" element={<WinLossAnalyzer />} />
+      <Route path="/leaderboard" element={<TeamLeaderboard />} />
+      <Route path="/email-studio" element={<EmailTemplateStudio />} />
+      <Route path="/deal-rooms" element={<DealCollaborationRooms />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
