@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { formatDistanceToNow } from 'date-fns';
 import { Users, Mail, Phone, Pencil, Check, X } from 'lucide-react';
 import OutlookConnectBanner from '@/components/OutlookConnectBanner';
+import NavBar from '@/components/NavBar';
 
 export default function ProspectManagement() {
   const [selectedProspect, setSelectedProspect] = useState(null);
@@ -50,11 +51,12 @@ export default function ProspectManagement() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50">
+      <NavBar />
+      <div className="max-w-7xl mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900">Prospect Database</h1>
-          <p className="text-slate-600 mt-1">Track interactions and context for each prospect</p>
+          <h1 className="text-3xl font-bold text-slate-900">Prospect Database</h1>
+          <p className="text-slate-500 mt-1">Track interactions and context for each prospect</p>
         </div>
 
         <OutlookConnectBanner />

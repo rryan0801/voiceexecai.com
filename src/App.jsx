@@ -9,6 +9,8 @@ import Dashboard from '@/pages/Dashboard';
 import CommandManagement from '@/pages/CommandManagement';
 import WidgetTest from '@/pages/WidgetTest';
 import ProspectManagement from '@/pages/ProspectManagement';
+import Analytics from '@/pages/Analytics';
+import MobileWidget from '@/pages/MobileWidget';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -41,6 +43,8 @@ const AuthenticatedApp = () => {
       <Route path="/commands" element={<CommandManagement />} />
       <Route path="/prospects" element={<ProspectManagement />} />
       <Route path="/widget-test" element={<WidgetTest />} />
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/mobile" element={<MobileWidget />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

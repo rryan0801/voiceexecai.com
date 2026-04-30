@@ -5,11 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Copy, Settings, BarChart3, Zap, RefreshCw } from 'lucide-react';
+import { Copy, Settings, BarChart3, Zap, RefreshCw, TrendingUp, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { formatDistanceToNow } from 'date-fns';
 import ClientsList from '@/components/dashboard/ClientsList';
 import ClientForm from '@/components/dashboard/ClientForm';
 import WidgetConfigurator from '@/components/dashboard/WidgetConfigurator';
 import CommandHistory from '@/components/dashboard/CommandHistory';
+import NavBar from '@/components/NavBar';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -72,12 +75,13 @@ export default function Dashboard() {
   const COLORS = ['#10b981', '#ef4444', '#f59e0b'];
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50">
+      <NavBar />
+      <div className="max-w-7xl mx-auto p-6">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900">VoiceRep Dashboard</h1>
-            <p className="text-slate-600 mt-1">Manage clients and monitor API usage</p>
+            <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
+            <p className="text-slate-500 mt-1">Manage clients and monitor API usage</p>
           </div>
           <Button
             onClick={() => setShowNewClientForm(true)}
@@ -147,6 +151,24 @@ export default function Dashboard() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6 mt-6">
+            {/* Quick links */}
+            <div className="flex gap-3 flex-wrap">
+              <Link to="/analytics">
+                <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg text-blue-700 text-sm font-medium transition-colors">
+                  <TrendingUp className="w-4 h-4" /> View Analytics <ExternalLink className="w-3 h-3" />
+                </div>
+              </Link>
+              <Link to="/commands">
+                <div className="flex items-center gap-2 px-4 py-2 bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-lg text-purple-700 text-sm font-medium transition-colors">
+                  <Zap className="w-4 h-4" /> Live Commands <ExternalLink className="w-3 h-3" />
+                </div>
+              </Link>
+              <Link to="/mobile">
+                <div className="flex items-center gap-2 px-4 py-2 bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg text-green-700 text-sm font-medium transition-colors">
+                  🎤 Mobile Voice App <ExternalLink className="w-3 h-3" />
+                </div>
+              </Link>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Usage Chart */}
               <Card>
@@ -202,6 +224,40 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Recent Commands Feed */}
+            {recentCommands.length > 0 && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Zap className="w-4 h-4" /> Recent Activity
+                    </CardTitle>
+                    <Link to="/commands" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
+                      View all <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {recentCommands.slice(0, 5).map(cmd => (
+                      <div key={cmd.id} className="flex items-center justify-between py-2 border-b last:border-0">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-2 h-2 rounded-full flex-shrink-0 ${cmd.status === 'completed' ? 'bg-green-500' : cmd.status === 'failed' ? 'bg-red-500' : 'bg-yellow-500'}`} />
+                          <div>
+                            <p className="text-sm text-slate-800">{cmd.detected_intent?.replace(/_/g, ' ') || 'Processing'}</p>
+                            <p className="text-xs text-slate-400 truncate max-w-xs">{cmd.transcription?.substring(0, 60)}</p>
+                          </div>
+                        </div>
+                        <span className="text-xs text-slate-400 flex-shrink-0 ml-4">
+                          {formatDistanceToNow(new Date(cmd.created_date), { addSuffix: true })}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           {/* Clients Tab */}
@@ -228,6 +284,7 @@ export default function Dashboard() {
           <TabsContent value="commands" className="mt-6">
             <CommandHistory commands={recentCommands} />
           </TabsContent>
+
 
           {/* Settings Tab */}
           <TabsContent value="settings" className="mt-6">
