@@ -1,13 +1,14 @@
-// Priority #3: HubSpot CRM - create/update contact and log engagement
+// HubSpot CRM - create/update contact and log engagement using Service Key
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const HUBSPOT_API = 'https://api.hubapi.com';
+const HUBSPOT_TOKEN = Deno.env.get('HUBSPOT_API_KEY');
 
-async function hubspotRequest(accessToken, path, options = {}) {
+async function hubspotRequest(path, options = {}) {
   const res = await fetch(`${HUBSPOT_API}${path}`, {
     ...options,
     headers: {
-      'Authorization': `Bearer ${accessToken}`,
+      'Authorization': `Bearer ${HUBSPOT_TOKEN}`,
       'Content-Type': 'application/json',
       ...(options.headers || {})
     }
@@ -26,13 +27,11 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'prospect_email or prospect_name required' }, { status: 400 });
     }
 
-    const { accessToken } = await base44.asServiceRole.connectors.getCurrentAppUserConnection('69efbb8b3d25346a6ed84481');
-
     // Search for existing contact by email
     let contactId = null;
     if (prospect_email) {
       try {
-        const searchRes = await hubspotRequest(accessToken, '/crm/v3/objects/contacts/search', {
+        const searchRes = await hubspotRequest('/crm/v3/objects/contacts/search', {
           method: 'POST',
           body: JSON.stringify({
             filterGroups: [{ filters: [{ propertyName: 'email', operator: 'EQ', value: prospect_email }] }],
@@ -48,7 +47,7 @@ Deno.serve(async (req) => {
     // Create contact if not found
     if (!contactId) {
       const nameParts = (prospect_name || '').split(' ');
-      const createRes = await hubspotRequest(accessToken, '/crm/v3/objects/contacts', {
+      const createRes = await hubspotRequest('/crm/v3/objects/contacts', {
         method: 'POST',
         body: JSON.stringify({
           properties: {
@@ -62,21 +61,26 @@ Deno.serve(async (req) => {
       contactId = createRes.id;
     }
 
-    // Log a note/engagement
+    // Log a note if provided
     if (note && contactId) {
-      await hubspotRequest(accessToken, '/crm/v3/objects/notes', {
-        method: 'POST',
-        body: JSON.stringify({
-          properties: {
-            hs_note_body: `[${interaction_type || 'note'}] ${note}`,
-            hs_timestamp: new Date().toISOString()
-          },
-          associations: [{ to: { id: contactId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 202 }] }]
-        })
-      });
+      try {
+        await hubspotRequest('/crm/v3/objects/notes', {
+          method: 'POST',
+          body: JSON.stringify({
+            properties: {
+              hs_note_body: `[${interaction_type || 'note'}] ${note}`,
+              hs_timestamp: new Date().toISOString()
+            },
+            associations: [{ to: { id: contactId }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 202 }] }]
+          })
+        });
+      } catch (noteErr) {
+        // Notes may fail if scope not granted — contact creation still succeeds
+        console.log('Note creation skipped:', noteErr.message);
+      }
     }
 
-    return Response.json({ success: true, contact_id: contactId, action: contactId ? 'updated' : 'created' });
+    return Response.json({ success: true, contact_id: contactId });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
