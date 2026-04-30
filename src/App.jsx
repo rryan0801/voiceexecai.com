@@ -20,6 +20,7 @@ import PlaybookManager from '@/pages/PlaybookManager';
 import TestRunner from '@/pages/TestRunner';
 import CRMAndCommsHub from '@/pages/CRMAndCommsHub';
 import CallAnalysisDashboard from '@/pages/CallAnalysisDashboard';
+import ConversationContextManager from '@/pages/ConversationContextManager';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -63,6 +64,7 @@ const AuthenticatedApp = () => {
       <Route path="/tests" element={<TestRunner />} />
       <Route path="/crm-comms" element={<CRMAndCommsHub />} />
       <Route path="/call-analysis" element={<CallAnalysisDashboard />} />
+      <Route path="/conversation-context" element={<ConversationContextManager />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
