@@ -114,3 +114,64 @@ describe('Navigation Flow', () => {
     cy.contains('Sales Playbooks').should('be.visible');
   });
 });
+
+describe('Mobile Widget - Mic Button States', () => {
+  beforeEach(() => {
+    cy.visit('/mobile');
+  });
+
+  it('Mic button transitions from idle to recording to completion', () => {
+    // Get mic button
+    cy.get('button').contains(/Tap to record/, { matchCase: false })
+      .parent()
+      .should('be.visible');
+
+    // Button should be blue initially (idle)
+    cy.get('button').first().should('have.class', 'bg-blue-600');
+
+    // Click to start recording
+    cy.get('button').first().click();
+
+    // Should show recording state with red button
+    cy.get('button').first().should('have.class', 'bg-red-600');
+
+    // Click to stop recording
+    cy.get('button').first().click();
+
+    // Should show processing or result
+    cy.get('text=Processing your command', { timeout: 5000 }).should('exist');
+  });
+
+  it('No stuck spinners after recording', () => {
+    cy.visit('/mobile');
+
+    // Find and click mic button
+    cy.get('button').first().click();
+    cy.get('button').first().click();
+
+    // Wait for processing
+    cy.wait(6000);
+
+    // Check no visible spinners remain
+    cy.get('[class*="animate-spin"]').should('not.be.visible');
+
+    // Should show either done or error state
+    cy.get('text=Done!|Error|Try Again', { matchCase: false }).should('exist');
+  });
+
+  it('Error state shows and allows retry', () => {
+    cy.visit('/mobile');
+
+    // Attempt recording and completion
+    cy.get('button').first().click();
+    cy.get('button').first().click();
+
+    // Wait for result
+    cy.wait(6000);
+
+    // If error occurs, retry button should be clickable
+    cy.get('button').contains(/Try Again|New Command/, { matchCase: false })
+      .should('exist')
+      .and('be.enabled');
+  });
+});

@@ -137,6 +137,55 @@ test.describe('VoiceExec AI - Smoke Tests', () => {
     const mobileElements = await page.locator('[class*="mic"], [class*="button"]').count();
     expect(mobileElements).toBeGreaterThan(0);
   });
+
+  test('Mic button state transitions correctly', async ({ page }) => {
+    await page.goto('/mobile');
+    
+    // Find the main mic button (idle state)
+    const micButton = page.locator('button').filter({ has: page.locator('svg[class*="Mic"]') }).first();
+    await expect(micButton).toBeVisible();
+    
+    // Button should be blue (idle) initially
+    const initialClass = await micButton.getAttribute('class');
+    expect(initialClass).toContain('bg-blue');
+    
+    // Start recording
+    await micButton.click();
+    
+    // Button should become red (recording)
+    await expect(micButton).toHaveClass(/bg-red/);
+    
+    // Stop recording
+    await micButton.click();
+    
+    // Should transition to processing phase (check for loader or processing UI)
+    const processingIndicator = page.locator('text=Processing your command');
+    await expect(processingIndicator).toBeVisible({ timeout: 5000 });
+    
+    // Verify spinner disappears or error shows within reasonable time
+    const finalState = await page.locator('.phase').getAttribute('class');
+    expect(['done', 'error']).toContain(finalState);
+  });
+
+  test('No spinning state on error', async ({ page }) => {
+    await page.goto('/mobile');
+    
+    const micButton = page.locator('button').filter({ has: page.locator('svg[class*="Mic"]') }).first();
+    
+    // Start and stop recording
+    await micButton.click();
+    await micButton.click();
+    
+    // Wait for processing to settle
+    await page.waitForTimeout(6000);
+    
+    // Check that we're NOT stuck in processing phase
+    const spinners = page.locator('[class*="animate-spin"]');
+    const spinnerCount = await spinners.count();
+    
+    // Should have at most 0 visible spinners after settling
+    expect(spinnerCount).toBe(0);
+  });
 });
 
 test.describe('Navigation Integration', () => {
