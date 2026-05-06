@@ -1,6 +1,6 @@
-# VoiceRep AI - Voice-Activated Sales Widget
+# VoiceExec - Enterprise Voice-to-Action Framework
 
-A white-label SaaS platform for sales teams to trigger actions via voice commands. Embeddable widget + Multi-tenant admin dashboard.
+**Drop voice-to-action capability into ANY project in 30 minutes.** Embeddable widget + production-ready backend + fully portable architecture.
 
 ## 🎯 What It Does
 
@@ -8,13 +8,15 @@ Sales reps speak a command → Widget records & transcribes → AI parses intent
 
 ## 🚀 Quick Start
 
-### Run Locally
+### For This Project
 ```bash
 npm install
 npm run dev
 ```
+Visit `http://localhost:5173` to access the full VoiceExec dashboard.
 
-Visit `http://localhost:5173` to access the dashboard.
+### For Your Project (30 min integration)
+See **[PORTABILITY_GUIDE.md](./PORTABILITY_GUIDE.md)** to drop VoiceExec into your existing project.
 
 ### Architecture Overview
 
@@ -138,7 +140,16 @@ Dashboard shows:
 
 ## 📚 Documentation
 
-See `VOICEREP_SETUP.md` for detailed setup instructions and API flow diagrams.
+**Core Guides:**
+- **[PORTABILITY_GUIDE.md](./PORTABILITY_GUIDE.md)** - Drop into any project (START HERE)
+- **[INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md)** - Voice widget quick reference
+- **[VOICEREP_SETUP.md](./VOICEREP_SETUP.md)** - Detailed setup & API flows
+
+**Architecture:**
+- Voice core: `lib/voiceCore.js` (zero app dependencies)
+- Entity adapter: `lib/entityAdapter.js` (works with any schema)
+- UI widget: `components/VoiceWidget.jsx` (fully customizable)
+- Configuration: `config/portabilityConfig.js` (single source of truth)
 
 ## 📝 License
 
