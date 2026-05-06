@@ -55,65 +55,70 @@ export default function MobileWidget() {
     setPhase('processing');
     setCommandStatus('transcribing');
 
-    const client = clientRef.current;
-    if (!client) {
-      setErrorMsg('No active client found. Create one in the Dashboard first.');
+    try {
+      const client = clientRef.current;
+      if (!client) {
+        setErrorMsg('No active client found. Create one in the Dashboard first.');
+        setPhase('error');
+        return;
+      }
+
+      const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+      const formData = new FormData();
+      formData.append('file', audioBlob);
+
+      // Upload audio
+      const uploadRes = await base44.functions.invoke('uploadAudio', formData);
+      if (!uploadRes.data?.audio_url) {
+        setErrorMsg('Audio upload failed. Please try again.');
+        setPhase('error');
+        return;
+      }
+
+      const { audio_url } = uploadRes.data;
+      const context = { prospect_name: prospectName, prospect_company: company };
+
+      // Create command
+      const createRes = await base44.functions.invoke('createCommand', {
+        client_id: client.id, audio_url, context
+      });
+      const command_id = createRes.data?.command_id;
+
+      // Transcribe
+      setCommandStatus('transcribing');
+      const transcribeRes = await base44.functions.invoke('transcribeAudioStream', {
+        audio_url, command_id
+      });
+
+      if (transcribeRes.data?.error) {
+        setErrorMsg(transcribeRes.data.user_message || transcribeRes.data.error);
+        setPhase('error');
+        return;
+      }
+
+      const { transcription: text } = transcribeRes.data;
+      setTranscription(text);
+      setCommandStatus('reasoning');
+
+      // Execute
+      setCommandStatus('executing');
+      const execRes = await base44.functions.invoke('executeVoiceCommandStream', {
+        client_id: client.id, command_id, transcription: text, context
+      });
+
+      if (execRes.data?.error) {
+        setErrorMsg(execRes.data.user_message || execRes.data.error);
+        setPhase('error');
+        return;
+      }
+
+      setResult(execRes.data?.result);
+      setCommandStatus('completed');
+      setPhase('done');
+    } catch (err) {
+      setErrorMsg(err.message || 'An unexpected error occurred');
       setPhase('error');
-      return;
     }
-
-    const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
-    const formData = new FormData();
-    formData.append('file', audioBlob);
-
-    // Upload audio
-    const uploadRes = await base44.functions.invoke('uploadAudio', formData);
-    if (!uploadRes.data?.audio_url) {
-      setErrorMsg('Audio upload failed. Please try again.');
-      setPhase('error');
-      return;
-    }
-
-    const { audio_url } = uploadRes.data;
-    const context = { prospect_name: prospectName, prospect_company: company };
-
-    // Create command
-    const createRes = await base44.functions.invoke('createCommand', {
-      client_id: client.id, audio_url, context
-    });
-    const command_id = createRes.data?.command_id;
-
-    // Transcribe
-    setCommandStatus('transcribing');
-    const transcribeRes = await base44.functions.invoke('transcribeAudioStream', {
-      audio_url, command_id
-    });
-
-    if (transcribeRes.data?.error) {
-      setErrorMsg(transcribeRes.data.user_message || transcribeRes.data.error);
-      setPhase('error');
-      return;
-    }
-
-    const { transcription: text } = transcribeRes.data;
-    setTranscription(text);
-    setCommandStatus('reasoning');
-
-    // Execute
-    setCommandStatus('executing');
-    const execRes = await base44.functions.invoke('executeVoiceCommandStream', {
-      client_id: client.id, command_id, transcription: text, context
-    });
-
-    if (execRes.data?.error) {
-      setErrorMsg(execRes.data.user_message || execRes.data.error);
-      setPhase('error');
-      return;
-    }
-
-    setResult(execRes.data?.result);
-    setCommandStatus('completed');
-    setPhase('done');
   };
 
   const reset = () => {
