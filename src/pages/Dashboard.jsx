@@ -14,6 +14,7 @@ import WidgetConfigurator from '@/components/dashboard/WidgetConfigurator';
 import CommandHistory from '@/components/dashboard/CommandHistory';
 import NavBar from '@/components/NavBar';
 import QuickTestRunner from '@/components/dashboard/QuickTestRunner';
+import GettingStarted from '@/components/dashboard/GettingStarted';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -152,6 +153,15 @@ export default function Dashboard() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6 mt-6">
+
+            {/* Getting Started — shown when no clients yet */}
+            {!clientsLoading && clients.length === 0 && (
+              <GettingStarted
+                hasClients={clients.length > 0}
+                onCreateClient={() => { setActiveTab('clients'); setShowNewClientForm(true); }}
+              />
+            )}
+
             {/* Quick links */}
             <div className="flex gap-3 flex-wrap">
               <Link to="/analytics">
@@ -170,7 +180,8 @@ export default function Dashboard() {
                 </div>
               </Link>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Charts — only show when there's data */}
+            {clients.length > 0 && <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Usage Chart */}
               <Card>
                 <CardHeader>
@@ -224,10 +235,10 @@ export default function Dashboard() {
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
-            </div>
+            </div>}
 
             {/* Quick Test Runner */}
-            <QuickTestRunner />
+            {clients.length > 0 && <QuickTestRunner />}
 
             {/* Recent Commands Feed */}
             {recentCommands.length > 0 && (
