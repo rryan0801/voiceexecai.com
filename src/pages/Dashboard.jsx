@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Copy, Settings, BarChart3, Zap, RefreshCw, TrendingUp, ExternalLink } from 'lucide-react';
+import { Copy, Settings, BarChart3, Zap, RefreshCw, TrendingUp, ExternalLink, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import ClientsList from '@/components/dashboard/ClientsList';
@@ -294,10 +294,32 @@ export default function Dashboard() {
           <TabsContent value="settings" className="mt-6">
             {selectedClient ? (
               <WidgetConfigurator client={selectedClient} onUpdate={refetchClients} />
+            ) : clients.length > 0 ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Widget Settings</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-slate-500 text-sm">Select a client to configure their widget:</p>
+                  {clients.map(client => (
+                    <button
+                      key={client.id}
+                      onClick={() => { setSelectedClient(client); }}
+                      className="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-colors flex items-center justify-between"
+                    >
+                      <div>
+                        <p className="font-medium text-slate-900 text-sm">{client.company_name}</p>
+                        <p className="text-xs text-slate-400">{client.status}</p>
+                      </div>
+                      <Settings className="w-4 h-4 text-slate-400" />
+                    </button>
+                  ))}
+                </CardContent>
+              </Card>
             ) : (
               <Card>
                 <CardContent className="pt-6 text-center text-slate-500">
-                  Select a client from the Clients tab to configure their widget
+                  No clients yet. Create a client first from the Clients tab.
                 </CardContent>
               </Card>
             )}
