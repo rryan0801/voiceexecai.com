@@ -57,9 +57,10 @@ const STEPS = [
 ];
 
 export default function GettingStarted({ hasClients, onCreateClient }) {
-  const completedSteps = hasClients
-    ? ['create_client']
-    : [];
+  const completedSteps = hasClients ? ['create_client'] : [];
+  const allDone = completedSteps.length === STEPS.length;
+
+  if (allDone) return null;
 
   return (
     <Card className="border-blue-100 shadow-sm">

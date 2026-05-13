@@ -8,9 +8,10 @@ import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line
 } from 'recharts';
-import { TrendingUp, Zap, CheckCircle2, AlertCircle, Clock, Users } from 'lucide-react';
-import { format, subDays, parseISO } from 'date-fns';
+import { TrendingUp, Zap, CheckCircle2, AlertCircle, Clock, Users, BarChart2 } from 'lucide-react';
+import { format, subDays } from 'date-fns';
 import NavBar from '@/components/NavBar';
+import EmptyState from '@/components/EmptyState';
 
 const COLORS = ['#10b981', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899'];
 
@@ -155,76 +156,99 @@ export default function Analytics() {
           </Card>
         </div>
 
-        {/* Charts Row 1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="text-base">Command Volume Over Time</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
-                <AreaChart data={dailyData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="day" tick={{ fontSize: 11 }} />
-                  <YAxis tick={{ fontSize: 11 }} />
-                  <Tooltip />
-                  <Legend />
-                  <Area type="monotone" dataKey="completed" stackId="1" stroke="#10b981" fill="#d1fae5" name="Completed" />
-                  <Area type="monotone" dataKey="failed" stackId="1" stroke="#ef4444" fill="#fee2e2" name="Failed" />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
+        {/* Empty State */}
+        {commands.length === 0 && (
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Intent Breakdown</CardTitle>
-            </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
-                <PieChart>
-                  <Pie data={intentData} cx="50%" cy="45%" outerRadius={80} dataKey="value" label={({ name, percent }) => percent > 0.08 ? `${Math.round(percent*100)}%` : ''}>
-                    {intentData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip formatter={(val, name) => [val, name]} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="space-y-1 mt-2">
-                {intentData.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ background: COLORS[i % COLORS.length] }} />
-                      <span className="text-slate-600">{item.name}</span>
-                    </div>
-                    <span className="font-medium text-slate-900">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Charts Row 2 */}
-        {clientUsage.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Commands by Client</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={clientUsage} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis type="number" tick={{ fontSize: 11 }} />
-                  <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11 }} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="commands" fill="#3b82f6" name="Total" radius={[0, 4, 4, 0]} />
-                  <Bar dataKey="success" fill="#10b981" name="Success" radius={[0, 4, 4, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <EmptyState
+                icon={BarChart2}
+                iconColor="text-blue-400"
+                iconBg="bg-blue-50"
+                title="No analytics data yet"
+                description="Once voice commands start flowing in, you'll see detailed performance charts and insights here."
+                actionLabel="Go to Dashboard"
+                actionHref="/dashboard"
+                secondaryLabel="Test Widget"
+                secondaryHref="/widget-test"
+              />
             </CardContent>
           </Card>
         )}
+
+        {/* Charts — only when data exists */}
+        {commands.length > 0 && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-base">Command Volume Over Time</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <AreaChart data={dailyData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis dataKey="day" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Legend />
+                      <Area type="monotone" dataKey="completed" stackId="1" stroke="#10b981" fill="#d1fae5" name="Completed" />
+                      <Area type="monotone" dataKey="failed" stackId="1" stroke="#ef4444" fill="#fee2e2" name="Failed" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Intent Breakdown</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie data={intentData} cx="50%" cy="45%" outerRadius={80} dataKey="value" label={({ name, percent }) => percent > 0.08 ? `${Math.round(percent*100)}%` : ''}>
+                        {intentData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                      </Pie>
+                      <Tooltip formatter={(val, name) => [val, name]} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="space-y-1 mt-2">
+                    {intentData.map((item, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full" style={{ background: COLORS[i % COLORS.length] }} />
+                          <span className="text-slate-600">{item.name}</span>
+                        </div>
+                        <span className="font-medium text-slate-900">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {clientUsage.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Commands by Client</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={clientUsage} layout="vertical">
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis type="number" tick={{ fontSize: 11 }} />
+                      <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11 }} />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="commands" fill="#3b82f6" name="Total" radius={[0, 4, 4, 0]} />
+                      <Bar dataKey="success" fill="#10b981" name="Success" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        )}
+
       </div>
     </div>
   );

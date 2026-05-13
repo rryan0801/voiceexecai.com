@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Mic, LayoutDashboard, Users, Zap, BarChart3, Bot, UsersRound,
   MessageCircle, Phone, BookOpen, TrendingUp, Mail, AlertCircle,
   Target, DollarSign, ChevronDown, Menu, X, Brain, Calendar,
-  GitBranch, Beaker, Settings
+  GitBranch, Beaker, Settings, LogOut, User
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { base44 } from '@/api/base44Client';
 
 const NAV_GROUPS = [
   {
@@ -110,6 +111,64 @@ function NavDropdown({ group, isActive }) {
   );
 }
 
+function UserMenu() {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  if (!user) return null;
+
+  const initials = user.full_name
+    ? user.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : user.email?.[0]?.toUpperCase() || '?';
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+      >
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+          {initials}
+        </div>
+        <span className="hidden md:block text-sm text-slate-700 font-medium max-w-[120px] truncate">
+          {user.full_name || user.email}
+        </span>
+        <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden md:block" />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full mt-1 w-52 bg-white border border-slate-200 rounded-xl shadow-lg z-50 py-1.5 overflow-hidden">
+          <div className="px-4 py-2.5 border-b border-slate-100">
+            <p className="text-sm font-semibold text-slate-900 truncate">{user.full_name || 'User'}</p>
+            <p className="text-xs text-slate-400 truncate">{user.email}</p>
+            {user.role && (
+              <span className="text-xs bg-blue-50 text-blue-700 rounded px-1.5 py-0.5 mt-1 inline-block capitalize">{user.role}</span>
+            )}
+          </div>
+          <button
+            onClick={() => base44.auth.logout()}
+            className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function NavBar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -143,6 +202,7 @@ export default function NavBar() {
             >
               ← Landing
             </Link>
+            <UserMenu />
             {/* Mobile menu button */}
             <button
               className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
