@@ -41,7 +41,8 @@ import TeamLeaderboard from '@/pages/TeamLeaderboard';
 import EmailTemplateStudio from '@/pages/EmailTemplateStudio';
 import DealCollaborationRooms from '@/pages/DealCollaborationRooms';
 import BillShield from '@/pages/BillShield';
-// Add page imports here
+import Privacy from '@/pages/Privacy';
+import Terms from '@/pages/Terms';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -105,6 +106,8 @@ const AuthenticatedApp = () => {
       <Route path="/email-studio" element={<EmailTemplateStudio />} />
       <Route path="/deal-rooms" element={<DealCollaborationRooms />} />
       <Route path="/billshield" element={<BillShield />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -511,9 +511,13 @@ export default function MyApp() {
                 </div>
                 <span className="font-bold text-white text-base">VoiceExecAI</span>
               </div>
-              <p className="text-slate-500 text-xs leading-relaxed max-w-xs">
+              <p className="text-slate-500 text-xs leading-relaxed max-w-xs mb-3">
                 The drop-in voice-to-action framework for React developers. Trusted by 500+ apps worldwide.
               </p>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <Mail className="w-3 h-3" />
+                <a href="mailto:support@voiceexec.ai" className="hover:text-white transition-colors">support@voiceexec.ai</a>
+              </div>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Product</h4>
@@ -534,12 +538,12 @@ export default function MyApp() {
             </div>
           </div>
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>© 2026 VoiceExecAI. All rights reserved.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Security</a>
-            </div>
+          <p>© 2026 VoiceExecAI. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="mailto:support@voiceexec.ai" className="hover:text-white transition-colors">Contact</a>
+          </div>
           </div>
         </div>
       </footer>
