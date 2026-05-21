@@ -166,8 +166,8 @@ export default function Terms() {
               <h2 className="text-xl font-semibold text-slate-900 mb-3">15. Contact Information</h2>
               <p className="leading-relaxed">
                 For questions about these Terms, please contact us at:<br />
-                <strong>Email:</strong> <a href="mailto:support@voiceexec.ai" className="text-blue-600 hover:underline">support@voiceexec.ai</a><br />
-                <strong>Address:</strong> VoiceExec AI, [Your Business Address]
+                <strong>Email:</strong> <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a><br />
+                <strong>Website:</strong> <a href="https://voiceexecai.com" className="text-blue-600 hover:underline">voiceexecai.com</a>
               </p>
             </section>
 

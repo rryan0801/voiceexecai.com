@@ -516,7 +516,7 @@ export default function MyApp() {
               </p>
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <Mail className="w-3 h-3" />
-                <a href="mailto:support@voiceexec.ai" className="hover:text-white transition-colors">support@voiceexec.ai</a>
+                <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">support@voiceexecai.com</a>
               </div>
             </div>
             <div>
@@ -538,11 +538,11 @@ export default function MyApp() {
             </div>
           </div>
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© 2026 VoiceExecAI. All rights reserved.</p>
+          <p>© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
           <div className="flex gap-6">
             <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="mailto:support@voiceexec.ai" className="hover:text-white transition-colors">Contact</a>
+            <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">Contact</a>
           </div>
           </div>
         </div>
