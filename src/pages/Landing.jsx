@@ -542,7 +542,8 @@ export default function MyApp() {
           <div className="flex gap-6">
             <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">Contact</a>
+            <a href="/security" className="hover:text-white transition-colors">Security</a>
+            <a href="/contact" className="hover:text-white transition-colors">Contact</a>
           </div>
           </div>
         </div>

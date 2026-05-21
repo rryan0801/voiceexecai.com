@@ -43,6 +43,8 @@ import DealCollaborationRooms from '@/pages/DealCollaborationRooms';
 import BillShield from '@/pages/BillShield';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
+import Security from '@/pages/Security';
+import Contact from '@/pages/Contact';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -108,6 +110,8 @@ const AuthenticatedApp = () => {
       <Route path="/billshield" element={<BillShield />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      <Route path="/security" element={<Security />} />
+      <Route path="/contact" element={<Contact />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
