@@ -289,16 +289,16 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, boxShadow: '0 10px 40px -10px rgba(59, 130, 246, 0.5)' }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm cursor-default"
             >
               <motion.span
-                animate={{ rotate: [0, 15, -15, 0] }}
+                animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 <Sparkles className="w-3 h-3" />
               </motion.span>
-              Now powering 500+ voice-enabled apps
+              <span className="font-semibold">Now powering 500+ voice-enabled apps</span>
             </motion.div>
           </motion.div>
           
@@ -328,18 +328,41 @@ export default function Landing() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link
-              to="/dashboard"
-              className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold rounded-xl transition-all text-lg shadow-xl shadow-blue-200 hover:shadow-2xl hover:shadow-blue-300 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Get Started Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <a
-              href="#pricing"
-              className="flex items-center gap-2 px-8 py-4 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all text-lg hover:bg-slate-50 hover:-translate-y-0.5 w-full sm:w-auto justify-center backdrop-blur-sm"
+              <Link
+                to="/dashboard"
+                className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold rounded-xl transition-all text-lg shadow-xl shadow-blue-200 hover:shadow-2xl hover:shadow-blue-300 hover:-translate-y-0.5 w-full sm:w-auto justify-center relative overflow-hidden"
+              >
+                {/* Shimmer effect */}
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                />
+                Get Started Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              See Pricing
-            </a>
+              <a
+                href="#pricing"
+                className="group flex items-center gap-2 px-8 py-4 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all text-lg hover:bg-slate-50 hover:-translate-y-0.5 w-full sm:w-auto justify-center backdrop-blur-sm relative overflow-hidden"
+              >
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-200/30 to-transparent"
+                />
+                See Pricing
+              </a>
+            </motion.div>
           </motion.div>
           
           <motion.p 
@@ -515,9 +538,18 @@ export default function Landing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-medium mb-6 backdrop-blur-sm">
-                <Cpu className="w-3 h-3" /> Developer-first
-              </div>
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: -2 }}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-medium mb-6 backdrop-blur-sm cursor-default w-fit"
+              >
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                >
+                  <Cpu className="w-3 h-3" />
+                </motion.div>
+                <span className="font-semibold">Developer-first</span>
+              </motion.div>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Integrate in 3 lines of code</h2>
               <p className="text-slate-300 mb-8 leading-relaxed text-lg">
                 No complex setup. No new infrastructure. Just drop in the component and you're live.
@@ -682,9 +714,14 @@ export default function MyApp() {
           >
             <p className="text-slate-500 text-sm">
               Still have questions?{' '}
-              <Link to="/dashboard" className="text-blue-600 hover:underline font-medium">
-                Reach out to our team →
-              </Link>
+              <motion.span
+                whileHover={{ x: 5 }}
+                className="inline-block"
+              >
+                <Link to="/dashboard" className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1">
+                  Reach out to our team <ArrowRight className="w-3 h-3" />
+                </Link>
+              </motion.span>
             </p>
           </motion.div>
         </div>
@@ -738,17 +775,30 @@ export default function MyApp() {
             Join hundreds of teams shipping smarter apps with VoiceExecAI.
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link
-              to="/dashboard"
-              className="group inline-flex items-center gap-2 px-12 py-5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl hover:shadow-3xl hover:-translate-y-1"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Get Started Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+              <Link
+                to="/dashboard"
+                className="group inline-flex items-center gap-2 px-12 py-5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl hover:shadow-3xl hover:-translate-y-1 relative overflow-hidden"
+              >
+                {/* Ripple effect on hover */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileHover={{ opacity: 1, scale: 2 }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute inset-0 bg-gradient-to-r from-blue-100/50 to-violet-100/50 rounded-xl"
+                />
+                <span className="relative z-10">Get Started Free</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+              </Link>
+            </motion.div>
           </motion.div>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -943,16 +993,28 @@ export default function MyApp() {
                     </motion.li>
                   ))}
                 </ul>
-                <Link
-                  to="/dashboard"
-                  className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all ${
-                    plan.highlight
-                      ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
-                      : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
-                  }`}
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {plan.cta}
-                </Link>
+                  <Link
+                    to="/dashboard"
+                    className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
+                      plan.highlight
+                        ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
+                        : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
+                    }`}
+                  >
+                    {/* Button shimmer */}
+                    <motion.div
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: '100%' }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    />
+                    <span className="relative z-10">{plan.cta}</span>
+                  </Link>
+                </motion.div>
               </motion.div>
             ))}
           </div>

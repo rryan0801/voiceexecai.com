@@ -230,8 +230,8 @@ export default function Dashboard() {
                             }} 
                           />
                           <Legend />
-                          <Bar dataKey="requests" fill="url(#colorRequests)" name="Requests" radius={[4, 4, 0, 0]} />
-                          <Bar dataKey="quota" fill="#e2e8f0" name="Quota" radius={[4, 4, 0, 0]} />
+                          <Bar dataKey="requests" fill="url(#colorRequests)" name="Requests" radius={[8, 8, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                          <Bar dataKey="quota" fill="#e2e8f0" name="Quota" radius={[8, 8, 0, 0]} />
                           <defs>
                             <linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.9}/>
@@ -314,9 +314,14 @@ export default function Dashboard() {
                         </div>
                         Recent Activity
                       </CardTitle>
-                      <Link to="/commands" className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-medium">
-                        View all <ExternalLink className="w-3 h-3" />
-                      </Link>
+                      <motion.div
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Link to="/commands" className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-medium">
+                          View all <ExternalLink className="w-3 h-3" />
+                        </Link>
+                      </motion.div>
                     </div>
                   </CardHeader>
                   <CardContent>
