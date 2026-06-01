@@ -209,16 +209,15 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <button
-                  onClick={() => handleCheckout(plan.priceId, plan.name)}
-                  disabled={loading || (plan.name === 'Free' && subscription?.subscribed)}
-                  className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
-                    plan.highlight
-                      ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
-                      : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
-                  } ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-                >
+              <button
+                onClick={() => handleCheckout(plan.priceId, plan.name)}
+                disabled={loading || (plan.name === 'Free' && subscription?.subscribed)}
+                className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
+                  plan.highlight
+                    ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
+                    : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
+                } ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              >
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -231,8 +230,7 @@ export default function Pricing() {
                       {plan.cta} <ArrowRight className="w-4 h-4 inline" />
                     </>
                   )}
-                </button>
-              </motion.div>
+                  </button>
 
               {subscription?.subscribed && subscription.plan_name === plan.name && (
                 <motion.div
