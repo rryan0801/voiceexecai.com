@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   Mic, Zap, Shield, BarChart3, CheckCircle, ArrowRight, Star, Code2,
   Globe, Users, ChevronDown, Menu, X, Brain, Phone, Mail, Target,
-  TrendingUp, Clock, Lock, Cpu, MessageSquare
+  TrendingUp, Clock, Lock, Cpu, MessageSquare, Sparkles, Rocket, Layers
 } from 'lucide-react';
 
 const BENEFITS = [
@@ -153,20 +154,34 @@ const INTEGRATIONS = [
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-slate-200 rounded-xl overflow-hidden">
+    <motion.div 
+      initial={false}
+      animate={{ backgroundColor: open ? 'rgb(248 250 252)' : 'transparent' }}
+      className="border border-slate-200 rounded-xl overflow-hidden"
+    >
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-slate-50 transition-colors"
       >
         <span className="font-semibold text-slate-900 pr-4">{q}</span>
-        <ChevronDown className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <motion.div
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
+        </motion.div>
       </button>
-      {open && (
+      <motion.div
+        initial={false}
+        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
+      >
         <div className="px-6 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
           {a}
         </div>
-      )}
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -223,129 +238,273 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-24 pb-20 px-6 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-6">
-            <Zap className="w-3 h-3" /> Now powering 500+ voice-enabled apps
-          </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+      <section className="pt-32 pb-24 px-6 bg-gradient-to-br from-blue-50 via-violet-50 to-white relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute -top-40 -right-40 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+            className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl"
+          />
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm">
+              <Sparkles className="w-3 h-3" /> Now powering 500+ voice-enabled apps
+            </div>
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-6"
+          >
             Add Voice Commands to<br />
-            <span className="text-blue-600">Any App in Minutes</span>
-          </h1>
-          <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10">
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">Any App in Minutes</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl text-slate-500 max-w-2xl mx-auto mb-10"
+          >
             VoiceExecAI is the drop-in voice-to-action framework for developers. One component.
             Any React app. Real CRM updates, email routing, and task creation — hands-free.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
             <Link
               to="/dashboard"
-              className="flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors text-lg shadow-lg shadow-blue-200 w-full sm:w-auto justify-center"
+              className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold rounded-xl transition-all text-lg shadow-xl shadow-blue-200 hover:shadow-2xl hover:shadow-blue-300 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
-              Get Started Free <ArrowRight className="w-5 h-5" />
+              Get Started Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
               href="#pricing"
-              className="flex items-center gap-2 px-8 py-4 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-colors text-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-8 py-4 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all text-lg hover:bg-slate-50 hover:-translate-y-0.5 w-full sm:w-auto justify-center backdrop-blur-sm"
             >
               See Pricing
             </a>
-          </div>
-          <p className="text-xs text-slate-400 mt-4">No credit card required · Free tier available · Setup in 5 minutes</p>
+          </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-xs text-slate-400 mt-6"
+          >
+            No credit card required · Free tier available · Setup in 5 minutes
+          </motion.p>
         </div>
       </section>
 
       {/* Social Proof Bar */}
-      <section className="py-8 border-y border-slate-100 bg-white px-6">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 text-sm text-slate-500">
-          <div className="flex items-center gap-2"><Users className="w-4 h-4 text-blue-500" /><strong className="text-slate-800">500+</strong> apps powered</div>
-          <div className="flex items-center gap-2"><Zap className="w-4 h-4 text-purple-500" /><strong className="text-slate-800">2M+</strong> voice commands processed</div>
-          <div className="flex items-center gap-2"><Globe className="w-4 h-4 text-green-500" /><strong className="text-slate-800">99.9%</strong> uptime SLA</div>
-          <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-orange-500" /><strong className="text-slate-800">&lt;5 min</strong> average integration time</div>
-          <div className="flex items-center gap-2"><Lock className="w-4 h-4 text-slate-500" /><strong className="text-slate-800">SOC2</strong> compliant</div>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-10 border-y border-slate-100 bg-gradient-to-r from-white via-slate-50 to-white px-6"
+      >
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-10 text-sm">
+          {[
+            { icon: Users, value: '500+', label: 'apps powered', color: 'text-blue-500' },
+            { icon: Zap, value: '2M+', label: 'commands processed', color: 'text-purple-500' },
+            { icon: Globe, value: '99.9%', label: 'uptime SLA', color: 'text-green-500' },
+            { icon: Clock, value: '<5 min', label: 'integration time', color: 'text-orange-500' },
+            { icon: Lock, value: 'SOC2', label: 'compliant', color: 'text-slate-500' }
+          ].map((stat, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.1 }}
+              className="flex items-center gap-2.5"
+            >
+              <stat.icon className={`w-4 h-4 ${stat.color}`} />
+              <strong className="text-slate-900 text-base">{stat.value}</strong>
+              <span className="text-slate-500">{stat.label}</span>
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Features Grid */}
       <section id="features" className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Why developers choose VoiceExecAI</h2>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Why developers choose VoiceExecAI</h2>
             <p className="text-lg text-slate-500">Built for speed, designed for portability, trusted by teams worldwide.</p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-8">
             {BENEFITS.map((b, i) => (
-              <div key={i} className="p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all">
-                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-5">
-                  {b.icon}
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="group p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/50 transition-all bg-gradient-to-br from-white to-slate-50"
+              >
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-violet-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                  {React.cloneElement(b.icon, { className: 'w-7 h-7' })}
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-3">{b.title}</h3>
                 <p className="text-slate-500 leading-relaxed">{b.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* How it Works */}
-      <section className="py-24 px-6 bg-slate-50">
+      <section className="py-24 px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">How it works</h2>
-          <p className="text-lg text-slate-500 mb-16">Three steps from zero to voice-enabled.</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">How it works</h2>
+            <p className="text-lg text-slate-500 mb-16">Three steps from zero to voice-enabled.</p>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connector line (desktop only) */}
-            <div className="hidden md:block absolute top-7 left-1/6 right-1/6 h-0.5 bg-blue-200 z-0" style={{left:'16.5%', right:'16.5%'}} />
+            {/* Animated connector line */}
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="hidden md:block absolute top-7 left-[16.5%] right-[16.5%] h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-blue-300 z-0 origin-left"
+            />
             {[
               { step: '01', title: 'Install the widget', desc: 'Drop <VoiceWidget /> into your React component. Configure with your API key.', icon: <Code2 className="w-5 h-5 text-white" /> },
               { step: '02', title: 'User speaks a command', desc: '"Log a call with Acme Corp, strong interest, follow up Friday." — that\'s it.', icon: <Mic className="w-5 h-5 text-white" /> },
               { step: '03', title: 'Actions execute automatically', desc: 'CRM updated, task created, follow-up email queued. All without a single click.', icon: <Zap className="w-5 h-5 text-white" /> }
             ].map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center relative z-10">
-                <div className="w-14 h-14 bg-blue-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-blue-200">
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.2 }}
+                className="flex flex-col items-center text-center relative z-10"
+              >
+                <motion.div 
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="w-16 h-16 bg-gradient-to-br from-blue-600 to-violet-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-200"
+                >
                   {s.step}
-                </div>
+                </motion.div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">{s.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
-              </div>
+                <p className="text-slate-500 text-sm leading-relaxed max-w-xs">{s.desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Code Snippet / Developer Section */}
-      <section className="py-24 px-6 bg-slate-900">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 relative overflow-hidden">
+        {/* Background glow */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute top-20 right-20 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"
+          />
+        </div>
+        
+        <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-400 text-xs font-medium mb-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-medium mb-6 backdrop-blur-sm">
                 <Cpu className="w-3 h-3" /> Developer-first
               </div>
-              <h2 className="text-4xl font-bold text-white mb-4">Integrate in 3 lines of code</h2>
-              <p className="text-slate-400 mb-8 leading-relaxed">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Integrate in 3 lines of code</h2>
+              <p className="text-slate-300 mb-8 leading-relaxed text-lg">
                 No complex setup. No new infrastructure. Just drop in the component and you're live.
                 Works with any React app — from solo projects to enterprise platforms.
               </p>
               <div className="space-y-3">
                 {['TypeScript support included', 'Full event hooks & callbacks', 'Customizable UI & branding', 'Webhook-ready for any backend'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-slate-300 text-sm">
-                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.1 }}
+                    className="flex items-center gap-2.5 text-slate-300 text-sm"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: 15 }}
+                    >
+                      <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                    </motion.div>
                     {item}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
               <Link
                 to="/dashboard"
-                className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 mt-8 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 View Docs <ArrowRight className="w-4 h-4" />
               </Link>
-            </div>
-            <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700 font-mono text-sm overflow-x-auto">
-              <div className="flex gap-1.5 mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-              </div>
-              <pre className="text-slate-300 leading-relaxed whitespace-pre-wrap">{`import { VoiceWidget } from 'voiceexec-ai';
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-violet-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity" />
+              <div className="relative bg-slate-800/90 backdrop-blur rounded-2xl p-6 border border-slate-700 font-mono text-sm overflow-x-auto shadow-2xl">
+                <div className="flex gap-1.5 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                </div>
+                <pre className="text-slate-300 leading-relaxed whitespace-pre-wrap">{`import { VoiceWidget } from 'voiceexec-ai';
 
 export default function MyApp() {
   return (
@@ -358,83 +517,381 @@ export default function MyApp() {
     />
   );
 }`}</pre>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <motion.section 
+        id="testimonials" 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-24 px-6 bg-gradient-to-br from-white via-blue-50 to-violet-50"
+      >
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Loved by builders</h2>
+            <p className="text-lg text-slate-500">Here's what teams say after going live.</p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {TESTIMONIALS.map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="bg-white rounded-2xl p-8 border border-slate-100 shadow-lg hover:shadow-xl transition-all"
+              >
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: t.stars }).map((_, j) => (
+                    <motion.span
+                      key={j}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.2, delay: 0.3 + j * 0.05 }}
+                    >
+                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    </motion.span>
+                  ))}
+                </div>
+                <p className="text-slate-700 text-sm leading-relaxed mb-6 italic">"{t.quote}"</p>
+                <div>
+                  <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
+                  <p className="text-slate-400 text-xs">{t.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* FAQ */}
+      <motion.section 
+        id="faq" 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-24 px-6 bg-white"
+      >
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Frequently asked questions</h2>
+            <p className="text-lg text-slate-500">Everything you need to know before getting started.</p>
+          </motion.div>
+          <div className="space-y-3">
+            {FAQS.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+              >
+                <FAQItem q={faq.q} a={faq.a} />
+              </motion.div>
+            ))}
+          </div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-10"
+          >
+            <p className="text-slate-500 text-sm">
+              Still have questions?{' '}
+              <Link to="/dashboard" className="text-blue-600 hover:underline font-medium">
+                Reach out to our team →
+              </Link>
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* CTA */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-24 px-6 bg-gradient-to-br from-blue-600 via-violet-600 to-blue-600 to-blue-600 relative overflow-hidden"
+      >
+        {/* Animated background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, delay: 2 }}
+            className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-400/10 rounded-full blur-3xl"
+          />
+        </div>
+        
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+          >
+            Ready to go voice-first?
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-blue-100 text-lg mb-10"
+          >
+            Join hundreds of teams shipping smarter apps with VoiceExecAI.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link
+              to="/dashboard"
+              className="group inline-flex items-center gap-2 px-12 py-5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl hover:shadow-3xl hover:-translate-y-1"
+            >
+              Get Started Free <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-blue-200 text-sm mt-6"
+          >
+            No credit card · Free tier · Cancel anytime
+          </motion.p>
+        </div>
+      </motion.section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 text-slate-300 text-sm">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-10">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center">
+                  <Mic className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="font-bold text-white text-base">VoiceExecAI</span>
+              </div>
+              <p className="text-slate-400 text-xs leading-relaxed max-w-xs mb-3">
+                The drop-in voice-to-action framework for React developers. Trusted by 500+ apps worldwide.
+              </p>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <Mail className="w-3 h-3" />
+                <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">support@voiceexecai.com</a>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Product</h4>
+              <div className="space-y-2">
+                <a href="#features" className="block hover:text-white transition-colors">Features</a>
+                <a href="#integrations" className="block hover:text-white transition-colors">Integrations</a>
+                <a href="#pricing" className="block hover:text-white transition-colors">Pricing</a>
+                <a href="#faq" className="block hover:text-white transition-colors">FAQ</a>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Platform</h4>
+              <div className="space-y-2">
+                <Link to="/dashboard" className="block hover:text-white transition-colors">Dashboard</Link>
+                <Link to="/analytics" className="block hover:text-white transition-colors">Analytics</Link>
+                <Link to="/playbooks" className="block hover:text-white transition-colors">Playbooks</Link>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-slate-500">© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="/security" className="hover:text-white transition-colors">Security</a>
+              <a href="/contact" className="hover:text-white transition-colors">Contact</a>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Integrations */}
-      <section id="integrations" className="py-24 px-6 bg-white">
+      </footer>
+      <motion.section 
+        id="integrations" 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-24 px-6 bg-gradient-to-br from-white via-blue-50 to-violet-50"
+      >
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Connects to your existing stack</h2>
-          <p className="text-lg text-slate-500 mb-12">Out-of-the-box integrations with the tools your team already uses.</p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Connects to your existing stack</h2>
+            <p className="text-lg text-slate-500 mb-12">Out-of-the-box integrations with the tools your team already uses.</p>
+          </motion.div>
+          <motion.div 
+            className="flex flex-wrap justify-center gap-3"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             {INTEGRATIONS.map((item, i) => (
-              <span key={i} className={`px-4 py-2 rounded-full text-sm font-medium ${item.color}`}>
+              <motion.span 
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium cursor-default ${item.color} shadow-sm hover:shadow-md transition-all`}
+              >
                 {item.name}
-              </span>
+              </motion.span>
             ))}
-            <span className="px-4 py-2 rounded-full text-sm font-medium bg-slate-100 text-slate-500">
+            <motion.span 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: INTEGRATIONS.length * 0.05 }}
+              className="px-5 py-2.5 rounded-full text-sm font-medium bg-slate-100 text-slate-500 shadow-sm"
+            >
               + Custom webhooks
-            </span>
-          </div>
+            </motion.span>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6 bg-slate-50">
+      <motion.section 
+        id="pricing" 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-24 px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50"
+      >
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Simple, transparent pricing</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-lg text-slate-500">Start free. Scale when you're ready. No surprises.</p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-8">
             {PRICING.map((plan, i) => (
-              <div
+              <motion.div
                 key={i}
-                className={`relative rounded-2xl p-8 border-2 flex flex-col ${
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className={`relative rounded-2xl p-8 border-2 flex flex-col transition-all ${
                   plan.highlight
-                    ? 'border-blue-500 shadow-xl shadow-blue-100 bg-blue-600 text-white'
-                    : 'border-slate-200 bg-white text-slate-900'
+                    ? 'border-blue-500 shadow-2xl shadow-blue-200 bg-gradient-to-br from-blue-600 to-violet-600 text-white'
+                    : 'border-slate-200 bg-white text-slate-900 hover:border-blue-300 hover:shadow-xl'
                 }`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-500 text-white text-xs font-bold rounded-full border-2 border-white">
-                    MOST POPULAR
-                  </div>
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-2 bg-gradient-to-r from-blue-500 to-violet-500 text-white text-xs font-bold rounded-full border-2 border-white shadow-lg z-10"
+                  >
+                    ⭐ MOST POPULAR
+                  </motion.div>
                 )}
                 <div className="mb-6">
                   <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
                   <div className="flex items-end gap-1 mb-2">
-                    <span className={`text-4xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</span>
-                    <span className={`text-sm mb-1 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
+                    <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</span>
+                    <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
                   </div>
                   <p className={`text-sm ${plan.highlight ? 'text-blue-100' : 'text-slate-500'}`}>{plan.description}</p>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm">
-                      <CheckCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-blue-200' : 'text-green-500'}`} />
+                    <motion.li 
+                      key={j}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: 0.3 + j * 0.05 }}
+                      className="flex items-start gap-2.5 text-sm"
+                    >
+                      <CheckCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-blue-200' : 'text-green-500'}`} />
                       <span className={plan.highlight ? 'text-blue-50' : 'text-slate-600'}>{f}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
                 <Link
                   to="/dashboard"
-                  className={`block text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
+                  className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all ${
                     plan.highlight
-                      ? 'bg-white text-blue-600 hover:bg-blue-50'
-                      : 'bg-slate-900 text-white hover:bg-slate-800'
+                      ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
+                      : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
                   }`}
                 >
                   {plan.cta}
                 </Link>
-              </div>
+              </motion.div>
             ))}
           </div>
-          <p className="text-center text-slate-400 text-sm mt-8">All plans include a 14-day free trial on paid tiers. No credit card required.</p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="text-center text-slate-400 text-sm mt-8"
+          >
+            All plans include a 14-day free trial on paid tiers. No credit card required.
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials */}
       <section id="testimonials" className="py-24 px-6 bg-white">
