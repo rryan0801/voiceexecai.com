@@ -12,7 +12,7 @@ const PLANS = [
     name: 'Free',
     price: '$0',
     period: '/month',
-    priceId: 'price_1TdN8qPn68JNcWlrf0QG1uUx',
+    priceId: 'price_1TdNAuIcky2cOtqjyd0qZIht',
     description: 'Perfect for developers evaluating the platform.',
     features: [
       '500 voice commands/month',
@@ -29,7 +29,7 @@ const PLANS = [
     name: 'Pro',
     price: '$49',
     period: '/month',
-    priceId: 'price_1TdN8qPn68JNcWlrad7GTriQ',
+    priceId: 'price_1TdNAuIcky2cOtqj5Yz6Xu82',
     description: 'For teams shipping voice-powered products.',
     features: [
       '25,000 voice commands/month',
@@ -48,7 +48,7 @@ const PLANS = [
     name: 'Enterprise',
     price: '$999',
     period: '/month',
-    priceId: 'price_1TdN8pPn68JNcWlrtEjedi85',
+    priceId: 'price_1TdNAuIcky2cOtqjatRzvOYi',
     description: 'For large teams with custom workflows and SLAs.',
     features: [
       'Unlimited commands',
