@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Mic, Zap, Shield, BarChart3, CheckCircle, ArrowRight, Star, Code2,
   Globe, Users, ChevronDown, Menu, X, Brain, Phone, Mail, Target,
-  TrendingUp, Clock, Lock, Cpu, MessageSquare, Sparkles, Rocket, Layers
+  TrendingUp, Clock, Lock, Cpu, MessageSquare, Sparkles, Rocket, Layers, ArrowLeft
 } from 'lucide-react';
 
 const BENEFITS = [
@@ -187,6 +187,19 @@ function FAQItem({ q, a }) {
 
 export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-white text-slate-900 scroll-smooth">
@@ -245,6 +258,7 @@ export default function Landing() {
             animate={{ 
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.5, 0.3],
+              x: [0, 30, 0],
             }}
             transition={{ duration: 8, repeat: Infinity }}
             className="absolute -top-40 -right-40 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"
@@ -253,21 +267,39 @@ export default function Landing() {
             animate={{ 
               scale: [1, 1.3, 1],
               opacity: [0.2, 0.4, 0.2],
+              x: [0, -30, 0],
             }}
             transition={{ duration: 10, repeat: Infinity, delay: 2 }}
             className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.1, 0.2, 0.1],
+            }}
+            transition={{ duration: 12, repeat: Infinity, delay: 4 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-100/20 to-violet-100/20 rounded-full blur-3xl"
           />
         </div>
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm">
-              <Sparkles className="w-3 h-3" /> Now powering 500+ voice-enabled apps
-            </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm cursor-default"
+            >
+              <motion.span
+                animate={{ rotate: [0, 15, -15, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Sparkles className="w-3 h-3" />
+              </motion.span>
+              Now powering 500+ voice-enabled apps
+            </motion.div>
           </motion.div>
           
           <motion.h1 
@@ -327,9 +359,18 @@ export default function Landing() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="py-10 border-y border-slate-100 bg-gradient-to-r from-white via-slate-50 to-white px-6"
+        className="py-10 border-y border-slate-100 bg-gradient-to-r from-white via-slate-50 to-white px-6 relative overflow-hidden"
       >
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-10 text-sm">
+        {/* Subtle animated background */}
+        <motion.div 
+          animate={{ x: ['-100%', '0%'] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          className="absolute inset-0 opacity-5"
+        >
+          <div className="w-[200%] h-full bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
+        </motion.div>
+        
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-10 text-sm relative z-10">
           {[
             { icon: Users, value: '500+', label: 'apps powered', color: 'text-blue-500' },
             { icon: Zap, value: '2M+', label: 'commands processed', color: 'text-purple-500' },
@@ -339,13 +380,19 @@ export default function Landing() {
           ].map((stat, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.1 }}
-              className="flex items-center gap-2.5"
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              className="flex items-center gap-2.5 cursor-default"
             >
-              <stat.icon className={`w-4 h-4 ${stat.color}`} />
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
+                <stat.icon className={`w-4 h-4 ${stat.color}`} />
+              </motion.div>
               <strong className="text-slate-900 text-base">{stat.value}</strong>
               <span className="text-slate-500">{stat.label}</span>
             </motion.div>
@@ -374,14 +421,19 @@ export default function Landing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="group p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/50 transition-all bg-gradient-to-br from-white to-slate-50"
+                whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
+                className="group p-8 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/50 transition-all bg-gradient-to-br from-white to-slate-50 relative overflow-hidden"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-violet-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                  {React.cloneElement(b.icon, { className: 'w-7 h-7' })}
+                {/* Animated gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-violet-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                    {React.cloneElement(b.icon, { className: 'w-7 h-7' })}
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{b.title}</h3>
+                  <p className="text-slate-500 leading-relaxed">{b.desc}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">{b.title}</h3>
-                <p className="text-slate-500 leading-relaxed">{b.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -416,16 +468,24 @@ export default function Landing() {
             ].map((s, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.2 }}
-                className="flex flex-col items-center text-center relative z-10"
+                whileHover={{ y: -10, scale: 1.05, transition: { duration: 0.3 } }}
+                className="flex flex-col items-center text-center relative z-10 cursor-default"
               >
                 <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-16 h-16 bg-gradient-to-br from-blue-600 to-violet-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-200"
+                  whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
+                  transition={{ duration: 0.5 }}
+                  className="w-16 h-16 bg-gradient-to-br from-blue-600 to-violet-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-200 relative overflow-hidden"
                 >
+                  {/* Shimmer effect */}
+                  <motion.div
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  />
                   {s.step}
                 </motion.div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">{s.title}</h3>
@@ -471,10 +531,12 @@ export default function Landing() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: i * 0.1 }}
-                    className="flex items-center gap-2.5 text-slate-300 text-sm"
+                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-2.5 text-slate-300 text-sm cursor-default"
                   >
                     <motion.div
-                      whileHover={{ scale: 1.2, rotate: 15 }}
+                      animate={{ scale: [1, 1.2, 1], rotate: [0, 15, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
                     >
                       <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                     </motion.div>
@@ -823,17 +885,30 @@ export default function MyApp() {
             {PRICING.map((plan, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className={`relative rounded-2xl p-8 border-2 flex flex-col transition-all ${
+                whileHover={{ y: -12, scale: 1.02, transition: { duration: 0.3 } }}
+                className={`relative rounded-2xl p-8 border-2 flex flex-col transition-all overflow-hidden ${
                   plan.highlight
                     ? 'border-blue-500 shadow-2xl shadow-blue-200 bg-gradient-to-br from-blue-600 to-violet-600 text-white'
                     : 'border-slate-200 bg-white text-slate-900 hover:border-blue-300 hover:shadow-xl'
                 }`}
               >
+                {/* Animated background for highlighted plan */}
+                {plan.highlight && (
+                  <motion.div
+                    animate={{ 
+                      background: [
+                        'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
+                        'linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)'
+                      ]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="absolute inset-0 opacity-50"
+                  />
+                )}
                 {plan.highlight && (
                   <motion.div 
                     initial={{ scale: 0 }}
@@ -997,14 +1072,47 @@ export default function MyApp() {
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p>© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="/security" className="hover:text-white transition-colors">Security</a>
-            <a href="/contact" className="hover:text-white transition-colors">Contact</a>
+            {['Privacy Policy', 'Terms of Service', 'Security', 'Contact'].map((link, i) => (
+              <motion.a
+                key={link}
+                href={link.toLowerCase().replace(' ', '-')}
+                whileHover={{ y: -2, color: 'rgb(255, 255, 255)' }}
+                transition={{ duration: 0.2 }}
+                className="text-slate-400 hover:text-white transition-colors relative group"
+              >
+                {link}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute -bottom-1 left-0 h-px bg-gradient-to-r from-blue-400 to-violet-400"
+                />
+              </motion.a>
+            ))}
           </div>
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ 
+          opacity: showScrollTop ? 1 : 0,
+          scale: showScrollTop ? 1 : 0,
+        }}
+        whileHover={{ scale: 1.1, rotate: -5 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={scrollToTop}
+        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-br from-blue-600 to-violet-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:shadow-blue-300/50 transition-shadow"
+      >
+        <motion.div
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ArrowLeft className="w-6 h-6 rotate-90" />
+        </motion.div>
+      </motion.button>
     </div>
   );
 }

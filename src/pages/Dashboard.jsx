@@ -363,47 +363,82 @@ export default function Dashboard() {
                 onCancel={() => setShowNewClientForm(false)}
               />
             ) : (
+              <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               <ClientsList 
                 clients={clients}
                 loading={clientsLoading}
                 onClientSelect={setSelectedClient}
                 onRefresh={refetchClients}
               />
+            </motion.div>
             )}
           </TabsContent>
 
           {/* Commands Tab */}
           <TabsContent value="commands" className="mt-6">
-            <CommandHistory commands={recentCommands} />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CommandHistory commands={recentCommands} />
+            </motion.div>
           </TabsContent>
 
 
           {/* Settings Tab */}
           <TabsContent value="settings" className="mt-6">
             {selectedClient ? (
-              <WidgetConfigurator client={selectedClient} onUpdate={refetchClients} />
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <WidgetConfigurator client={selectedClient} onUpdate={refetchClients} />
+              </motion.div>
             ) : clients.length > 0 ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Widget Settings</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-slate-500 text-sm">Select a client to configure their widget:</p>
-                  {clients.map(client => (
-                    <button
-                      key={client.id}
-                      onClick={() => { setSelectedClient(client); }}
-                      className="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-colors flex items-center justify-between"
-                    >
-                      <div>
-                        <p className="font-medium text-slate-900 text-sm">{client.company_name}</p>
-                        <p className="text-xs text-slate-400">{client.status}</p>
-                      </div>
-                      <Settings className="w-4 h-4 text-slate-400" />
-                    </button>
-                  ))}
-                </CardContent>
-              </Card>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="shadow-lg border-0">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <Settings className="w-4 h-4" /> Widget Settings
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-slate-500 text-sm">Select a client to configure their widget:</p>
+                    {clients.map((client, i) => (
+                      <motion.button
+                        key={client.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: i * 0.05 }}
+                        whileHover={{ x: 5, scale: 1.01 }}
+                        onClick={() => { setSelectedClient(client); }}
+                        className="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-all flex items-center justify-between shadow-sm hover:shadow-md"
+                      >
+                        <div>
+                          <p className="font-medium text-slate-900 text-sm">{client.company_name}</p>
+                          <p className="text-xs text-slate-400">{client.status}</p>
+                        </div>
+                        <motion.div
+                          whileHover={{ rotate: 90 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Settings className="w-4 h-4 text-slate-400" />
+                        </motion.div>
+                      </motion.button>
+                    ))}
+                  </CardContent>
+                </Card>
+              </motion.div>
             ) : (
               <Card>
                 <CardContent className="pt-6 text-center text-slate-500">
