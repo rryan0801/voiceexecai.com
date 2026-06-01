@@ -210,7 +210,7 @@ export default function Pricing() {
               </ul>
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Button
+                <button
                   onClick={() => handleCheckout(plan.priceId, plan.name)}
                   disabled={loading || (plan.name === 'Free' && subscription?.subscribed)}
                   className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
@@ -231,7 +231,7 @@ export default function Pricing() {
                       {plan.cta} <ArrowRight className="w-4 h-4 inline" />
                     </>
                   )}
-                </Button>
+                </button>
               </motion.div>
 
               {subscription?.subscribed && subscription.plan_name === plan.name && (
@@ -324,11 +324,12 @@ export default function Pricing() {
           <p className="text-slate-500 mb-6">
             Our team is here to help you choose the perfect plan.
           </p>
-          <Link to="/contact">
-            <Button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 shadow-lg">
-              Contact Sales <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
+          <button 
+            onClick={() => window.location.href = '/contact'}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold rounded-lg shadow-lg transition-all inline-flex items-center gap-2"
+          >
+            Contact Sales <ArrowRight className="w-4 h-4" />
+          </button>
         </motion.div>
       </div>
     </div>
