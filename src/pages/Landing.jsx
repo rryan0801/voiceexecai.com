@@ -216,7 +216,7 @@ export default function Landing() {
           <div className="hidden md:flex items-center gap-8 text-sm text-slate-600">
             <a href="#features" className="hover:text-blue-600 transition-colors">Features</a>
             <a href="#integrations" className="hover:text-blue-600 transition-colors">Integrations</a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
+            <Link to="/pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
             <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
           </div>
           <div className="hidden md:flex items-center gap-3">
@@ -350,8 +350,8 @@ export default function Landing() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <a
-                href="#pricing"
+              <Link
+                to="/pricing"
                 className="group flex items-center gap-2 px-8 py-4 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all text-lg hover:bg-slate-50 hover:-translate-y-0.5 w-full sm:w-auto justify-center backdrop-blur-sm relative overflow-hidden"
               >
                 <motion.div
@@ -361,7 +361,7 @@ export default function Landing() {
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-200/30 to-transparent"
                 />
                 See Pricing
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
           
