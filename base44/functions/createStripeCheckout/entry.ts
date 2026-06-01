@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
       ],
       mode: 'subscription',
       discounts: discounts,
-      success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(plan_name || 'Pro')}`,
       cancel_url: `${origin}/pricing?canceled=true`,
       metadata: {
         base44_app_id: Deno.env.get("BASE44_APP_ID"),
