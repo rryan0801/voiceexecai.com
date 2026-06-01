@@ -18,6 +18,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Price ID required' }, { status: 400 });
     }
 
+    // Get base URL from origin header or use default
+    const origin = req.headers.get('origin') || 'https://preview--voiceexecai-com.base44.app';
+    
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -28,8 +31,8 @@ Deno.serve(async (req) => {
         },
       ],
       mode: 'subscription',
-      success_url: `${req.headers.get('origin')}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.get('origin')}/pricing?canceled=true`,
+      success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/pricing?canceled=true`,
       metadata: {
         base44_app_id: Deno.env.get("BASE44_APP_ID"),
         user_email: user.email,
