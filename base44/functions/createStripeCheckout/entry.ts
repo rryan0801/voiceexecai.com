@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
 
-    const { price_id, plan_name } = await req.json();
+    const { price_id, plan_name, coupon_code } = await req.json();
 
     if (!price_id) {
       return Response.json({ error: 'Price ID required' }, { status: 400 });
@@ -20,6 +20,9 @@ Deno.serve(async (req) => {
 
     // Get base URL from origin header or use default
     const origin = req.headers.get('origin') || 'https://preview--voiceexecai-com.base44.app';
+    
+    // Build discounts array if coupon provided
+    const discounts = coupon_code ? [{ coupon: coupon_code }] : [];
     
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
@@ -31,6 +34,7 @@ Deno.serve(async (req) => {
         },
       ],
       mode: 'subscription',
+      discounts: discounts,
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pricing?canceled=true`,
       metadata: {

@@ -69,6 +69,7 @@ export default function Pricing() {
   const [searchParams] = useSearchParams();
   const [isInIframe, setIsInIframe] = useState(false);
   const [loading, setLoading] = useState(false);
+  const couponCode = searchParams.get('coupon') || 'FULLOFF-1780288138293';
 
   const { data: subscription, isLoading: subLoading } = useQuery({
     queryKey: ['stripe-subscription'],
@@ -96,7 +97,8 @@ export default function Pricing() {
     try {
       const res = await base44.functions.invoke('createStripeCheckout', {
         price_id: priceId,
-        plan_name: planName
+        plan_name: planName,
+        coupon_code: couponCode
       });
 
       if (res.data.url) {
