@@ -1,0 +1,65 @@
+{
+  "name": "Review",
+  "type": "object",
+  "properties": {
+    "reviewer_name": {
+      "type": "string",
+      "description": "Name of the person who left the review"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "google",
+        "yelp",
+        "trustpilot",
+        "facebook",
+        "twitter",
+        "reddit",
+        "other"
+      ],
+      "description": "Platform where the review was posted"
+    },
+    "rating": {
+      "type": "number",
+      "description": "Rating out of 5"
+    },
+    "content": {
+      "type": "string",
+      "description": "Review text content"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "AI-detected sentiment"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "responded",
+        "flagged",
+        "archived"
+      ],
+      "default": "new",
+      "description": "Response status"
+    },
+    "ai_response": {
+      "type": "string",
+      "description": "AI-generated response suggestion"
+    },
+    "review_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the review was posted"
+    }
+  },
+  "required": [
+    "reviewer_name",
+    "content",
+    "source"
+  ]
+}

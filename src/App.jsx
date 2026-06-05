@@ -47,6 +47,7 @@ import Security from '@/pages/Security';
 import Contact from '@/pages/Contact';
 import Pricing from '@/pages/Pricing';
 import CheckoutSuccess from '@/pages/CheckoutSuccess';
+import Ambassador from '@/pages/Ambassador';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -116,6 +117,7 @@ const AuthenticatedApp = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
+      <Route path="/ambassador" element={<Ambassador />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

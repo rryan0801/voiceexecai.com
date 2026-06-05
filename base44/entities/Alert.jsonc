@@ -1,0 +1,46 @@
+{
+  "name": "Alert",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Alert title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Alert description"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "negative_review",
+        "rating_drop",
+        "mention",
+        "milestone"
+      ],
+      "description": "Type of alert"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "related_review_id": {
+      "type": "string",
+      "description": "ID of related review if applicable"
+    }
+  },
+  "required": [
+    "title",
+    "type"
+  ]
+}
