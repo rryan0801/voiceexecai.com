@@ -9,6 +9,7 @@ import { Plus, FileText, Sparkles, CheckCircle, TrendingUp } from 'lucide-react'
 import toast from 'react-hot-toast';
 
 export default function ContentOpportunities({ websiteId }) {
+  const queryClient = useQueryClient();
   const [showBriefForm, setShowBriefForm] = useState(false);
   const [topic, setTopic] = useState('');
 
