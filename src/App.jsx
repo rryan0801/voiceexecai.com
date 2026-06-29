@@ -50,6 +50,7 @@ import CheckoutSuccess from '@/pages/CheckoutSuccess';
 import Ambassador from '@/pages/Ambassador';
 import GetLeads from '@/pages/GetLeads';
 import LeadPipeline from '@/pages/LeadPipeline';
+import DownloadGuide from '@/pages/DownloadGuide';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -122,6 +123,7 @@ const AuthenticatedApp = () => {
       <Route path="/ambassador" element={<Ambassador />} />
       <Route path="/get-leads" element={<GetLeads />} />
       <Route path="/lead-pipeline" element={<LeadPipeline />} />
+      <Route path="/download-guide" element={<DownloadGuide />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
