@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import EmailCapture from '@/components/EmailCapture';
+import InteractiveDemo from '@/components/InteractiveDemo';
 import {
   Mic, Zap, Shield, CheckCircle, ArrowRight, Star, Code2,
   Globe, Users, ChevronDown, Menu, X, Brain, Mail, Target,
@@ -286,6 +288,8 @@ export default function Landing() {
         </div>
       </section>
 
+      <InteractiveDemo />
+
       {/* Developer Section */}
       <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 relative overflow-hidden">
         <div className="max-w-5xl mx-auto relative z-10">
@@ -454,6 +458,8 @@ export default function MyApp() {
           </div>
         </div>
       </section>
+
+      <EmailCapture />
 
       {/* Final CTA */}
       <section className="py-24 px-6 bg-gradient-to-br from-blue-600 via-violet-600 to-blue-700 relative overflow-hidden">
