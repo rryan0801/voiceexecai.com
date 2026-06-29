@@ -1,4 +1,6 @@
 import { Toaster } from "@/components/ui/toaster"
+import PWAInstallPrompt from '@/components/PWAInstallPrompt'
+import OfflineIndicator from '@/components/OfflineIndicator'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -52,6 +54,7 @@ import GetLeads from '@/pages/GetLeads';
 import LeadPipeline from '@/pages/LeadPipeline';
 import DownloadGuide from '@/pages/DownloadGuide';
 import SEOAutomator from '@/pages/SEOAutomator';
+import MobileApp from '@/pages/MobileApp';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -126,6 +129,7 @@ const AuthenticatedApp = () => {
       <Route path="/lead-pipeline" element={<LeadPipeline />} />
       <Route path="/download-guide" element={<DownloadGuide />} />
       <Route path="/seo-automator" element={<SEOAutomator />} />
+      <Route path="/mobile-app" element={<MobileApp />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
@@ -142,6 +146,8 @@ function App() {
           <AuthenticatedApp />
         </Router>
         <Toaster />
+        <PWAInstallPrompt />
+        <OfflineIndicator />
       </QueryClientProvider>
     </AuthProvider>
   )

@@ -1,24 +1,72 @@
 {
-  "name": "VoiceExecAI",
+  "name": "VoiceExecAI - Voice-Powered Sales Automation",
   "short_name": "VoiceExecAI",
-  "description": "Voice-first email management and sales automation",
+  "description": "Add voice commands to any app. Real CRM updates, email routing, and task creation — hands-free.",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3B82F6",
+  "theme_color": "#2563eb",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/8e4371b5e_generated_image.png",
-      "sizes": "180x180",
+      "src": "/app-icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png",
+      "src": "/app-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["business", "productivity", "sales"],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-2.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your analytics dashboard",
+      "url": "/dashboard",
+      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "SEO Automator",
+      "short_name": "SEO",
+      "description": "Automated SEO optimization",
+      "url": "/seo-automator",
+      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Deal Intelligence",
+      "short_name": "Deals",
+      "description": "Track and manage deals",
+      "url": "/deals",
+      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }

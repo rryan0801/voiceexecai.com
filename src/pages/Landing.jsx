@@ -6,8 +6,10 @@ import InteractiveDemo from '@/components/InteractiveDemo';
 import {
   Mic, Zap, Shield, CheckCircle, ArrowRight, Star, Code2,
   Globe, Users, ChevronDown, Menu, X, Brain, Mail, Target,
-  TrendingUp, Clock, Lock, Cpu, Sparkles, ArrowUp
+  TrendingUp, Clock, Lock, Cpu, Sparkles, ArrowUp, Smartphone
 } from 'lucide-react';
+import PWAInstallPrompt from '@/components/PWAInstallPrompt';
+import AppStoreBadges from '@/components/AppStoreBadges';
 
 const BENEFITS = [
   {
@@ -148,6 +150,10 @@ export default function Landing() {
             <a href="#features" className="hover:text-blue-600 transition-colors">Features</a>
             <a href="#integrations" className="hover:text-blue-600 transition-colors">Integrations</a>
             <Link to="/pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
+            <Link to="/mobile-app" className="hover:text-blue-600 transition-colors flex items-center gap-1">
+              <Smartphone className="w-3 h-3" />
+              Mobile App
+            </Link>
             <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
           </div>
           <div className="hidden md:flex items-center gap-3">
@@ -462,6 +468,36 @@ export default function MyApp() {
       </section>
 
       <EmailCapture />
+
+      {/* Mobile App Download */}
+      <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-blue-300 text-xs font-medium mb-8">
+            <Smartphone className="w-3 h-3" />
+            <span className="font-semibold">Now on Mobile</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Take VoiceExecAI anywhere</h2>
+          <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
+            Download our mobile app for iOS and Android. Full features, offline mode, and push notifications.
+          </p>
+          <AppStoreBadges className="justify-center mb-8" />
+          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto text-left">
+            {[
+              { icon: <Smartphone className="w-5 h-5" />, title: 'Native Experience', desc: 'Smooth, fast, and optimized for mobile' },
+              { icon: <Zap className="w-5 h-5" />, title: 'Works Offline', desc: 'Access your data even without internet' },
+              { icon: <CheckCircle className="w-5 h-5" />, title: 'Push Notifications', desc: 'Never miss important updates' }
+            ].map((f, i) => (
+              <div key={i} className="p-6 bg-white/10 backdrop-blur rounded-2xl border border-white/20">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-violet-400 flex items-center justify-center text-white mb-4">
+                  {f.icon}
+                </div>
+                <h3 className="font-semibold text-white mb-2">{f.title}</h3>
+                <p className="text-sm text-blue-200">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Final CTA */}
       <section className="py-24 px-6 bg-gradient-to-br from-blue-600 via-violet-600 to-blue-700 relative overflow-hidden">

@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VoiceExecAI" />
+  <link rel="apple-touch-icon" href="/app-icon-192.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="VoiceExecAI" />
     <meta charset="UTF-8" />
     
     <!-- Google Analytics 4 -->
@@ -157,5 +166,15 @@
     <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">VoiceExecAI — Voice Commands for Email, Inbox Zero in 5 Minutes</h1>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('SW registered:', registration.scope))
+            .catch(error => console.log('SW registration failed:', error));
+        });
+      }
+    </script>
   </body>
 </html>
