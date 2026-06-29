@@ -7,9 +7,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   TrendingUp, TrendingDown, Minus, RefreshCw, Target, AlertTriangle, 
-  CheckCircle, AlertCircle, ArrowRight, Zap, Search, Globe
+  CheckCircle, AlertCircle, ArrowRight, Zap, Search, Globe, Award, FileText
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import CompetitorAnalysis from './CompetitorAnalysis';
+import ContentOpportunities from './ContentOpportunities';
+import ResultsShowcase from './ResultsShowcase';
 
 export default function SEODashboard({ website, onBack }) {
   const queryClient = useQueryClient();
@@ -72,12 +75,18 @@ export default function SEODashboard({ website, onBack }) {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-4 w-full max-w-2xl">
+        <TabsList className="grid grid-cols-6 w-full max-w-3xl">
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="results"><Award className="w-3 h-3 mr-1" />Wins</TabsTrigger>
           <TabsTrigger value="issues">Issues</TabsTrigger>
           <TabsTrigger value="keywords">Keywords</TabsTrigger>
-          <TabsTrigger value="optimizations">Optimizations</TabsTrigger>
+          <TabsTrigger value="competitors"><Target className="w-3 h-3 mr-1" />Competitors</TabsTrigger>
+          <TabsTrigger value="content"><FileText className="w-3 h-3 mr-1" />Content</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="results" className="space-y-6">
+          <ResultsShowcase websiteId={website.id} />
+        </TabsContent>
 
         <TabsContent value="overview" className="space-y-6">
           <div className="grid md:grid-cols-4 gap-4">
@@ -229,39 +238,12 @@ export default function SEODashboard({ website, onBack }) {
           </Card>
         </TabsContent>
 
-        <TabsContent value="optimizations" className="space-y-4">
-          <Card>
-            <CardHeader><CardTitle>Pending Optimizations</CardTitle><CardDescription>Review and approve AI-generated SEO improvements</CardDescription></CardHeader>
-            <CardContent>
-              {pendingOptimizations.length === 0 ? (
-                <div className="text-center py-12"><CheckCircle className="w-12 h-12 mx-auto mb-3 text-green-500" /><p className="font-medium text-slate-500">All caught up!</p><p className="text-sm text-slate-400 mt-1">No pending optimizations</p></div>
-              ) : (
-                <div className="space-y-3">
-                  {pendingOptimizations.map((opt, idx) => (
-                    <div key={idx} className="p-4 border rounded-lg">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge>{opt.optimization_type.replace('_', ' ')}</Badge>
-                            <Badge variant="secondary">Impact: {opt.impact_score}</Badge>
-                          </div>
-                          <p className="text-sm text-slate-500 mb-2">Page: {opt.page_url}</p>
-                          <div className="bg-slate-50 p-3 rounded text-sm">
-                            <p className="font-medium text-xs text-slate-500 mb-1">Optimized Value:</p>
-                            <p className="text-slate-900">{opt.optimized_value}</p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <Button size="sm"><CheckCircle className="w-4 h-4 mr-1" />Approve</Button>
-                          <Button size="sm" variant="outline">Skip</Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+        <TabsContent value="competitors" className="space-y-4">
+          <CompetitorAnalysis websiteId={website.id} />
+        </TabsContent>
+
+        <TabsContent value="content" className="space-y-4">
+          <ContentOpportunities websiteId={website.id} />
         </TabsContent>
       </Tabs>
     </div>

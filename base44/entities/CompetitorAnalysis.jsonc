@@ -1,0 +1,91 @@
+{
+  "name": "CompetitorAnalysis",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "competitor_url": {
+      "type": "string",
+      "description": "Competitor website URL"
+    },
+    "competitor_name": {
+      "type": "string"
+    },
+    "estimated_monthly_traffic": {
+      "type": "number",
+      "description": "Estimated organic traffic"
+    },
+    "domain_authority": {
+      "type": "number",
+      "description": "0-100 domain strength"
+    },
+    "total_keywords": {
+      "type": "number",
+      "description": "Keywords they rank for"
+    },
+    "top_keywords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "position": {
+            "type": "number"
+          },
+          "search_volume": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "content_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "their_position": {
+            "type": "number"
+          },
+          "our_position": {
+            "type": "number"
+          },
+          "opportunity_score": {
+            "type": "number"
+          },
+          "recommended_action": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Keywords they rank for but we don't"
+    },
+    "backlinks_count": {
+      "type": "number",
+      "description": "Total inbound links"
+    },
+    "top_referring_domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "analyzed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_id",
+    "competitor_url"
+  ]
+}

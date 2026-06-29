@@ -1,0 +1,119 @@
+{
+  "name": "ContentOpportunity",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Content topic/title"
+    },
+    "target_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "search_volume": {
+      "type": "number",
+      "description": "Total monthly searches"
+    },
+    "difficulty": {
+      "type": "number",
+      "description": "0-100 competition level"
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "commercial",
+        "transactional",
+        "navigational"
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "blog_post",
+        "guide",
+        "comparison",
+        "listicle",
+        "case_study",
+        "landing_page",
+        "product_page"
+      ]
+    },
+    "estimated_traffic_potential": {
+      "type": "number",
+      "description": "Estimated monthly traffic if ranking #1"
+    },
+    "content_brief": {
+      "type": "object",
+      "properties": {
+        "suggested_title": {
+          "type": "string"
+        },
+        "meta_description": {
+          "type": "string"
+        },
+        "outline": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "word_count": {
+          "type": "number"
+        },
+        "key_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "internal_links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "external_references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ai_generated_content": {
+      "type": "string",
+      "description": "Full AI-written article"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "identified",
+        "brief_ready",
+        "content_created",
+        "published",
+        "ranking"
+      ],
+      "default": "identified"
+    },
+    "priority_score": {
+      "type": "number",
+      "description": "0-100 priority to create this content"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_id",
+    "topic",
+    "search_volume"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "SEOResult",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "metric_type": {
+      "type": "string",
+      "enum": [
+        "traffic_increase",
+        "ranking_improvement",
+        "keyword_gained",
+        "issue_fixed",
+        "competitor_overtaken"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "description": "Achievement title"
+    },
+    "description": {
+      "type": "string",
+      "description": "What was achieved"
+    },
+    "before_value": {
+      "type": "number"
+    },
+    "after_value": {
+      "type": "number"
+    },
+    "improvement_percentage": {
+      "type": "number"
+    },
+    "impact": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "massive"
+      ],
+      "description": "Business impact level"
+    },
+    "estimated_revenue_impact": {
+      "type": "number",
+      "description": "Estimated monthly revenue increase"
+    },
+    "achieved_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_id",
+    "metric_type",
+    "title",
+    "description"
+  ]
+}
