@@ -812,54 +812,7 @@ export default function MyApp() {
         </div>
       </motion.section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 text-slate-300 text-sm">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center">
-                  <Mic className="w-3.5 h-3.5 text-white" />
-                </div>
-                <span className="font-bold text-white text-base">VoiceExecAI</span>
-              </div>
-              <p className="text-slate-400 text-xs leading-relaxed max-w-xs mb-3">
-                The drop-in voice-to-action framework for React developers. Trusted by 500+ apps worldwide.
-              </p>
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <Mail className="w-3 h-3" />
-                <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">support@voiceexecai.com</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Product</h4>
-              <div className="space-y-2">
-                <a href="#features" className="block hover:text-white transition-colors">Features</a>
-                <a href="#integrations" className="block hover:text-white transition-colors">Integrations</a>
-                <a href="#pricing" className="block hover:text-white transition-colors">Pricing</a>
-                <a href="#faq" className="block hover:text-white transition-colors">FAQ</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Platform</h4>
-              <div className="space-y-2">
-                <Link to="/dashboard" className="block hover:text-white transition-colors">Dashboard</Link>
-                <Link to="/analytics" className="block hover:text-white transition-colors">Analytics</Link>
-                <Link to="/playbooks" className="block hover:text-white transition-colors">Playbooks</Link>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-slate-500">© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
-            <div className="flex gap-6">
-              <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="/security" className="hover:text-white transition-colors">Security</a>
-              <a href="/contact" className="hover:text-white transition-colors">Contact</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Integrations */}
       <motion.section 
         id="integrations" 
         initial={{ opacity: 0 }}
@@ -946,19 +899,6 @@ export default function MyApp() {
                     : 'border-slate-200 bg-white text-slate-900 hover:border-blue-300 hover:shadow-xl'
                 }`}
               >
-                {/* Animated background for highlighted plan */}
-                {plan.highlight && (
-                  <motion.div
-                    animate={{ 
-                      background: [
-                        'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
-                        'linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)'
-                      ]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute inset-0 opacity-50"
-                  />
-                )}
                 {plan.highlight && (
                   <motion.div 
                     initial={{ scale: 0 }}
@@ -980,57 +920,30 @@ export default function MyApp() {
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, j) => (
-                    <motion.li 
-                      key={j}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.3 + j * 0.05 }}
-                      className="flex items-start gap-2.5 text-sm"
-                    >
+                    <li key={j} className="flex items-start gap-2.5 text-sm">
                       <CheckCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-blue-200' : 'text-green-500'}`} />
                       <span className={plan.highlight ? 'text-blue-50' : 'text-slate-600'}>{f}</span>
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
+                <Link
+                  to="/pricing"
+                  className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all ${
+                    plan.highlight
+                      ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
+                      : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
+                  }`}
                 >
-                  <Link
-                    to="/dashboard"
-                    className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
-                      plan.highlight
-                        ? 'bg-white text-blue-600 hover:bg-blue-50 shadow-lg'
-                        : 'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg'
-                    }`}
-                  >
-                    {/* Button shimmer */}
-                    <motion.div
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    />
-                    <span className="relative z-10">{plan.cta}</span>
-                  </Link>
-                </motion.div>
+                  {plan.cta}
+                </Link>
               </motion.div>
             ))}
           </div>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-center text-slate-400 text-sm mt-8"
-          >
+          <p className="text-center text-slate-400 text-sm mt-8">
             All plans include a 14-day free trial on paid tiers. No credit card required.
-          </motion.p>
+          </p>
         </div>
       </motion.section>
-
-      {/* empty — duplicate sections removed */}
 
       {/* Lead Capture CTA Banner */}
       <section className="py-12 px-6 bg-gradient-to-r from-green-600 to-emerald-600">
@@ -1047,6 +960,55 @@ export default function MyApp() {
           </Link>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-6 bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 text-slate-300 text-sm">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-10">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center">
+                  <Mic className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="font-bold text-white text-base">VoiceExecAI</span>
+              </div>
+              <p className="text-slate-400 text-xs leading-relaxed max-w-xs mb-3">
+                The drop-in voice-to-action framework for React developers. Trusted by 500+ apps worldwide.
+              </p>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <Mail className="w-3 h-3" />
+                <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">support@voiceexecai.com</a>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Product</h4>
+              <div className="space-y-2">
+                <a href="#features" className="block hover:text-white transition-colors">Features</a>
+                <a href="#integrations" className="block hover:text-white transition-colors">Integrations</a>
+                <a href="#pricing" className="block hover:text-white transition-colors">Pricing</a>
+                <a href="#faq" className="block hover:text-white transition-colors">FAQ</a>
+              </div>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Platform</h4>
+              <div className="space-y-2">
+                <Link to="/dashboard" className="block hover:text-white transition-colors">Dashboard</Link>
+                <Link to="/analytics" className="block hover:text-white transition-colors">Analytics</Link>
+                <Link to="/playbooks" className="block hover:text-white transition-colors">Playbooks</Link>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-slate-500">© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
+            <div className="flex gap-6">
+              <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+              <Link to="/security" className="hover:text-white transition-colors">Security</Link>
+              <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Scroll to Top Button */}
       <motion.button
