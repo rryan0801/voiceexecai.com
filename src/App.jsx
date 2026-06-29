@@ -55,6 +55,7 @@ import LeadPipeline from '@/pages/LeadPipeline';
 import DownloadGuide from '@/pages/DownloadGuide';
 import SEOAutomator from '@/pages/SEOAutomator';
 import MobileApp from '@/pages/MobileApp';
+import SEOResults from '@/pages/SEOResults';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -130,6 +131,7 @@ const AuthenticatedApp = () => {
       <Route path="/download-guide" element={<DownloadGuide />} />
       <Route path="/seo-automator" element={<SEOAutomator />} />
       <Route path="/mobile-app" element={<MobileApp />} />
+      <Route path="/seo-results" element={<SEOResults />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
