@@ -1,0 +1,70 @@
+{
+  "name": "Website",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user ID"
+    },
+    "url": {
+      "type": "string",
+      "description": "Website URL"
+    },
+    "name": {
+      "type": "string",
+      "description": "Website name"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Business industry"
+    },
+    "target_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Primary keywords to target"
+    },
+    "competitors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Competitor website URLs"
+    },
+    "seo_health_score": {
+      "type": "number",
+      "description": "Overall SEO score 0-100"
+    },
+    "last_audit_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "google_search_console_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "google_analytics_connected": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "error"
+      ],
+      "default": "active"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "user_id",
+    "url",
+    "name"
+  ]
+}

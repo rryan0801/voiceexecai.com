@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, Zap, BarChart3, Bot, UsersRound,
   MessageCircle, Phone, BookOpen, TrendingUp, Mail, AlertCircle,
   Target, DollarSign, ChevronDown, Menu, X, Brain, Calendar,
-  GitBranch, Beaker, Settings, LogOut, User
+  GitBranch, Beaker, Settings, LogOut, User, Globe
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { base44 } from '@/api/base44Client';
@@ -63,6 +63,7 @@ const NAV_GROUPS = [
       { path: '/team', label: 'Team', icon: UsersRound },
       { path: '/commands', label: 'Commands', icon: Zap },
       { path: '/crm-adapter', label: 'CRM Adapter', icon: Settings },
+      { path: '/seo-automator', label: 'SEO Automator', icon: Globe, badge: 'NEW' },
       { path: '/billshield', label: 'BillShield', icon: DollarSign },
       { path: '/tests', label: 'Tests', icon: Beaker },
     ]

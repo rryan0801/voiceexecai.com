@@ -1,0 +1,58 @@
+{
+  "name": "SEOOptimization",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "page_url": {
+      "type": "string"
+    },
+    "optimization_type": {
+      "type": "string",
+      "enum": [
+        "meta_title",
+        "meta_description",
+        "og_tags",
+        "structured_data",
+        "heading",
+        "content",
+        "image_alt"
+      ]
+    },
+    "original_value": {
+      "type": "string"
+    },
+    "optimized_value": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "applied",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "impact_score": {
+      "type": "number",
+      "description": "Expected SEO impact 0-100"
+    },
+    "applied_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "applied_by": {
+      "type": "string",
+      "description": "User who applied or 'auto'"
+    }
+  },
+  "required": [
+    "website_id",
+    "page_url",
+    "optimization_type",
+    "optimized_value"
+  ]
+}

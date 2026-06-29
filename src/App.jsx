@@ -51,6 +51,7 @@ import Ambassador from '@/pages/Ambassador';
 import GetLeads from '@/pages/GetLeads';
 import LeadPipeline from '@/pages/LeadPipeline';
 import DownloadGuide from '@/pages/DownloadGuide';
+import SEOAutomator from '@/pages/SEOAutomator';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -124,6 +125,7 @@ const AuthenticatedApp = () => {
       <Route path="/get-leads" element={<GetLeads />} />
       <Route path="/lead-pipeline" element={<LeadPipeline />} />
       <Route path="/download-guide" element={<DownloadGuide />} />
+      <Route path="/seo-automator" element={<SEOAutomator />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

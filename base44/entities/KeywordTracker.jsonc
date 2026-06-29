@@ -1,0 +1,65 @@
+{
+  "name": "KeywordTracker",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "search_volume": {
+      "type": "number",
+      "description": "Monthly searches"
+    },
+    "difficulty": {
+      "type": "number",
+      "description": "0-100 competition level"
+    },
+    "cpc": {
+      "type": "number",
+      "description": "Cost per click"
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "informational",
+        "commercial",
+        "navigational",
+        "transactional"
+      ]
+    },
+    "current_rank": {
+      "type": "number",
+      "description": "Current Google position"
+    },
+    "previous_rank": {
+      "type": "number"
+    },
+    "rank_change": {
+      "type": "number",
+      "description": "Position change"
+    },
+    "url_ranking": {
+      "type": "string",
+      "description": "Which page ranks for this keyword"
+    },
+    "opportunity_score": {
+      "type": "number",
+      "description": "0-100 priority to target"
+    },
+    "tracked_since": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_checked": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_id",
+    "keyword"
+  ]
+}

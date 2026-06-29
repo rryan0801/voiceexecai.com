@@ -1,0 +1,76 @@
+{
+  "name": "OrganicTraffic",
+  "type": "object",
+  "properties": {
+    "website_id": {
+      "type": "string",
+      "description": "Reference to Website"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "organic_sessions": {
+      "type": "number"
+    },
+    "organic_users": {
+      "type": "number"
+    },
+    "pageviews": {
+      "type": "number"
+    },
+    "avg_session_duration": {
+      "type": "number",
+      "description": "Seconds"
+    },
+    "bounce_rate": {
+      "type": "number",
+      "description": "Percentage"
+    },
+    "top_landing_pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "sessions": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "top_keywords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "clicks": {
+            "type": "number"
+          },
+          "impressions": {
+            "type": "number"
+          },
+          "ctr": {
+            "type": "number"
+          },
+          "position": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "tracked_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "website_id",
+    "date"
+  ]
+}
