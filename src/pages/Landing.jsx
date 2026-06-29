@@ -137,9 +137,11 @@ export default function Landing() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
-              <Mic className="w-4 h-4 text-white" />
-            </div>
+            <img
+              src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
+              alt="VoiceExecAI"
+              className="w-8 h-8"
+            />
             <span className="font-bold text-lg text-slate-900">VoiceExec<span className="text-blue-600">AI</span></span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-slate-600">
@@ -502,9 +504,11 @@ export default function MyApp() {
           <div className="grid md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center">
-                  <Mic className="w-3.5 h-3.5 text-white" />
-                </div>
+                <img
+                  src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
+                  alt="VoiceExecAI"
+                  className="w-7 h-7"
+                />
                 <span className="font-bold text-white text-base">VoiceExecAI</span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed max-w-xs mb-3">

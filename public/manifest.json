@@ -1,0 +1,24 @@
+{
+  "name": "VoiceExecAI",
+  "short_name": "VoiceExecAI",
+  "description": "Voice-first email management and sales automation",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/8e4371b5e_generated_image.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

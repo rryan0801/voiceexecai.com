@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  Mic, LayoutDashboard, Users, Zap, BarChart3, Bot, UsersRound,
+  LayoutDashboard, Users, Zap, BarChart3, Bot, UsersRound,
   MessageCircle, Phone, BookOpen, TrendingUp, Mail, AlertCircle,
   Target, DollarSign, ChevronDown, Menu, X, Brain, Calendar,
   GitBranch, Beaker, Settings, LogOut, User
@@ -179,9 +179,11 @@ export default function NavBar() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
-              <Mic className="w-4 h-4 text-white" />
-            </div>
+            <img
+              src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
+              alt="VoiceExecAI"
+              className="w-8 h-8"
+            />
             <span className="font-bold text-slate-900 text-base hidden sm:block">
               VoiceExec<span className="text-blue-600">AI</span>
             </span>
