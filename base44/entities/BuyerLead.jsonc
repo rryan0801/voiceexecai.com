@@ -1,0 +1,86 @@
+{
+  "name": "BuyerLead",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": [
+        "roofing",
+        "plumbing",
+        "hvac",
+        "electrical",
+        "landscaping",
+        "cleaning",
+        "painting",
+        "general_contractor",
+        "pest_control",
+        "solar",
+        "other"
+      ],
+      "description": "Service vertical"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "nurturing",
+        "converted",
+        "lost"
+      ],
+      "default": "new"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "default": "landing_page"
+    },
+    "welcome_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "followup1_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "followup2_sent": {
+      "type": "boolean",
+      "default": false
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "phone",
+    "vertical",
+    "city",
+    "state"
+  ]
+}

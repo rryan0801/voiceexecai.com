@@ -48,6 +48,8 @@ import Contact from '@/pages/Contact';
 import Pricing from '@/pages/Pricing';
 import CheckoutSuccess from '@/pages/CheckoutSuccess';
 import Ambassador from '@/pages/Ambassador';
+import GetLeads from '@/pages/GetLeads';
+import LeadPipeline from '@/pages/LeadPipeline';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -118,6 +120,8 @@ const AuthenticatedApp = () => {
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
       <Route path="/ambassador" element={<Ambassador />} />
+      <Route path="/get-leads" element={<GetLeads />} />
+      <Route path="/lead-pipeline" element={<LeadPipeline />} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -1,0 +1,71 @@
+{
+  "name": "OutreachCampaign",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign name"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "welcome",
+        "follow_up",
+        "promo",
+        "social_proof",
+        "custom"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "recipient_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "BuyerLead IDs"
+    },
+    "sent_count": {
+      "type": "number",
+      "default": 0
+    },
+    "delivered_count": {
+      "type": "number",
+      "default": 0
+    },
+    "open_count": {
+      "type": "number",
+      "default": 0
+    },
+    "converted_count": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "failed"
+      ],
+      "default": "draft"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sent_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "template_type",
+    "subject",
+    "body"
+  ]
+}

@@ -1030,131 +1030,23 @@ export default function MyApp() {
         </div>
       </motion.section>
 
-      {/* Testimonials */}
-      <section id="testimonials" className="py-24 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Loved by builders</h2>
-            <p className="text-lg text-slate-500">Here's what teams say after going live.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="bg-slate-50 rounded-2xl p-8 border border-slate-100">
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-slate-700 text-sm leading-relaxed mb-6 italic">"{t.quote}"</p>
-                <div>
-                  <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
-                  <p className="text-slate-400 text-xs">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* empty — duplicate sections removed */}
 
-      {/* FAQ */}
-      <section id="faq" className="py-24 px-6 bg-slate-50">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Frequently asked questions</h2>
-            <p className="text-lg text-slate-500">Everything you need to know before getting started.</p>
+      {/* Lead Capture CTA Banner */}
+      <section className="py-12 px-6 bg-gradient-to-r from-green-600 to-emerald-600">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+          <div>
+            <h3 className="text-2xl font-bold mb-1">Are you a contractor or service business?</h3>
+            <p className="text-green-100">Get leads in your area — roofing, plumbing, HVAC, electrical, and more.</p>
           </div>
-          <div className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <FAQItem key={i} q={faq.q} a={faq.a} />
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <p className="text-slate-500 text-sm">
-              Still have questions?{' '}
-              <Link to="/dashboard" className="text-blue-600 hover:underline font-medium">
-                Reach out to our team →
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-6 bg-gradient-to-br from-blue-600 to-violet-600">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Ready to go voice-first?</h2>
-          <p className="text-blue-100 text-lg mb-10">Join hundreds of teams shipping smarter apps with VoiceExecAI.</p>
           <Link
-            to="/dashboard"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors text-lg shadow-xl"
+            to="/get-leads"
+            className="flex-shrink-0 flex items-center gap-2 px-8 py-4 bg-white text-green-700 font-bold rounded-xl hover:bg-green-50 transition-all shadow-lg whitespace-nowrap"
           >
-            Get Started Free <ArrowRight className="w-5 h-5" />
+            Get Leads in My Area <ArrowRight className="w-5 h-5" />
           </Link>
-          <p className="text-blue-200 text-sm mt-4">No credit card · Free tier · Cancel anytime</p>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 bg-slate-900 text-slate-400 text-sm">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
-                  <Mic className="w-3.5 h-3.5 text-white" />
-                </div>
-                <span className="font-bold text-white text-base">VoiceExecAI</span>
-              </div>
-              <p className="text-slate-500 text-xs leading-relaxed max-w-xs mb-3">
-                The drop-in voice-to-action framework for React developers. Trusted by 500+ apps worldwide.
-              </p>
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <Mail className="w-3 h-3" />
-                <a href="mailto:support@voiceexecai.com" className="hover:text-white transition-colors">support@voiceexecai.com</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Product</h4>
-              <div className="space-y-2">
-                <a href="#features" className="block hover:text-white transition-colors">Features</a>
-                <a href="#integrations" className="block hover:text-white transition-colors">Integrations</a>
-                <a href="#pricing" className="block hover:text-white transition-colors">Pricing</a>
-                <a href="#faq" className="block hover:text-white transition-colors">FAQ</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Platform</h4>
-              <div className="space-y-2">
-                <Link to="/dashboard" className="block hover:text-white transition-colors">Dashboard</Link>
-                <Link to="/analytics" className="block hover:text-white transition-colors">Analytics</Link>
-                <Link to="/playbooks" className="block hover:text-white transition-colors">Playbooks</Link>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
-          <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Security', 'Contact'].map((link, i) => (
-              <motion.a
-                key={link}
-                href={link.toLowerCase().replace(' ', '-')}
-                whileHover={{ y: -2, color: 'rgb(255, 255, 255)' }}
-                transition={{ duration: 0.2 }}
-                className="text-slate-400 hover:text-white transition-colors relative group"
-              >
-                {link}
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileHover={{ width: '100%' }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute -bottom-1 left-0 h-px bg-gradient-to-r from-blue-400 to-violet-400"
-                />
-              </motion.a>
-            ))}
-          </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Scroll to Top Button */}
       <motion.button
