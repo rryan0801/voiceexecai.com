@@ -41,18 +41,118 @@ Deno.serve(async (req) => {
     doc.text('Implementation Guide', pageWidth / 2, 60, { align: 'center' });
     
     // Info
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(255, 255, 255);
     doc.setFontSize(11);
     doc.text('Production-Ready Deployment Instructions', pageWidth / 2, 90, { align: 'center' });
     doc.text('⏱️ Time: 3-4 hours | 📊 Difficulty: Beginner-friendly', pageWidth / 2, 100, { align: 'center' });
     doc.text('📅 Last Updated: June 29, 2026 | ✅ Status: Production-Ready', pageWidth / 2, 110, { align: 'center' });
     
+    // Personal message from Richard Ryan
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.text('Prepared for: Manus Development Team', pageWidth / 2, 130, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
+    doc.text('With compliments from Richard Ryan', pageWidth / 2, 140, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.text('Gmail Connector: Richard Ryan', pageWidth / 2, 147, { align: 'center' });
+    
     // Footer
-    doc.setTextColor(150, 150, 150);
+    doc.setTextColor(200, 200, 200);
     doc.setFontSize(9);
     doc.text('Confidential - For Manus Development Team', pageWidth / 2, 280, { align: 'center' });
 
-    // Add new page for content
+    // Add new page for content - Welcome Letter from Richard Ryan
+    doc.addPage();
+    yPos = margin;
+    
+    // Welcome letter header
+    doc.setFillColor(59, 130, 246);
+    doc.rect(margin, yPos - 5, contentWidth, 10, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('👋 Welcome from Richard Ryan', margin + 5, yPos + 2);
+    
+    yPos += 15;
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    
+    const welcomeLines = [
+      'Dear Manus Team,',
+      '',
+      'Welcome to VoiceExecAI! This guide will walk you through the final steps to get',
+      'the platform production-ready. I\'ve spent considerable time building out the core',
+      'functionality - 80+ backend functions, 30+ database entities, Stripe payments,',
+      'email automation, analytics, and OAuth integrations are all complete.',
+      '',
+      'What you need to do is straightforward:',
+      '• Add brand assets (logos, favicons, social images)',
+      '• Configure SEO meta tags and structured data',
+      '• Verify Stripe payment integration',
+      '• Enable email automation',
+      '• Test everything thoroughly',
+      '',
+      'Follow each step in order. Don\'t skip anything. Check every box. If you run into',
+      'issues, the troubleshooting section at the end covers common problems.',
+      '',
+      'The app is production-ready. You\'ve got this!',
+      '',
+      'Best regards,',
+      'Richard Ryan',
+      'VoiceExecAI'
+    ];
+    
+    welcomeLines.forEach(line => {
+      if (line === '') {
+        yPos += 3;
+      } else {
+        if (line.startsWith('•') || line.startsWith('Dear') || line.startsWith('Best') || line.startsWith('Richard')) {
+          doc.setFont('helvetica', 'bold');
+        } else {
+          doc.setFont('helvetica', 'normal');
+        }
+        const wrappedLines = doc.splitTextToSize(line, contentWidth);
+        wrappedLines.forEach(wrappedLine => {
+          if (yPos > pageHeight - margin - 10) {
+            doc.addPage();
+            yPos = margin;
+          }
+          doc.text(wrappedLine, margin + 5, yPos);
+          yPos += 6;
+        });
+      }
+    });
+    
+    yPos += 10;
+    
+    // Contact info box
+    doc.setFillColor(241, 245, 249);
+    doc.roundedRect(margin, yPos, contentWidth, 15, 2, 2, 'F');
+    doc.setTextColor(59, 130, 246);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('📧 Connected Integrations:', margin + 5, yPos + 5);
+    doc.setTextColor(100, 100, 100);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Gmail (Richard Ryan) | LinkedIn Recruiter | Google Calendar | Outlook (myOutlook)', margin + 5, yPos + 11);
+    
+    yPos += 20;
+    
+    // Quick start info
+    doc.setFillColor(254, 240, 138);
+    doc.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
+    doc.setTextColor(180, 83, 9);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('⚠️ Before You Start: Get these 4 logins from the project owner:', margin + 5, yPos + 5);
+    yPos += 10;
+    doc.setTextColor(100, 100, 100);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Base44 | Stripe | Resend | Google Analytics (optional)', margin + 5, yPos);
+    
+    // Add page break before table of contents
     doc.addPage();
     yPos = margin;
 
@@ -765,6 +865,71 @@ Deno.serve(async (req) => {
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.text('Last Updated: June 29, 2026 | Status: Production-Ready', pageWidth / 2, 280, { align: 'center' });
+
+    // ============ BACK COVER - Personal Note ============
+    doc.addPage();
+    
+    // Blue background
+    doc.setFillColor(59, 130, 246);
+    doc.rect(0, 0, pageWidth, 100, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.text('🎉 You\'re All Set!', pageWidth / 2, 50, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Follow this guide step-by-step and you\'ll have VoiceExecAI', pageWidth / 2, 65, { align: 'center' });
+    doc.text('production-ready in 3-4 hours.', pageWidth / 2, 75, { align: 'center' });
+    
+    // Personal signature
+    yPos = 130;
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Questions or need help?', pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 10;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text('Reach out to Richard Ryan', pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 8;
+    doc.setFont('helvetica', 'italic');
+    doc.text('VoiceExecAI Development Team', pageWidth / 2, yPos, { align: 'center' });
+    
+    // Connected services
+    yPos += 15;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(59, 130, 246);
+    doc.text('🔗 Authorized Integrations:', pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 8;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(10);
+    const integrations = [
+      '✓ Gmail (Richard Ryan)',
+      '✓ LinkedIn Recruiter',
+      '✓ Google Calendar',
+      '✓ Outlook (myOutlook)'
+    ];
+    integrations.forEach((integration, idx) => {
+      doc.text(integration, pageWidth / 2, yPos + (idx * 6), { align: 'center' });
+    });
+    
+    // Final encouragement
+    yPos += 40;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(59, 130, 246);
+    doc.text('Good luck! You\'ve got this. 🚀', pageWidth / 2, yPos, { align: 'center' });
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(9);
+    doc.text('VoiceExecAI - Production-Ready Deployment Guide', pageWidth / 2, 280, { align: 'center' });
 
     // Convert PDF to blob and return
     const pdfBytes = doc.output('arraybuffer');
