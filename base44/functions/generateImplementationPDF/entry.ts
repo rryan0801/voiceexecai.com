@@ -44,8 +44,8 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(11);
     doc.text('Production-Ready Deployment Instructions', pageWidth / 2, 90, { align: 'center' });
-    doc.text('Time: 3-4 hours | Difficulty: Beginner-friendly', pageWidth / 2, 100, { align: 'center' });
-    doc.text('Last Updated: June 29, 2026 | Status: Production-Ready', pageWidth / 2, 110, { align: 'center' });
+    doc.text('Difficulty: Beginner-friendly', pageWidth / 2, 100, { align: 'center' });
+    doc.text('Status: Production-Ready', pageWidth / 2, 110, { align: 'center' });
     
     // Personal message from Richard Ryan
     doc.setTextColor(255, 255, 255);
@@ -249,7 +249,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 1: Brand Assets (45 min)', margin + 5, yPos + 2);
+    doc.text('Part 1: Brand Assets', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(50, 50, 50);
@@ -328,7 +328,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 2: SEO & Analytics (30 min)', margin + 5, yPos + 2);
+    doc.text('Part 2: SEO & Analytics', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(50, 50, 50);
@@ -392,7 +392,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 3: Stripe Payments (30 min)', margin + 5, yPos + 2);
+    doc.text('Part 3: Stripe Payments', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(50, 50, 50);
@@ -471,7 +471,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 4: Email Automation (30 min)', margin + 5, yPos + 2);
+    doc.text('Part 4: Email Automation', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(50, 50, 50);
@@ -544,7 +544,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 5: Testing (60 min)', margin + 5, yPos + 2);
+    doc.text('Part 5: Testing', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(220, 50, 50);
@@ -657,7 +657,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.text('Part 6: Final Checklist (30 min)', margin + 5, yPos + 2);
+    doc.text('Part 6: Final Checklist', margin + 5, yPos + 2);
     
     yPos += 15;
     doc.setTextColor(50, 50, 50);
@@ -864,7 +864,7 @@ Deno.serve(async (req) => {
     doc.setTextColor(150, 150, 150);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
-    doc.text('Last Updated: June 29, 2026 | Status: Production-Ready', pageWidth / 2, 280, { align: 'center' });
+    doc.text('Status: Production-Ready', pageWidth / 2, 280, { align: 'center' });
 
     // ============ BACK COVER - Personal Note ============
     doc.addPage();
@@ -881,7 +881,7 @@ Deno.serve(async (req) => {
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
     doc.text('Follow this guide step-by-step and you\'ll have VoiceExecAI', pageWidth / 2, 65, { align: 'center' });
-    doc.text('production-ready in 3-4 hours.', pageWidth / 2, 75, { align: 'center' });
+    doc.text('production-ready.', pageWidth / 2, 75, { align: 'center' });
     
     // Personal signature
     yPos = 130;
