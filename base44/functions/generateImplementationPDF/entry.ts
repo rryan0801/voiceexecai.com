@@ -60,7 +60,7 @@ Deno.serve(async (req) => {
     // Footer
     doc.setTextColor(200, 200, 200);
     doc.setFontSize(9);
-    doc.text('Confidential - For Manus Development Team', pageWidth / 2, 280, { align: 'center' });
+    doc.text('Confidential', pageWidth / 2, 280, { align: 'center' });
 
     // Add new page for content - Welcome Letter from Richard Ryan
     doc.addPage();
