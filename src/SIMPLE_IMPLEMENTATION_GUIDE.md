@@ -1,4 +1,4 @@
-# VoiceExecAI - Simple Implementation Guide
+# Implementation Guide
 ## Anyone Can Follow This (Even a 5th Grader)
 
 **What This Is:** A complete guide to finish the platform  
@@ -11,7 +11,7 @@
 
 ### What You're Building
 
-VoiceExecAI does two things:
+The platform does two things:
 1. **Voice Commands for Email** - People speak commands, the app manages their email
 2. **Contractor Leads** - Plumbers, roofers, etc. get customer leads in their area
 
@@ -60,10 +60,10 @@ You need 5 images. Use an AI image generator (like Midjourney, DALL-E, or Base44
 Copy and paste this prompt into your AI image tool:
 
 ```
-Professional tech logo for VoiceExecAI - a sleek modern microphone 
-icon combined with sound waves, gradient from electric blue (#3B82F6) 
-to violet (#8B5CF6), minimalist design, white background, app icon 
-style, high contrast, suitable for website header
+Professional tech logo - a sleek modern microphone icon combined 
+with sound waves, gradient from electric blue (#3B82F6) to violet 
+(#8B5CF6), minimalist design, white background, app icon style, 
+high contrast, suitable for website header
 ```
 
 Save it as: `logo.png`
@@ -80,9 +80,9 @@ Save it as: `favicon-32x32.png`
 **Image 3: iPhone Home Screen Icon (180x180 pixels)**
 
 ```
-VoiceExecAI app icon, microphone with sound waves, blue violet 
-gradient, iOS app icon style, 180x180 pixels, white background, 
-clean and simple
+App icon, microphone with sound waves, blue violet gradient, 
+iOS app icon style, 180x180 pixels, white background, clean 
+and simple
 ```
 
 Save it as: `apple-touch-icon.png`
@@ -90,10 +90,10 @@ Save it as: `apple-touch-icon.png`
 **Image 4: Facebook/LinkedIn Share Image (1200x630 pixels)**
 
 ```
-VoiceExecAI social media banner, modern tech background with 
-gradient blue to violet, abstract sound waves and AI neural 
-patterns, professional SaaS aesthetic, 1200x630 pixels, space 
-for text overlay
+Social media banner, modern tech background with gradient blue 
+to violet, abstract sound waves and AI neural patterns, 
+professional SaaS aesthetic, 1200x630 pixels, space for text 
+overlay
 ```
 
 Save it as: `og-image.png`
@@ -101,8 +101,8 @@ Save it as: `og-image.png`
 **Image 5: Twitter Share Image (1200x630 pixels)**
 
 ```
-VoiceExecAI Twitter card banner, gradient blue violet 
-background, sound wave patterns, tech SaaS style, 1200x630 pixels
+Twitter card banner, gradient blue violet background, sound 
+wave patterns, tech SaaS style, 1200x630 pixels
 ```
 
 Save it as: `twitter-card.png`
@@ -164,8 +164,8 @@ Twitter Card: https://_________________________________________
 
 ```json
 {
-  "name": "VoiceExecAI",
-  "short_name": "VoiceExecAI",
+  "name": "Platform App",
+  "short_name": "Platform",
   "description": "Voice-first email management and sales automation app",
   "start_url": "/dashboard",
   "display": "standalone",
@@ -205,7 +205,7 @@ Find this:
 ```jsx
 <img
   src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
-  alt="VoiceExecAI"
+  alt="Platform"
   className="w-8 h-8"
 />
 ```
@@ -214,7 +214,7 @@ Replace with:
 ```jsx
 <img
   src="[YOUR_LOGO_URL]"
-  alt="VoiceExecAI"
+  alt="Platform"
   className="w-8 h-8"
 />
 ```
@@ -258,11 +258,11 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
 
 ```html
 <!-- Primary SEO - tells Google what your site is about -->
-<title>VoiceExecAI — Voice Commands for Email | Inbox Zero in 5 Minutes</title>
-<meta name="description" content="Voice commands for email. VoiceExecAI reads your inbox aloud — you reply by voice. Reach inbox zero in 5 minutes. Free to start." />
+<title>Voice Commands for Email | Inbox Zero in 5 Minutes</title>
+<meta name="description" content="Voice commands for email. Reads your inbox aloud — you reply by voice. Reach inbox zero in 5 minutes. Free to start." />
 <meta name="keywords" content="inbox zero, voice email, email management, email triage, voice commands, sales automation, CRM automation" />
-<meta name="author" content="VoiceExecAI" />
-<link rel="canonical" href="https://voiceexecai.com/" />
+<meta name="author" content="Platform" />
+<link rel="canonical" href="https://yourdomain.com/" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
 <!-- Google Search Console Verification (proves you own the site) -->
@@ -302,7 +302,7 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
   "@graph": [
     {
       "@type": "SoftwareApplication",
-      "name": "VoiceExecAI",
+      "name": "Platform App",
       "operatingSystem": "Web, iOS, Android",
       "applicationCategory": "ProductivityApplication",
       "offers": {
@@ -318,23 +318,23 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
         "reviewCount": "347"
       },
       "description": "Voice-first email management and sales automation app. Reach inbox zero in 5 minutes every morning using voice commands.",
-      "url": "https://voiceexecai.com",
+      "url": "https://yourdomain.com",
       "logo": "[YOUR_LOGO_URL]",
       "screenshot": "[YOUR_OG_IMAGE_URL]"
     },
     {
       "@type": "Organization",
-      "name": "VoiceExecAI",
-      "url": "https://voiceexecai.com",
+      "name": "Platform",
+      "url": "https://yourdomain.com",
       "logo": "[YOUR_LOGO_URL]",
       "sameAs": [
-        "https://twitter.com/voiceexecai",
-        "https://linkedin.com/company/voiceexecai",
-        "https://producthunt.com/products/voiceexecai"
+        "https://twitter.com/yourplatform",
+        "https://linkedin.com/company/yourplatform",
+        "https://producthunt.com/products/yourplatform"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "hello@voiceexecai.com",
+        "email": "hello@yourplatform.com",
         "contactType": "customer support"
       }
     },
@@ -346,7 +346,7 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
           "name": "How does voice email management work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VoiceExecAI reads your email subject lines and senders aloud. You respond with voice commands: 'delete', 'file to invoices', 'unsubscribe', or 'flag'. No clicking required."
+            "text": "The app reads your email subject lines and senders aloud. You respond with voice commands: 'delete', 'file to invoices', 'unsubscribe', or 'flag'. No clicking required."
           }
         },
         {
@@ -359,18 +359,18 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
         },
         {
           "@type": "Question",
-          "name": "Does VoiceExecAI read my emails?",
+          "name": "Does the app read my emails?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VoiceExecAI processes email metadata (sender, subject, date) to make triage suggestions. It does not read or store email bodies. Your email content stays private."
+            "text": "The app processes email metadata (sender, subject, date) to make triage suggestions. It does not read or store email bodies. Your email content stays private."
           }
         },
         {
           "@type": "Question",
-          "name": "What email providers does VoiceExecAI support?",
+          "name": "What email providers are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VoiceExecAI supports Gmail, Outlook, and all standard IMAP email providers including Yahoo, Apple Mail, Fastmail, and custom business email."
+            "text": "The app supports Gmail, Outlook, and all standard IMAP email providers including Yahoo, Apple Mail, Fastmail, and custom business email."
           }
         },
         {
@@ -378,7 +378,7 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
           "name": "Is there a free plan?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. VoiceExecAI has a free plan with no credit card required. Pro plans start at $49/month for unlimited email processing."
+            "text": "Yes. There is a free plan with no credit card required. Pro plans start at $49/month for unlimited email processing."
           }
         }
       ]
@@ -393,7 +393,7 @@ If Google can't understand your site, nobody will find it. SEO (Search Engine Op
 ### ✅ How to Know You Did This Right
 
 - [ ] Google Rich Results Test shows no errors: https://search.google.com/test/rich-results
-- [ ] When you search for your site on Google, the title and description match what you wrote
+- [ ] When you search for the site on Google, the title and description match what you wrote
 - [ ] Google Analytics shows real-time visitors when you visit the site
 - [ ] Microsoft Clarity records your session
 
@@ -600,36 +600,36 @@ Testing catches problems before real users do. Don't skip this part.
 
 **Tool 1: Google Rich Results Test**
 - URL: https://search.google.com/test/rich-results
-- Enter: https://voiceexecai.com
+- Enter: https://yourdomain.com
 - **Expected:** Shows SoftwareApplication, Organization, and FAQPage schemas with no errors
 
 **Tool 2: Open Graph Preview**
 - URL: https://www.opengraph.xyz
-- Enter: https://voiceexecai.com
+- Enter: https://yourdomain.com
 - **Expected:** Shows your OG image, title, and description
 
 **Tool 3: Mobile-Friendly Test**
 - URL: https://search.google.com/test/mobile-friendly
-- Enter: https://voiceexecai.com
+- Enter: https://yourdomain.com
 - **Expected:** "Mobile-friendly" badge
 
 **Tool 4: PageSpeed Insights**
 - URL: https://pagespeed.web.dev/
-- Enter: https://voiceexecai.com
+- Enter: https://yourdomain.com
 - **Expected:** 80+ score on mobile, 90+ on desktop
 
 ### Test 6: Analytics
 
 **Google Analytics:**
 1. Go to https://analytics.google.com
-2. Find property G-63BS3L5HJ1
+2. Find your property ID
 3. Click "Realtime" report
-4. Visit voiceexecai.com in a new tab
+4. Visit your site in a new tab
 5. **Expected:** Your pageview appears in the realtime report within 10 seconds
 
 **Microsoft Clarity:**
 1. Go to https://clarity.microsoft.com
-2. Find project x2gmvyuvm4
+2. Find your project
 3. Click "Recordings"
 4. **Expected:** Your session is recorded and appears in the list
 
@@ -740,7 +740,7 @@ Go through this checklist. Every single item must be checked.
 
 **Solution:**
 1. Go to https://developers.facebook.com/tools/debug/
-2. Enter your URL
+2. Enter your site URL
 3. Click "Scrape Again"
 4. Facebook will show what it sees - fix any errors
 
@@ -748,7 +748,7 @@ Go through this checklist. Every single item must be checked.
 
 **Solution:**
 1. Go to https://search.google.com/test/rich-results
-2. Enter your URL
+2. Enter your site URL
 3. Google will show errors in your JSON-LD
 4. Fix the errors shown
 
@@ -781,7 +781,7 @@ If you checked every box in the final checklist, congratulations! The app is rea
 ✅ Mobile responsive verified  
 ✅ All OAuth connectors authorized  
 
-The app is production-ready."
+The platform is production-ready."
 
 ---
 
