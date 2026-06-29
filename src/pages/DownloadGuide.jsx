@@ -1,37 +1,56 @@
 import React, { useState } from 'react';
-import { Download, FileText, CheckCircle } from 'lucide-react';
+import { Download, FileText, CheckCircle, File } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function DownloadGuide() {
-  const [downloading, setDownloading] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
+  const [downloadingPDF, setDownloadingPDF] = useState(false);
+  const [downloadingDOCX, setDownloadingDOCX] = useState(false);
 
-  const handleDownload = async () => {
+  const handleDownloadPDF = async () => {
     try {
-      setDownloading(true);
+      setDownloadingPDF(true);
       
-      const response = await base44.functions.invoke('generateImplementationPDF', {});
+      const response = await base44.functions.invoke('generateImplementationGuidePDF', {});
       
-      // Create download link
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'VoiceExecAI_Implementation_Guide.pdf';
+      link.download = 'Implementation_Guide.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      
-      setDownloaded(true);
-      setTimeout(() => setDownloaded(false), 3000);
     } catch (error) {
       console.error('Download failed:', error);
       alert('Failed to generate PDF. Please try again.');
     } finally {
-      setDownloading(false);
+      setDownloadingPDF(false);
+    }
+  };
+
+  const handleDownloadDOCX = async () => {
+    try {
+      setDownloadingDOCX(true);
+      
+      const response = await base44.functions.invoke('generateImplementationGuideDOCX', {});
+      
+      const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Implementation_Guide.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Failed to generate DOCX. Please try again.');
+    } finally {
+      setDownloadingDOCX(false);
     }
   };
 
@@ -42,7 +61,7 @@ export default function DownloadGuide() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-4 shadow-sm">
             <FileText className="w-3 h-3" />
-            <span className="font-semibold">Professional PDF Document</span>
+            <span className="font-semibold">PDF & Word Documents</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
@@ -97,7 +116,11 @@ export default function DownloadGuide() {
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span>Beautiful professional design with VoiceExecAI branding</span>
+                    <span>Available in PDF and Word (DOCX) formats</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span>Beautiful professional design with branding</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
@@ -111,37 +134,47 @@ export default function DownloadGuide() {
                     <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
                     <span>Troubleshooting section for common problems</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span>Completion checklist and report template</span>
-                  </li>
                 </ul>
               </div>
 
-              {/* Download Button */}
+              {/* Download Buttons */}
               <div className="pt-4 border-t border-slate-200">
-                <Button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 shadow-lg"
-                >
-                  {downloading ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                      Generating PDF...
-                    </>
-                  ) : downloaded ? (
-                    <>
-                      <CheckCircle className="w-5 h-5 mr-2" />
-                      Download Started!
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-5 h-5 mr-2" />
-                      Download Implementation Guide (PDF)
-                    </>
-                  )}
-                </Button>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Button
+                    onClick={handleDownloadPDF}
+                    disabled={downloadingPDF}
+                    className="h-14 text-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 shadow-lg"
+                  >
+                    {downloadingPDF ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="w-5 h-5 mr-2" />
+                        Download PDF
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    onClick={handleDownloadDOCX}
+                    disabled={downloadingDOCX}
+                    className="h-14 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 shadow-lg"
+                  >
+                    {downloadingDOCX ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <File className="w-5 h-5 mr-2" />
+                        Download Word (DOCX)
+                      </>
+                    )}
+                  </Button>
+                </div>
                 <p className="text-center text-xs text-slate-400 mt-3">
                   ~8-10 pages | Professional quality | Ready to share
                 </p>
