@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Globe, Search, BarChart3, Target, TrendingUp } from 'lucide-react';
+import { Plus, Globe, Search, BarChart3, Target, TrendingUp, Zap, Award, FileText, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WebsiteCard from '@/components/seo/WebsiteCard';
 import AddWebsiteForm from '@/components/seo/AddWebsiteForm';
@@ -109,48 +109,84 @@ export default function SEOAutomator() {
       {/* Features Section */}
       {!showAddForm && websites?.length === 0 && (
         <div className="mt-16">
-          <h2 className="text-2xl font-bold text-center mb-8">What SEO Automator Does</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-3">Your Complete SEO Department on Autopilot</h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+              Everything you need to rank #1 — powered by AI, running 24/7, zero manual work required
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
               {
                 icon: <Search className="w-6 h-6" />,
                 title: 'Automated Audits',
-                desc: 'AI scans your entire site for SEO issues — technical, content, and on-page problems identified instantly'
+                desc: 'AI scans your entire site for SEO issues — technical, content, and on-page problems identified instantly',
+                gradient: 'from-blue-500 to-cyan-600'
               },
               {
-                icon: <Globe className="w-6 h-6" />,
+                icon: <Target className="w-6 h-6" />,
                 title: 'Keyword Research',
-                desc: 'Discovers high-value keywords your customers search for, with volume, difficulty, and opportunity scores'
+                desc: 'Discovers high-value keywords your customers search for, with volume, difficulty, and opportunity scores',
+                gradient: 'from-purple-500 to-pink-600'
               },
               {
-                icon: <Plus className="w-6 h-6" />,
+                icon: <Zap className="w-6 h-6" />,
                 title: 'Auto-Optimization',
-                desc: 'Generates perfect meta tags, descriptions, and structured data — apply with one click or fully automatic'
+                desc: 'Generates perfect meta tags, descriptions, and structured data — apply with one click or fully automatic',
+                gradient: 'from-orange-500 to-red-600'
               },
               {
                 icon: <TrendingUp className="w-6 h-6" />,
                 title: 'Rank Tracking',
-                desc: 'Monitors your Google positions daily, alerts you to drops, and celebrates wins'
+                desc: 'Monitors your Google positions daily, alerts you to drops, and celebrates every win',
+                gradient: 'from-green-500 to-emerald-600'
               },
               {
-                icon: <Target className="w-6 h-6" />,
+                icon: <Users className="w-6 h-6" />,
                 title: 'Competitor Analysis',
-                desc: 'See what keywords your competitors rank for and find gaps you can exploit'
+                desc: 'See what keywords your competitors rank for and find gaps you can exploit to overtake them',
+                gradient: 'from-indigo-500 to-blue-600'
               },
               {
-                icon: <BarChart3 className="w-6 h-6" />,
-                title: 'Traffic Insights',
-                desc: 'Track organic traffic growth, top landing pages, and keyword performance over time'
+                icon: <FileText className="w-6 h-6" />,
+                title: 'AI Content Creation',
+                desc: 'Generates comprehensive content briefs and writes full SEO-optimized articles ready to publish',
+                gradient: 'from-pink-500 to-rose-600'
               }
             ].map((feature, idx) => (
-              <div key={idx} className="p-6 bg-white rounded-xl border border-slate-200 hover:shadow-lg transition-all">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-50 to-violet-50 flex items-center justify-center text-blue-600 mb-4">
+              <div key={idx} className="group p-6 bg-white rounded-2xl border border-slate-200 hover:shadow-xl hover:border-transparent transition-all duration-300">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
               </div>
             ))}
+          </div>
+
+          {/* How It Works */}
+          <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 rounded-3xl p-8 md:p-12 text-white">
+            <h3 className="text-2xl font-bold text-center mb-8">How It Works</h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              {[
+                { step: '01', title: 'Add Website', desc: 'Enter your URL and industry' },
+                { step: '02', title: 'AI Audit', desc: 'Comprehensive SEO analysis runs' },
+                { step: '03', title: 'Auto-Fixes', desc: 'Optimizations applied automatically' },
+                { step: '04', title: 'Watch It Grow', desc: 'Rankings and traffic improve daily' }
+              ].map((s, idx) => (
+                <div key={idx} className="text-center relative">
+                  {idx < 3 && (
+                    <div className="hidden md:block absolute top-6 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-blue-400 to-violet-400" />
+                  )}
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-violet-400 text-white text-lg font-bold flex items-center justify-center mx-auto mb-3 relative z-10">
+                    {s.step}
+                  </div>
+                  <h4 className="font-semibold mb-1">{s.title}</h4>
+                  <p className="text-sm text-slate-300">{s.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -33,6 +33,11 @@ export default function SEODashboard({ website, onBack }) {
     queryFn: async () => await base44.entities.SEOOptimization.filter({ website_id: website.id }, '-impact_score', 20)
   });
 
+  const { data: results } = useQuery({
+    queryKey: ['seo-results', website.id],
+    queryFn: async () => await base44.entities.SEOResult.filter({ website_id: website.id }, '-achieved_at', 10)
+  });
+
   const auditMutation = useMutation({
     mutationFn: async () => (await base44.functions.invoke('analyzeWebsiteSEO', { website_id: website.id })).data,
     onSuccess: () => { queryClient.invalidateQueries(['seo-audits']); toast.success('SEO audit completed!'); },
@@ -85,7 +90,7 @@ export default function SEODashboard({ website, onBack }) {
         </TabsList>
 
         <TabsContent value="results" className="space-y-6">
-          <ResultsShowcase websiteId={website.id} />
+          <ResultsShowcase results={results || []} />
         </TabsContent>
 
         <TabsContent value="overview" className="space-y-6">
