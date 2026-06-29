@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Globe, Search, BarChart3, Target, TrendingUp, Zap, Award, FileText, Users } from 'lucide-react';
+import { Plus, Globe, Search, BarChart3, Target, TrendingUp, Zap, Award, FileText, Users, Mic, Keyboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WebsiteCard from '@/components/seo/WebsiteCard';
 import AddWebsiteForm from '@/components/seo/AddWebsiteForm';
 import SEODashboard from '@/components/seo/SEODashboard';
+import VoiceCommand from '@/components/seo/VoiceCommand';
 
 export default function SEOAutomator() {
   const [selectedWebsite, setSelectedWebsite] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showVoiceCommand, setShowVoiceCommand] = useState(false);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'n' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setShowAddForm(true);
+      }
+      if (e.key === '/' && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        setShowVoiceCommand(true);
+      }
+      if (e.key === 'Escape') {
+        setShowAddForm(false);
+        setShowVoiceCommand(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const { data: websites, isLoading, refetch } = useQuery({
     queryKey: ['websites'],
@@ -39,14 +61,30 @@ export default function SEOAutomator() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
+      {showVoiceCommand && <VoiceCommand onClose={() => setShowVoiceCommand(false)} onAction={(action, params) => {
+        if (action === 'add_website') setShowAddForm(true);
+        if (action === 'audit' && selectedWebsite) handleAudit(selectedWebsite.id);
+        if (action === 'research') { /* trigger keyword research */ }
+        setShowVoiceCommand(false);
+      }} />}
+
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white">
-            <Globe className="w-5 h-5" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white">
+              <Globe className="w-5 h-5" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold">SEO Automator</h1>
+              <p className="text-slate-500">Fully automated SEO optimization — more visitors, zero manual work</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold">SEO Automator</h1>
-            <p className="text-slate-500">Fully automated SEO optimization — more visitors, zero manual work</p>
+          <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-100 px-3 py-1.5 rounded-full">
+            <Keyboard className="w-3 h-3" />
+            <span>⌘/Ctrl + N: Add website</span>
+            <span className="mx-1">•</span>
+            <Mic className="w-3 h-3" />
+            <span>Press / for voice command</span>
           </div>
         </div>
       </div>
