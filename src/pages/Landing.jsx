@@ -573,6 +573,16 @@ export default function MyApp() {
               </div>
             </div>
           </div>
+          {/* More from our network */}
+          <div className="mb-8">
+            <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">More from our network</h4>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <a href="https://heyrichyai.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-xs">Hey Richy AI — AI Sales Partner</a>
+              <a href="https://richyryanofficial.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-xs">Richy Ryan — Tech & AI</a>
+              <a href="https://wordforge.games" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-xs">WordForge — Daily Word Game</a>
+              <a href="https://richyryan.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors text-xs">Richy Ryan — Faith & Culture</a>
+            </div>
+          </div>
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-500">© 2026 VoiceExecAI (voiceexecai.com). All rights reserved.</p>
             <div className="flex gap-6">
