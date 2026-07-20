@@ -12,19 +12,65 @@ Deno.serve(async (req) => {
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
 
-    const { price_id, plan_name, coupon_code } = await req.json();
+    const {
+      price_id,
+      plan_name,
+      coupon_code,
+      mode = 'subscription',
+      amount,
+      tip_name,
+      trial_days,
+    } = await req.json();
 
+    const origin = req.headers.get('origin') || 'https://voiceexecai.com';
+
+    // One-time payment (e.g., a Tip). Never use "Support" or "Donate".
+    if (mode === 'payment') {
+      if (!amount) {
+        return Response.json({ error: 'Amount required for one-time payment' }, { status: 400 });
+      }
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'usd',
+              unit_amount: Math.round(Number(amount)),
+              product_data: { name: tip_name || 'Tip' },
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&tip=true`,
+        cancel_url: `${origin}/pricing?canceled=true`,
+        metadata: {
+          base44_app_id: Deno.env.get("BASE44_APP_ID"),
+          user_email: user.email,
+          type: 'tip',
+        },
+        client_reference_id: user.email,
+      });
+      return Response.json({ url: session.url });
+    }
+
+    // Subscription
     if (!price_id) {
       return Response.json({ error: 'Price ID required' }, { status: 400 });
     }
 
-    // Get base URL from origin header or use default
-    const origin = req.headers.get('origin') || 'https://preview--voiceexecai-com.base44.app';
-    
-    // Build discounts array if coupon provided
     const discounts = coupon_code ? [{ coupon: coupon_code }] : [];
-    
-    // Create checkout session
+
+    const subscriptionData = {
+      metadata: {
+        base44_app_id: Deno.env.get("BASE44_APP_ID"),
+        user_email: user.email,
+      },
+      ...(trial_days && Number(trial_days) > 0
+        ? { trial_period_days: Number(trial_days) }
+        : {}),
+    };
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -34,27 +80,22 @@ Deno.serve(async (req) => {
         },
       ],
       mode: 'subscription',
-      discounts: discounts,
+      discounts,
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(plan_name || 'Pro')}`,
       cancel_url: `${origin}/pricing?canceled=true`,
       metadata: {
         base44_app_id: Deno.env.get("BASE44_APP_ID"),
         user_email: user.email,
-        plan_name: plan_name || 'unknown'
+        plan_name: plan_name || 'unknown',
       },
       client_reference_id: user.email,
-      subscription_data: {
-        metadata: {
-          base44_app_id: Deno.env.get("BASE44_APP_ID"),
-          user_email: user.email
-        }
-      }
+      subscription_data: subscriptionData,
     });
 
     return Response.json({ url: session.url });
   } catch (error) {
     console.error('Stripe checkout error:', error);
-    return Response.json({ 
+    return Response.json({
       error: error.message,
       details: 'Failed to create checkout session'
     }, { status: 500 });
