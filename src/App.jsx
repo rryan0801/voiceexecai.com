@@ -3,7 +3,7 @@ import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 import OfflineIndicator from '@/components/OfflineIndicator'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
@@ -57,8 +57,11 @@ import SEOAutomator from '@/pages/SEOAutomator';
 import MobileApp from '@/pages/MobileApp';
 import SEOResults from '@/pages/SEOResults';
 
+const PUBLIC_PATHS = ['/', '/pricing', '/contact', '/privacy', '/terms', '/security', '/get-leads', '/download-guide', '/ambassador', '/mobile-app'];
+
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const location = useLocation();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -74,9 +77,13 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
-      navigateToLogin();
-      return null;
+      // Allow public marketing pages to render without auth so search engines and
+      // logged-out visitors can access the landing (required for SEO indexing). All
+      // other routes redirect to login as usual.
+      if (!PUBLIC_PATHS.includes(location.pathname)) {
+        navigateToLogin();
+        return null;
+      }
     }
   }
 
