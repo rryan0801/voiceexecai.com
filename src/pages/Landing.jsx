@@ -141,7 +141,7 @@ export default function Landing() {
           <div className="flex items-center gap-2">
             <img
               src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
-              alt="VoiceExecAI"
+              alt="VoiceExec AI logo"
               className="w-8 h-8"
             />
             <span className="font-bold text-lg text-slate-900">VoiceExec<span className="text-blue-600">AI</span></span>
@@ -194,8 +194,8 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-6"
           >
-            Run your sales day<br />
-            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">by talking.</span>
+            Real-Time Brand Sentiment<br />
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">& Reputation Management</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -258,24 +258,58 @@ export default function Landing() {
 
       {/* How it works */}
       <section id="how-it-works" className="py-24 px-6 bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">From spoken word to done deal</h2>
-          <p className="text-lg text-slate-500 mb-16">Three steps. No keyboard required.</p>
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            <div className="hidden md:block absolute top-7 left-[16.5%] right-[16.5%] h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-blue-300 z-0" />
-            {[
-              { step: '01', title: 'Speak a command', desc: '"Log a call with Acme Corp, strong interest, follow up Friday." Tap the mic and talk.' },
-              { step: '02', title: 'AI parses intent', desc: 'VoiceExecAI understands natural language — slang, abbreviations, and complex instructions.' },
-              { step: '03', title: 'Deals update instantly', desc: 'CRM updated, task created, follow-up email queued. All without a single click.' }
-            ].map((s, i) => (
-              <div key={i} className="flex flex-col items-center text-center relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-violet-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-200">
-                  {s.step}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{s.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed max-w-xs">{s.desc}</p>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">How VoiceExec AI works</h2>
+            <p className="text-lg text-slate-500">Monitor, analyze, and respond — all on autopilot.</p>
+          </div>
+
+          {/* 1. Monitor */}
+          <div className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Monitor Online Sentiment in Real Time</h2>
+            <p className="text-slate-500 mb-6 max-w-2xl">VoiceExec AI continuously scans reviews, social media, and forums to capture what people are saying about your brand the moment they say it.</p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Track mentions across every channel</h3>
+                <p className="text-sm text-slate-500">Reviews, Twitter, Reddit, Google, and industry forums unified into one live sentiment feed.</p>
               </div>
-            ))}
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Instant alerts on sentiment shifts</h3>
+                <p className="text-sm text-slate-500">Get notified the moment sentiment spikes positive or negative so you can act before a story breaks.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Analyze */}
+          <div className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Analyze Customer Feedback Trends</h2>
+            <p className="text-slate-500 mb-6 max-w-2xl">Turn thousands of scattered comments into clear, actionable trends that show what's driving your reputation.</p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Spot emerging issues before they escalate</h3>
+                <p className="text-sm text-slate-500">AI clusters recurring complaints so you can fix root causes before they become a crisis.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Benchmark sentiment over time</h3>
+                <p className="text-sm text-slate-500">Track week-over-week and month-over-month sentiment to measure the impact of every change you make.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Respond */}
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">AI-Generated Professional Responses</h2>
+            <p className="text-slate-500 mb-6 max-w-2xl">Reply to reviews and mentions in seconds with on-brand, AI-drafted responses your team can review and send.</p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Reply in your brand voice instantly</h3>
+                <p className="text-sm text-slate-500">VoiceExec AI learns your tone and drafts responses that sound like they came from your team — not a bot.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Turn negative feedback into trust</h3>
+                <p className="text-sm text-slate-500">Thoughtful, timely AI responses convert unhappy customers into loyal advocates and protect your public image.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -404,7 +438,7 @@ export default function Landing() {
               <div className="flex items-center gap-2 mb-3">
                 <img
                   src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
-                  alt="VoiceExecAI"
+                  alt="VoiceExec AI logo"
                   className="w-7 h-7"
                 />
                 <span className="font-bold text-white text-base">VoiceExecAI</span>
