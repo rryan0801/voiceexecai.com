@@ -2,6 +2,11 @@
   "name": "RepPattern",
   "type": "object",
   "properties": {
+    "description": {
+      "type": "string",
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000
+    },
     "rep_email": {
       "type": "string",
       "description": "Rep's email address"
