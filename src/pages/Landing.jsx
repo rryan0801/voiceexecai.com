@@ -15,7 +15,7 @@ const PLANS = [
     price: '$0',
     period: '/month',
     priceId: 'price_1TdNAuIcky2cOtqjyd0qZIht',
-    description: 'Start running your sales day by voice.',
+    description: 'Start monitoring your brand reputation today.',
     features: [
       '500 voice commands/month',
       '1 sales rep',
@@ -31,7 +31,7 @@ const PLANS = [
     price: '$49',
     period: '/month',
     priceId: 'price_1TdNAuIcky2cOtqj5Yz6Xu82',
-    description: 'For reps who live on the phone and in the car.',
+    description: 'For brands that respond to every mention in minutes.',
     features: [
       '25,000 voice commands/month',
       'Up to 10 reps',
@@ -65,10 +65,10 @@ const PLANS = [
 const TIP_AMOUNTS = [5, 10, 25];
 
 const VOICE_EXAMPLES = [
-  { icon: <TrendingUp className="w-5 h-5" />, text: '"Move Acme Corp to Negotiation, strong interest."' },
-  { icon: <Calendar className="w-5 h-5" />, text: '"Schedule a follow-up call with Priya for Friday."' },
-  { icon: <Mail className="w-5 h-5" />, text: '"Send the pricing deck to James at Globex."' },
-  { icon: <Phone className="w-5 h-5" />, text: '"Log a call with Beta Inc — they want a demo."' }
+  { icon: <TrendingUp className="w-5 h-5" />, text: '"Sentiment on the new launch just spiked negative — show me why."' },
+  { icon: <Mail className="w-5 h-5" />, text: '"Draft a reply to this 2-star review in our brand voice."' },
+  { icon: <Calendar className="w-5 h-5" />, text: '"Schedule a response to every mention from the last 24 hours."' },
+  { icon: <Phone className="w-5 h-5" />, text: '"Alert me the moment a review drops below three stars."' }
 ];
 
 export default function Landing() {
@@ -186,7 +186,7 @@ export default function Landing() {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm">
             <Sparkles className="w-3 h-3" />
-            <span className="font-semibold">The voice-first sales assistant</span>
+            <span className="font-semibold">The reputation intelligence engine</span>
           </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -203,8 +203,8 @@ export default function Landing() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-xl text-slate-500 max-w-2xl mx-auto mb-10"
           >
-            Update deals, log calls, and send follow-ups — all by voice. VoiceExecAI is the
-            voice-to-action assistant for sales reps who close, not click.
+            Monitor what people are saying about your brand in real time, analyze the trends
+            behind every review and mention, and respond instantly with on-brand AI drafts.
           </motion.p>
 
           {/* Voice examples */}
@@ -319,7 +319,7 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Simple pricing</h2>
-            <p className="text-lg text-slate-500">Start free. Upgrade when your pipeline grows.</p>
+            <p className="text-lg text-slate-500">Start free. Upgrade when your brand grows.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {PLANS.map((plan, i) => (
@@ -418,8 +418,8 @@ export default function Landing() {
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-400/10 rounded-full blur-3xl" />
         </div>
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to close by talking?</h2>
-          <p className="text-blue-100 text-lg mb-10">Join reps who update deals without ever opening a keyboard.</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to own your reputation?</h2>
+          <p className="text-blue-100 text-lg mb-10">Join brands that monitor, analyze, and respond — all on autopilot.</p>
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-2 px-12 py-5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl"
@@ -444,7 +444,7 @@ export default function Landing() {
                 <span className="font-bold text-white text-base">VoiceExecAI</span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed max-w-xs">
-                The voice-first sales assistant. Run your sales day by talking.
+                Real-time brand sentiment monitoring and AI-generated responses — so you always own the conversation.
               </p>
             </div>
             <div>
