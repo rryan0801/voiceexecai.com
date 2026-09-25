@@ -59,6 +59,20 @@ import SEOResults from '@/pages/SEOResults';
 
 const PUBLIC_PATHS = ['/', '/pricing', '/contact', '/privacy', '/terms', '/security', '/get-leads', '/download-guide', '/ambassador', '/mobile-app'];
 
+// Known routes that require authentication. Unknown paths are intentionally NOT
+// listed here so they fall through to the catch-all 404 page rather than silently
+// redirecting an anonymous visitor to login (which served indexable 200 content).
+const KNOWN_AUTH_ROUTES = new Set([
+  '/dashboard', '/commands', '/prospects', '/widget-test', '/analytics', '/mobile',
+  '/team', '/autopilot', '/deals', '/conversations', '/meeting-prep', '/playbooks',
+  '/tests', '/crm-comms', '/call-analysis', '/conversation-context', '/email-engagement',
+  '/linkedin-monitor', '/crm-adapter', '/sms', '/calendar-analytics', '/linkedin-messaging',
+  '/actions', '/coaching', '/deal-physics', '/rep-dna', '/objection-preflight',
+  '/readiness-pulse', '/quiet-monitor', '/forecasting', '/win-loss', '/leaderboard',
+  '/email-studio', '/deal-rooms', '/billshield', '/checkout-success', '/lead-pipeline',
+  '/seo-automator', '/seo-results'
+]);
+
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
   const location = useLocation();
@@ -77,10 +91,10 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Allow public marketing pages to render without auth so search engines and
-      // logged-out visitors can access the landing (required for SEO indexing). All
-      // other routes redirect to login as usual.
-      if (!PUBLIC_PATHS.includes(location.pathname)) {
+      // Only redirect to login for known authenticated routes. Unknown paths fall
+      // through to the catch-all 404 page (with noindex) rather than silently
+      // redirecting an anonymous visitor to login as indexable 200 content.
+      if (KNOWN_AUTH_ROUTES.has(location.pathname)) {
         navigateToLogin();
         return null;
       }

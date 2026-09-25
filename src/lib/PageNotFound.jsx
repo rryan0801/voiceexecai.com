@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
@@ -6,6 +7,20 @@ import { Mic, Home, ArrowLeft } from 'lucide-react';
 export default function PageNotFound() {
     const location = useLocation();
     const pageName = location.pathname.substring(1);
+
+    // Prevent search engines from indexing not-found pages. Update the existing
+    // global robots meta (from index.html) rather than appending a duplicate.
+    useEffect(() => {
+        const meta = document.querySelector('meta[name="robots"]');
+        const prevContent = meta?.content;
+        const prevTitle = document.title;
+        if (meta) meta.content = 'noindex';
+        document.title = '404 — Page not found | VoiceExecAI';
+        return () => {
+            if (meta && prevContent) meta.content = prevContent;
+            document.title = prevTitle;
+        };
+    }, []);
 
     const { data: authData, isFetched } = useQuery({
         queryKey: ['user'],
