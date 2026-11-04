@@ -69,7 +69,8 @@ export default function Pricing() {
   const [searchParams] = useSearchParams();
   const [isInIframe, setIsInIframe] = useState(false);
   const [loading, setLoading] = useState(false);
-  const couponCode = searchParams.get('coupon') || 'FULLOFF-1780288138293';
+  // No coupon is sent from this page (2026-11-04): it used to send a 100%-off code with
+  // every checkout. Shoppers can type a real promotion code on Stripe's checkout page.
 
   const { data: subscription, isLoading: subLoading } = useQuery({
     queryKey: ['stripe-subscription'],
@@ -98,7 +99,6 @@ export default function Pricing() {
       const res = await base44.functions.invoke('createStripeCheckout', {
         price_id: priceId,
         plan_name: planName,
-        coupon_code: couponCode
       });
 
       if (res.data.url) {
