@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import InteractiveDemo from '@/components/InteractiveDemo';
 import { base44 } from '@/api/base44Client';
+import { dealIsOn, dealPrice, fmtMoney } from '@/lib/actNowDeal';
 import {
   CheckCircle, ArrowRight,
   Menu, X, TrendingUp, Sparkles, ArrowUp, Heart,
@@ -321,6 +322,12 @@ export default function Landing() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Simple pricing</h2>
             <p className="text-lg text-slate-500">Start free. Upgrade when your brand grows.</p>
           </div>
+          {dealIsOn() && (
+            <div className="mb-12 rounded-xl bg-gradient-to-r from-[#b8322f] to-[#d9532c] text-white p-6 text-center shadow-lg">
+              <p className="text-xl md:text-2xl font-black tracking-wide">LIMITED-TIME DEAL: 50% OFF YOUR FIRST 3 MONTHS</p>
+              <p className="mt-2 text-sm md:text-base text-white/90">Act now: this price is below our profit goal, so this deal can end at any time without notice. It may not be here next time you visit.</p>
+            </div>
+          )}
           <div className="grid md:grid-cols-3 gap-8">
             {PLANS.map((plan, i) => (
               <motion.div
@@ -341,10 +348,21 @@ export default function Landing() {
                   </div>
                 )}
                 <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
-                <div className="flex items-end gap-1 mb-2">
-                  <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</span>
-                  <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
-                </div>
+                {dealIsOn() && plan.name === 'Pro' ? (
+                  <div className="mb-2">
+                    <div className="flex items-end gap-2">
+                      <span className={`text-2xl line-through mb-1 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>{plan.price}</span>
+                      <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>${fmtMoney(dealPrice(Number(plan.price.replace(/[^0-9.]/g, ''))))}</span>
+                      <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
+                    </div>
+                    <p className={`text-sm font-semibold mt-1 ${plan.highlight ? 'text-white' : 'text-[#d9532c]'}`}>${fmtMoney(dealPrice(Number(plan.price.replace(/[^0-9.]/g, ''))))}/mo for your first 3 months, then {plan.price}/mo</p>
+                  </div>
+                ) : (
+                  <div className="flex items-end gap-1 mb-2">
+                    <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</span>
+                    <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
+                  </div>
+                )}
                 <p className={`text-sm mb-6 ${plan.highlight ? 'text-blue-100' : 'text-slate-500'}`}>{plan.description}</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, j) => (
