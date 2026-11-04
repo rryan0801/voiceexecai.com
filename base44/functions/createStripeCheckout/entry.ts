@@ -95,10 +95,16 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Price ID required' }, { status: 400 });
     }
 
-    const discounts = coupon_code ? [{ coupon: coupon_code }] : [];
+    // SECURITY (2026-11-04): a coupon sent from the browser is never applied. The pricing
+    // page used to send a 100%-off code (FULLOFF-...) with every checkout, which could
+    // make subscriptions free. Customers can still type a real promotion code on Stripe's
+    // own checkout page (allow_promotion_codes below); Stripe checks those itself.
+    void coupon_code;
+    // Free trials from the browser are capped at the 14 days the site advertises.
+    const trialDays = Math.min(14, Math.max(0, Math.floor(Number(trial_days) || 0)));
 
-    // Act-now deal: monthly plans only, while on, and only when no other code was sent.
-    const dealCouponId = !coupon_code && Date.now() <= DEAL_ENDS_AT && await isMonthlyPrice(stripe, price_id)
+    // Act-now deal: monthly plans only, while on.
+    const dealCouponId = Date.now() <= DEAL_ENDS_AT && await isMonthlyPrice(stripe, price_id)
       ? await dealCoupon(stripe)
       : null;
 
@@ -107,9 +113,7 @@ Deno.serve(async (req) => {
         base44_app_id: Deno.env.get("BASE44_APP_ID"),
         user_email: user.email,
       },
-      ...(trial_days && Number(trial_days) > 0
-        ? { trial_period_days: Number(trial_days) }
-        : {}),
+      ...(trialDays > 0 ? { trial_period_days: trialDays } : {}),
     };
 
     const buildSession = (withDeal) => stripe.checkout.sessions.create({
@@ -121,7 +125,7 @@ Deno.serve(async (req) => {
         },
       ],
       mode: 'subscription',
-      discounts: withDeal ? [{ coupon: dealCouponId }] : discounts,
+      ...(withDeal ? { discounts: [{ coupon: dealCouponId }] } : { allow_promotion_codes: true }),
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(plan_name || 'Pro')}`,
       cancel_url: `${origin}/pricing?canceled=true`,
       metadata: {
