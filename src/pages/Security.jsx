@@ -78,7 +78,7 @@ export default function Security() {
             <CardContent className="space-y-3 text-sm text-slate-700">
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Audio processed in real-time, never stored permanently</span>
+                <span>Voice commands are turned into text so they can be acted on</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -86,7 +86,7 @@ export default function Security() {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Only you and your team can see your account data</span>
+                <span>You can ask us to delete your account and data</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
