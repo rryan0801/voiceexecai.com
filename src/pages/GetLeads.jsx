@@ -104,14 +104,13 @@ export default function GetLeads() {
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">In Your Area</span>
           </h1>
           <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-            We match buyers actively searching for your services with contractors ready to work. 
-            No subscriptions. No upfront cost. Pay only for the leads you want.
+            Sign up free and we will email you when buyers in your area are looking for your kind of service.
           </p>
           <div className="space-y-4 mb-8">
             {[
-              { icon: '✅', text: 'Pre-qualified buyers with confirmed budgets' },
+              { icon: '✅', text: 'Buyers looking for your kind of service' },
               { icon: '📍', text: 'Matched by city and service vertical' },
-              { icon: '⚡', text: 'Delivered within minutes of buyer submitting' },
+              { icon: '⚡', text: 'Sent straight to your inbox' },
               { icon: '💬', text: 'Full contact info — name, phone, email, project' }
             ].map((item, i) => (
               <motion.div
@@ -126,14 +125,14 @@ export default function GetLeads() {
               </motion.div>
             ))}
           </div>
-          {/* Social proof */}
-          <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-5 border border-slate-100">
+          {/* Social proof: off (2026-11-04) until there are real, permitted customer quotes. */}
+          {SHOW_TESTIMONIALS && <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-5 border border-slate-100">
             <div className="flex gap-1 mb-2">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />)}
             </div>
             <p className="text-slate-700 text-sm italic mb-2">"First lead I received turned into a $14k roofing job. Closed it in 3 days."</p>
             <p className="text-xs text-slate-500 font-semibold">— Marcus T., Roofing Contractor, DFW</p>
-          </div>
+          </div>}
         </motion.div>
 
         {/* Right: Form */}
