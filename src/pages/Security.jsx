@@ -7,43 +7,28 @@ export default function Security() {
   const securityFeatures = [
     {
       icon: <Lock className="w-6 h-6 text-blue-600" />,
-      title: 'End-to-End Encryption',
-      desc: 'All audio and data transmitted over TLS 1.3. Data encrypted at rest using AES-256.'
+      title: 'Encrypted Connection',
+      desc: 'All audio and data travel over an encrypted HTTPS connection.'
     },
     {
       icon: <Shield className="w-6 h-6 text-green-600" />,
-      title: 'GDPR Compliant',
-      desc: 'Full GDPR compliance with data processing agreements, user rights, and data portability.'
+      title: 'Your Privacy Rights',
+      desc: 'You can ask us to see, export, or delete your data at any time. See our Privacy Policy.'
     },
     {
       icon: <FileCheck className="w-6 h-6 text-purple-600" />,
-      title: 'CCPA Ready',
-      desc: 'California Consumer Privacy Act compliant with opt-out mechanisms and disclosure requirements.'
+      title: 'Secure Payments',
+      desc: 'Card payments are handled by Stripe. We never see or store your full card number.'
     },
     {
       icon: <Server className="w-6 h-6 text-orange-600" />,
-      title: 'SOC 2 Type II',
-      desc: 'Infrastructure hosted on SOC 2 Type II certified providers with regular third-party audits.'
-    },
-    {
-      icon: <Globe className="w-6 h-6 text-blue-500" />,
-      title: 'Data Residency',
-      desc: 'Choose your data region (US, EU, UK). Data never leaves your selected geographic boundary.'
-    },
-    {
-      icon: <CheckCircle className="w-6 h-6 text-green-500" />,
-      title: '99.9% Uptime SLA',
-      desc: 'Enterprise-grade infrastructure with automatic failover and disaster recovery.'
+      title: 'Managed Hosting',
+      desc: 'The app runs on managed cloud hosting, so servers are patched and maintained for us.'
     }
   ];
 
-  const complianceBadges = [
-    { name: 'GDPR', color: 'bg-blue-100 text-blue-700' },
-    { name: 'CCPA', color: 'bg-green-100 text-green-700' },
-    { name: 'SOC 2 Type II', color: 'bg-purple-100 text-purple-700' },
-    { name: 'ISO 27001', color: 'bg-orange-100 text-orange-700' },
-    { name: 'HIPAA Ready', color: 'bg-blue-100 text-blue-800' }
-  ];
+  // Certification badges were removed (2026-11-04): we hold no certifications of our own.
+  const complianceBadges = [];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -52,11 +37,11 @@ export default function Security() {
         {/* Hero */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full text-green-700 text-xs font-medium mb-4">
-            <Shield className="w-3 h-3" /> Enterprise-Grade Security
+            <Shield className="w-3 h-3" /> Security
           </div>
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Security & Compliance</h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Your data is protected by industry-leading security measures and compliance certifications.
+            Here is how we protect your data.
           </p>
         </div>
 
@@ -93,7 +78,7 @@ export default function Security() {
             <CardContent className="space-y-3 text-sm text-slate-700">
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Audio processed in real-time, never stored permanently</span>
+                <span>Voice commands are turned into text so they can be acted on</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -101,7 +86,7 @@ export default function Security() {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Regular security audits and penetration testing</span>
+                <span>You can ask us to delete your account and data</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -117,19 +102,19 @@ export default function Security() {
             <CardContent className="space-y-3 text-sm text-slate-700">
               <div className="flex justify-between items-center py-2 border-b">
                 <span>Payment Processing</span>
-                <span className="font-medium">Stripe (PCI DSS Level 1)</span>
+                <span className="font-medium">Stripe</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span>AI Processing</span>
-                <span className="font-medium">OpenAI, Anthropic (SOC 2)</span>
+                <span className="font-medium">AI model providers</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span>Communications</span>
-                <span className="font-medium">Twilio (SOC 2, ISO 27001)</span>
+                <span className="font-medium">Email and SMS providers</span>
               </div>
               <div className="flex justify-between items-center py-2">
                 <span>Infrastructure</span>
-                <span className="font-medium">Base44 (SOC 2 Type II)</span>
+                <span className="font-medium">Base44</span>
               </div>
             </CardContent>
           </Card>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import InteractiveDemo from '@/components/InteractiveDemo';
 import { base44 } from '@/api/base44Client';
 import { dealIsOn, dealPrice, fmtMoney } from '@/lib/actNowDeal';
+import ActNowDealBox from '@/components/ActNowDealBox';
 import {
   CheckCircle, ArrowRight,
   Menu, X, TrendingUp, Sparkles, ArrowUp, Heart,
@@ -37,7 +38,7 @@ const PLANS = [
       '25,000 voice commands/month',
       'Up to 10 reps',
       'CRM integrations (HubSpot, Salesforce, Pipedrive)',
-      '14-day free trial — no card required',
+      '14-day free trial',
       'Analytics dashboard',
       'Priority support'
     ],
@@ -150,7 +151,7 @@ export default function Landing() {
           <div className="hidden md:flex items-center gap-8 text-sm text-slate-600">
             <a href="#how-it-works" className="hover:text-blue-600 transition-colors">How it works</a>
             <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
+            <Link to="/pricing" className="hover:text-blue-600 transition-colors">Plans & FAQ</Link>
           </div>
           <div className="hidden md:flex items-center gap-3">
             <Link to="/dashboard" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Sign In</Link>
@@ -172,14 +173,19 @@ export default function Landing() {
           <div className="md:hidden mt-4 pb-4 border-t border-slate-100 pt-4 flex flex-col gap-3 text-sm">
             <a href="#how-it-works" className="px-2 py-1.5 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>How it works</a>
             <a href="#pricing" className="px-2 py-1.5 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
-            <a href="#faq" className="px-2 py-1.5 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
+            <Link to="/pricing" className="px-2 py-1.5 text-slate-700 hover:text-blue-600">Plans & FAQ</Link>
             <Link to="/dashboard" className="mt-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-lg text-center font-semibold">Try it free</Link>
           </div>
         )}
       </nav>
 
+      {/* Act-now deal */}
+      <div className="px-6 pt-6 bg-blue-50">
+        <ActNowDealBox showButton className="max-w-4xl mx-auto" />
+      </div>
+
       {/* Hero */}
-      <section className="pt-28 pb-20 px-6 bg-gradient-to-br from-blue-50 via-violet-50 to-white relative overflow-hidden">
+      <section className="pt-16 pb-20 px-6 bg-gradient-to-br from-blue-50 via-violet-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl" />
@@ -248,7 +254,7 @@ export default function Landing() {
               See it in action
             </a>
           </motion.div>
-          <p className="text-xs text-slate-400 mt-6">Free forever plan · No credit card required · Setup in minutes</p>
+          <p className="text-xs text-slate-400 mt-6">Free plan available · No credit card needed for the free plan</p>
         </div>
       </section>
 
@@ -322,12 +328,7 @@ export default function Landing() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Simple pricing</h2>
             <p className="text-lg text-slate-500">Start free. Upgrade when your brand grows.</p>
           </div>
-          {dealIsOn() && (
-            <div className="mb-12 rounded-xl bg-gradient-to-r from-[#b8322f] to-[#d9532c] text-white p-6 text-center shadow-lg">
-              <p className="text-xl md:text-2xl font-black tracking-wide">LIMITED-TIME DEAL: 50% OFF YOUR FIRST 3 MONTHS</p>
-              <p className="mt-2 text-sm md:text-base text-white/90">Act now: this price is below our profit goal, so this deal can end at any time without notice. It may not be here next time you visit.</p>
-            </div>
-          )}
+          <ActNowDealBox className="mb-12" />
           <div className="grid md:grid-cols-3 gap-8">
             {PLANS.map((plan, i) => (
               <motion.div
@@ -348,7 +349,7 @@ export default function Landing() {
                   </div>
                 )}
                 <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
-                {dealIsOn() && plan.name === 'Pro' ? (
+                {dealIsOn() && plan.name !== 'Free' ? (
                   <div className="mb-2">
                     <div className="flex items-end gap-2">
                       <span className={`text-2xl line-through mb-1 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>{plan.price}</span>
@@ -394,7 +395,7 @@ export default function Landing() {
             ))}
           </div>
           <p className="text-center text-slate-400 text-sm mt-8">
-            All plans billed securely via Stripe. Cancel anytime.
+            Paid plans are billed securely by Stripe. To cancel, email support@voiceexecai.com before your next billing date.
           </p>
         </div>
       </section>
@@ -437,14 +438,14 @@ export default function Landing() {
         </div>
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to own your reputation?</h2>
-          <p className="text-blue-100 text-lg mb-10">Join brands that monitor, analyze, and respond — all on autopilot.</p>
+          <p className="text-blue-100 text-lg mb-10">Monitor, analyze, and respond to what people say about your brand — all on autopilot.</p>
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-2 px-12 py-5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl"
           >
             Try it free <ArrowRight className="w-5 h-5" />
           </Link>
-          <p className="text-blue-200 text-sm mt-6">Free forever · No credit card · Cancel anytime</p>
+          <p className="text-blue-200 text-sm mt-6">Free plan available · No credit card needed for the free plan</p>
         </div>
       </section>
 
@@ -470,7 +471,7 @@ export default function Landing() {
               <div className="space-y-2">
                 <a href="#how-it-works" className="block hover:text-white transition-colors">How it works</a>
                 <a href="#pricing" className="block hover:text-white transition-colors">Pricing</a>
-                <a href="#faq" className="block hover:text-white transition-colors">FAQ</a>
+                <Link to="/pricing" className="block hover:text-white transition-colors">FAQ</Link>
                 <Link to="/dashboard" className="block hover:text-white transition-colors">Dashboard</Link>
               </div>
             </div>

@@ -6,6 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { CheckCircle, Sparkles, ArrowRight, Zap, Shield, TrendingUp, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NavBar from '@/components/NavBar';
+import ActNowDealBox from '@/components/ActNowDealBox';
+import { dealIsOn, dealPrice, fmtMoney } from '@/lib/actNowDeal';
 
 const PLANS = [
   {
@@ -89,6 +91,15 @@ export default function Pricing() {
   }, []);
 
   const handleCheckout = async (priceId, planName) => {
+    // Free needs no checkout; Enterprise is set up with sales (same as the home page).
+    if (planName === 'Free') {
+      window.location.href = '/dashboard';
+      return;
+    }
+    if (planName === 'Enterprise') {
+      window.location.href = '/contact';
+      return;
+    }
     if (isInIframe) {
       alert('⚠️ Checkout only works in the published app.\n\nPlease open this page in a new tab from your published app URL.');
       return;
@@ -99,6 +110,8 @@ export default function Pricing() {
       const res = await base44.functions.invoke('createStripeCheckout', {
         price_id: priceId,
         plan_name: planName,
+        // The Pro plan advertises a 14-day free trial (same as the home page).
+        ...(planName === 'Pro' ? { trial_days: 14 } : {}),
       });
 
       if (res.data.url) {
@@ -119,6 +132,8 @@ export default function Pricing() {
       <NavBar />
       
       <div className="max-w-7xl mx-auto px-6 py-12">
+        <ActNowDealBox className="max-w-4xl mx-auto mb-10" />
+
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -183,14 +198,25 @@ export default function Pricing() {
                 <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>
                   {plan.name}
                 </h3>
-                <div className="flex items-end gap-1 mb-2">
-                  <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>
-                    {plan.price}
-                  </span>
-                  <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>
-                    {plan.period}
-                  </span>
-                </div>
+                {dealIsOn() && plan.name !== 'Free' ? (
+                  <div className="mb-2">
+                    <div className="flex items-end gap-2">
+                      <span className={`text-2xl line-through mb-1 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>{plan.price}</span>
+                      <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>${fmtMoney(dealPrice(Number(plan.price.replace(/[^0-9.]/g, ''))))}</span>
+                      <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>{plan.period}</span>
+                    </div>
+                    <p className={`text-sm font-semibold mt-1 ${plan.highlight ? 'text-white' : 'text-red-600'}`}>${fmtMoney(dealPrice(Number(plan.price.replace(/[^0-9.]/g, ''))))}/mo for your first 3 months, then {plan.price}/mo</p>
+                  </div>
+                ) : (
+                  <div className="flex items-end gap-1 mb-2">
+                    <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>
+                      {plan.price}
+                    </span>
+                    <span className={`text-sm mb-1.5 ${plan.highlight ? 'text-blue-200' : 'text-slate-500'}`}>
+                      {plan.period}
+                    </span>
+                  </div>
+                )}
                 <p className={`text-sm ${plan.highlight ? 'text-blue-100' : 'text-slate-500'}`}>
                   {plan.description}
                 </p>
@@ -259,8 +285,8 @@ export default function Pricing() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: Zap, title: 'Lightning Fast', desc: 'Sub-second response times for all voice commands' },
-              { icon: Shield, title: 'Enterprise Security', desc: 'SOC2, GDPR, CCPA compliant with end-to-end encryption' },
+              { icon: Zap, title: 'Fast', desc: 'Voice commands are processed as you speak' },
+              { icon: Shield, title: 'Secure Payments', desc: 'Encrypted HTTPS connection, and payments handled by Stripe' },
               { icon: TrendingUp, title: 'Real-time Analytics', desc: 'Track usage, success rates, and performance metrics' }
             ].map((feature, i) => (
               <motion.div
@@ -292,9 +318,10 @@ export default function Pricing() {
           </h2>
           <div className="space-y-4">
             {[
-              { q: 'Can I change plans later?', a: 'Yes! You can upgrade or downgrade your plan at any time from your dashboard.' },
+              { q: 'Can I change plans later?', a: 'Yes. Email support@voiceexecai.com and we will switch your plan.' },
+              { q: 'How do I cancel?', a: 'Email support@voiceexecai.com before your next billing date and we will cancel your plan.' },
               { q: 'What happens if I exceed my quota?', a: 'We will notify you when you are approaching your limit. You can upgrade anytime or we will throttle requests until next billing cycle.' },
-              { q: 'Is there a free trial?', a: 'Yes! The Pro plan includes a 14-day free trial. No credit card required to start.' },
+              { q: 'Is there a free trial?', a: 'Yes. The Pro plan includes a 14-day free trial. A card is needed at checkout, and you are not charged until the trial ends.' },
               { q: 'What payment methods do you accept?', a: 'We accept all major credit cards (Visa, Mastercard, Amex) via Stripe. Enterprise plans can also pay via invoice.' }
             ].map((faq, i) => (
               <motion.div
