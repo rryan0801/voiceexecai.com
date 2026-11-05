@@ -1,7 +1,12 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
+// Off (2026-11-04): the App Store and Google Play links lead to "not found" pages because
+// the app is not in either store yet. Turn back on once real store listings exist.
+const SHOW_STORE_BADGES = false;
+
 export default function AppStoreBadges({ className = '' }) {
+  if (!SHOW_STORE_BADGES) return null;
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
       {/* Apple App Store Badge */}
