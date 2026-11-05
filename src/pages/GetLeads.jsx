@@ -20,6 +20,8 @@ const VERTICALS = [
 
 const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
+const SHOW_TESTIMONIALS = false;
+
 export default function GetLeads() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', vertical: '', city: '', state: '', company: '' });
   const [loading, setLoading] = useState(false);
