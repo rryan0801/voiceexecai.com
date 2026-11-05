@@ -15,6 +15,9 @@ const SAMPLE_LEADS = {
   other: { job: 'Commercial property maintenance contract', value: '$3,600/mo', area: 'Your area' }
 };
 
+// Off (2026-11-04): these quotes were not from real customers. Turn on only with real, permitted quotes.
+const SHOW_TESTIMONIALS = false;
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
@@ -46,7 +49,7 @@ Deno.serve(async (req) => {
             <ul style="line-height:2">
               <li>✅ We match you with buyers actively searching in your area</li>
               <li>✅ You get notified the moment a new lead matches your vertical</li>
-              <li>✅ You only pay for leads you want — no subscriptions or surprises</li>
+              <li>✅ See our plans and pricing any time at voiceexecai.com/pricing</li>
             </ul>
             <div style="background:#f0f9ff;border-left:4px solid #2563EB;padding:16px;margin:24px 0;border-radius:4px">
               <p style="margin:0;font-weight:600">⏰ Check your inbox tomorrow</p>
@@ -77,7 +80,7 @@ Deno.serve(async (req) => {
                 <div><strong>Location:</strong> ${sample.area}</div>
                 <div><strong>Vertical:</strong> ${lead.vertical.replace('_', ' ')}</div>
               </div>
-              <p style="margin:16px 0 0;color:#64748b;font-size:13px">⭐ Buyer verified · Ready to hire · Budget confirmed</p>
+              <p style="margin:16px 0 0;color:#64748b;font-size:13px">Sample only · For illustration</p>
             </div>
             <p>On our platform, you'd receive the buyer's name, phone, email, project details, and timeline — ready to call within minutes of them submitting.</p>
             <a href="https://voiceexecai.com/pricing" style="display:inline-block;background:linear-gradient(135deg,#2563EB,#7C3AED);color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:8px">Get Access to Real Leads →</a>
@@ -88,16 +91,16 @@ Deno.serve(async (req) => {
       await base44.asServiceRole.entities.BuyerLead.update(lead_id, { followup1_sent: true });
 
     } else if (email_type === 'followup2') {
-      subject = `What contractors are saying about VoiceExecAI leads`;
+      subject = `Ready to start getting ${lead.vertical.replace('_', ' ')} leads?`;
       html = `
         <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;color:#334155">
           <div style="background:linear-gradient(135deg,#2563EB,#7C3AED);padding:32px;border-radius:12px 12px 0 0;text-align:center">
-            <h1 style="color:white;margin:0;font-size:24px">Real results from contractors like you</h1>
+            <h1 style="color:white;margin:0;font-size:24px">Your leads are waiting</h1>
           </div>
           <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px">
             <p>Hi ${lead.name.split(' ')[0]},</p>
-            <p>We wanted to share what other <strong>${lead.vertical.replace('_', ' ')} contractors</strong> are saying after using VoiceExecAI leads:</p>
-            ${[
+            <p>Just checking in about <strong>${lead.vertical.replace('_', ' ')} leads</strong> in your area.</p>
+            ${(SHOW_TESTIMONIALS ? [
               { name: 'Marcus T.', role: 'Roofing contractor, DFW', quote: 'First lead I got turned into a $14k job. Closed it in 3 days.' },
               { name: 'Sandra R.', role: 'HVAC owner, Austin TX', quote: 'I was skeptical. Now I turn off lead flow because I\'m booked 6 weeks out.' },
               { name: 'James K.', role: 'General contractor, Nashville', quote: 'The leads are pre-qualified. No tire kickers. These people are ready to hire.' }
@@ -106,7 +109,7 @@ Deno.serve(async (req) => {
                 <p style="margin:0 0 8px;font-style:italic;color:#334155">"${t.quote}"</p>
                 <p style="margin:0;font-size:13px;font-weight:600;color:#0f172a">${t.name}</p>
                 <p style="margin:2px 0 0;font-size:12px;color:#64748b">${t.role}</p>
-              </div>`).join('')}
+              </div>`) : []).join('')}
             <p>Ready to start getting leads in <strong>${lead.city}, ${lead.state}</strong>?</p>
             <a href="https://voiceexecai.com/pricing" style="display:inline-block;background:linear-gradient(135deg,#2563EB,#7C3AED);color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:8px">Start Getting Leads Now →</a>
             <p style="margin-top:32px;font-size:13px;color:#94a3b8">— The VoiceExecAI Team | <a href="https://voiceexecai.com" style="color:#94a3b8">voiceexecai.com</a></p>

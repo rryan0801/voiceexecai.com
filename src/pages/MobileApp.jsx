@@ -8,7 +8,7 @@ import AppStoreBadges from '@/components/AppStoreBadges';
 export default function MobileApp() {
   const features = [
             { icon: <Shield className="w-6 h-6" />, title: 'Secure & Private', desc: 'Encrypted HTTPS connection for all your data' },
-    { icon: <Smartphone className="w-6 h-6" />, title: 'Native Experience', desc: 'Add it to your home screen and open it like an app' }
+    { icon: <Smartphone className="w-6 h-6" />, title: 'Home Screen App', desc: 'Add it to your home screen and open it like an app' }
   ];
 
   return (
@@ -129,13 +129,13 @@ export default function MobileApp() {
             {[
               {
                 title: 'Home Screen Access',
-                desc: 'One tap from your home screen — no browser needed',
+                desc: 'Add it to your home screen for one-tap access',
                 icon: '🏠',
                 gradient: 'from-green-500 to-emerald-600'
               },
               {
-                title: 'Better Voice Recognition',
-                desc: 'Optimized mobile microphone access for clearer commands',
+                title: 'Voice Commands On the Go',
+                desc: 'Speak commands right from your phone',
                 icon: '🎤',
                 gradient: 'from-indigo-500 to-blue-600'
               },
