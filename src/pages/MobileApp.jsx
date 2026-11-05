@@ -7,10 +7,8 @@ import AppStoreBadges from '@/components/AppStoreBadges';
 
 export default function MobileApp() {
   const features = [
-    { icon: <Zap className="w-6 h-6" />, title: 'Lightning Fast', desc: 'Native app performance with instant load times' },
-    { icon: <Cloud className="w-6 h-6" />, title: 'Works Offline', desc: 'Access your data even without internet' },
-    { icon: <Shield className="w-6 h-6" />, title: 'Secure & Private', desc: 'Enterprise-grade encryption for all your data' },
-    { icon: <Smartphone className="w-6 h-6" />, title: 'Native Experience', desc: 'Feels like a native app on any device' }
+            { icon: <Shield className="w-6 h-6" />, title: 'Secure & Private', desc: 'Encrypted HTTPS connection for all your data' },
+    { icon: <Smartphone className="w-6 h-6" />, title: 'Native Experience', desc: 'Add it to your home screen and open it like an app' }
   ];
 
   return (
@@ -120,33 +118,15 @@ export default function MobileApp() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Why download the app?
+              Why use it on your phone?
             </h2>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-              Enhanced features and native performance that make voice automation even better.
+              Your voice assistant goes wherever you go.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              {
-                title: 'Push Notifications',
-                desc: 'Get instant alerts for important deals, mentions, and SEO wins',
-                icon: '🔔',
-                gradient: 'from-orange-500 to-red-600'
-              },
-              {
-                title: 'Offline Mode',
-                desc: 'Access your data and draft commands even without internet',
-                icon: '📶',
-                gradient: 'from-blue-500 to-cyan-600'
-              },
-              {
-                title: 'Faster Performance',
-                desc: 'Native app caching means instant load times',
-                icon: '⚡',
-                gradient: 'from-purple-500 to-pink-600'
-              },
               {
                 title: 'Home Screen Access',
                 desc: 'One tap from your home screen — no browser needed',
@@ -159,12 +139,6 @@ export default function MobileApp() {
                 icon: '🎤',
                 gradient: 'from-indigo-500 to-blue-600'
               },
-              {
-                title: 'Background Sync',
-                desc: 'Your data stays updated even when the app is closed',
-                icon: '🔄',
-                gradient: 'from-pink-500 to-rose-600'
-              }
             ].map((feature, idx) => (
               <motion.div
                 key={idx}
