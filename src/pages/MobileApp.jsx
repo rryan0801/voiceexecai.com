@@ -24,7 +24,7 @@ export default function MobileApp() {
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-blue-700 text-xs font-medium mb-8 shadow-sm"
           >
             <Download className="w-3 h-3" />
-            <span className="font-semibold">Now available on iOS & Android</span>
+            <span className="font-semibold">Works in your phone's browser</span>
           </motion.div>
 
           <motion.h1
@@ -43,8 +43,8 @@ export default function MobileApp() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-500 max-w-2xl mx-auto mb-10"
           >
-            Download the mobile app and take voice-powered sales automation anywhere. 
-            Available on iPhone, iPad, and Android devices.
+            Open VoiceExecAI in your phone's browser and add it to your home screen 
+            to take voice-powered sales automation anywhere.
           </motion.p>
 
           <motion.div
@@ -54,8 +54,11 @@ export default function MobileApp() {
             className="flex flex-col items-center gap-6"
           >
             <AppStoreBadges />
+            <Link to="/pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold rounded-xl shadow-lg">
+              See plans and pricing <ArrowRight className="w-5 h-5" />
+            </Link>
             <p className="text-sm text-slate-400">
-              Or <Link to="/dashboard" className="text-blue-600 hover:underline font-medium">use the web app</Link> — same great experience
+              Or <Link to="/dashboard" className="text-blue-600 hover:underline font-medium">open the web app</Link>
             </p>
           </motion.div>
         </div>
@@ -105,7 +108,7 @@ export default function MobileApp() {
 
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Free to download • No credit card required</span>
+                <span>Free plan available • No credit card needed for the free plan</span>
               </div>
             </div>
           </div>
@@ -192,7 +195,7 @@ export default function MobileApp() {
             Ready to go mobile?
           </h2>
           <p className="text-blue-100 text-lg mb-10">
-            Download VoiceExecAI today and take voice-powered automation everywhere.
+            Open VoiceExecAI on your phone today and take voice-powered automation everywhere.
           </p>
           <div className="flex flex-col items-center gap-6">
             <AppStoreBadges />
@@ -200,11 +203,11 @@ export default function MobileApp() {
               to="/dashboard"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl"
             >
-              Try Web App Instead <ArrowRight className="w-5 h-5" />
+              Open the Web App <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
           <p className="text-blue-200 text-sm mt-6">
-            Free to download • Works on iOS 14+ and Android 8+ • 4.9★ rating
+            Works in your phone's browser • Add it to your home screen
           </p>
         </div>
       </section>
