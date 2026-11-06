@@ -39,10 +39,9 @@ const PLANS = [
       'CRM integrations (HubSpot, Salesforce)',
       'Email + SMS routing',
       'Priority support',
-      'Analytics dashboard',
-      '14-day free trial'
+      'Analytics dashboard'
     ],
-    cta: 'Start Pro Trial',
+    cta: 'Get Started',
     highlight: true,
     popular: true
   },
@@ -110,8 +109,6 @@ export default function Pricing() {
       const res = await base44.functions.invoke('createStripeCheckout', {
         price_id: priceId,
         plan_name: planName,
-        // The Pro plan advertises a 14-day free trial (same as the home page).
-        ...(planName === 'Pro' ? { trial_days: 14 } : {}),
       });
 
       if (res.data.url) {
@@ -321,7 +318,7 @@ export default function Pricing() {
               { q: 'Can I change plans later?', a: 'Yes. Email support@voiceexecai.com and we will switch your plan.' },
               { q: 'How do I cancel?', a: 'Email support@voiceexecai.com before your next billing date and we will cancel your plan.' },
               { q: 'What happens if I exceed my quota?', a: 'We will notify you when you are approaching your limit. You can upgrade anytime or we will throttle requests until next billing cycle.' },
-              { q: 'Is there a free trial?', a: 'Yes. The Pro plan includes a 14-day free trial. A card is needed at checkout, and you are not charged until the trial ends.' },
+              { q: 'Is there a free trial?', a: 'There is no free trial.' },
               { q: 'What payment methods do you accept?', a: 'We accept all major credit cards (Visa, Mastercard, Amex) via Stripe. Enterprise plans can also pay via invoice.' }
             ].map((faq, i) => (
               <motion.div
