@@ -38,11 +38,10 @@ const PLANS = [
       '25,000 voice commands/month',
       'Up to 10 reps',
       'CRM integrations (HubSpot, Salesforce, Pipedrive)',
-      '14-day free trial',
       'Analytics dashboard',
       'Priority support'
     ],
-    cta: 'Start Pro Trial',
+    cta: 'Get Started',
     highlight: true
   },
   {
@@ -104,8 +103,7 @@ export default function Landing() {
     try {
       const res = await base44.functions.invoke('createStripeCheckout', {
         price_id: plan.priceId,
-        plan_name: plan.name,
-        trial_days: 14
+        plan_name: plan.name
       });
       if (res.data?.url) window.location.href = res.data.url;
     } catch (error) {
