@@ -55,7 +55,6 @@ Deno.serve(async (req) => {
       mode = 'subscription',
       amount,
       tip_name,
-      trial_days,
     } = await req.json();
 
     const origin = req.headers.get('origin') || 'https://voiceexecai.com';
@@ -100,8 +99,7 @@ Deno.serve(async (req) => {
     // make subscriptions free. Customers can still type a real promotion code on Stripe's
     // own checkout page (allow_promotion_codes below); Stripe checks those itself.
     void coupon_code;
-    // Free trials from the browser are capped at the 14 days the site advertises.
-    const trialDays = Math.min(14, Math.max(0, Math.floor(Number(trial_days) || 0)));
+    // No free trials (Richy, 2026-11-06): subscriptions are charged from day one.
 
     // Act-now deal: monthly plans only, while on.
     const dealCouponId = Date.now() <= DEAL_ENDS_AT && await isMonthlyPrice(stripe, price_id)
@@ -113,7 +111,6 @@ Deno.serve(async (req) => {
         base44_app_id: Deno.env.get("BASE44_APP_ID"),
         user_email: user.email,
       },
-      ...(trialDays > 0 ? { trial_period_days: trialDays } : {}),
     };
 
     const buildSession = (withDeal) => stripe.checkout.sessions.create({
