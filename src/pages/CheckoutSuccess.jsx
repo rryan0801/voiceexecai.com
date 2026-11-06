@@ -24,8 +24,7 @@ const PLAN_BENEFITS = {
       'CRM integrations (HubSpot, Salesforce)',
       'Email + SMS routing',
       'Priority support',
-      'Analytics dashboard',
-      '14-day free trial'
+      'Analytics dashboard'
     ],
     color: 'from-blue-600 to-violet-600'
   },
