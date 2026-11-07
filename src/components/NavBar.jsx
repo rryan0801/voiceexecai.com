@@ -66,8 +66,6 @@ const NAV_GROUPS = [
       { path: '/seo-automator', label: 'SEO Automator', icon: Globe, badge: 'NEW' },
       { path: '/seo-results', label: 'SEO Results', icon: Trophy, badge: 'HOT' },
       { path: '/mobile-app', label: 'Mobile App', icon: Smartphone },
-      { path: '/billshield', label: 'BillShield', icon: DollarSign },
-      { path: '/tests', label: 'Tests', icon: Beaker },
     ]
   }
 ];

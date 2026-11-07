@@ -7,7 +7,6 @@ import WebsiteCard from '@/components/seo/WebsiteCard';
 import AddWebsiteForm from '@/components/seo/AddWebsiteForm';
 import SEODashboard from '@/components/seo/SEODashboard';
 import VoiceCommand from '@/components/seo/VoiceCommand';
-import SuccessMetrics from '@/components/SuccessMetrics';
 
 export default function SEOAutomator() {
   const [selectedWebsite, setSelectedWebsite] = useState(null);
@@ -231,7 +230,6 @@ export default function SEOAutomator() {
       )}
 
       {/* Success Metrics Section */}
-      <SuccessMetrics />
     </div>
   );
 }

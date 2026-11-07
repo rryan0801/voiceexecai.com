@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Smartphone, Download, Star, Zap, Shield, Cloud, ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import AppStoreBadges from '@/components/AppStoreBadges';
 
 export default function MobileApp() {
   const features = [
@@ -51,7 +50,6 @@ export default function MobileApp() {
             transition={{ delay: 0.3 }}
             className="flex flex-col items-center gap-6"
           >
-            <AppStoreBadges />
             <Link to="/pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold rounded-xl shadow-lg">
               See plans and pricing <ArrowRight className="w-5 h-5" />
             </Link>
@@ -106,7 +104,7 @@ export default function MobileApp() {
 
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Free plan available • No credit card needed for the free plan</span>
+                <span>Paid plans only • Works in your phone's web browser</span>
               </div>
             </div>
           </div>
@@ -172,7 +170,6 @@ export default function MobileApp() {
             Open VoiceExecAI on your phone today and take voice-powered automation everywhere.
           </p>
           <div className="flex flex-col items-center gap-6">
-            <AppStoreBadges />
             <Link
               to="/dashboard"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-lg shadow-2xl"

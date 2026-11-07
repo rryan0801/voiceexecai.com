@@ -6,7 +6,6 @@ import { Plus, Globe, Search, BarChart3, Target, TrendingUp, Zap, Award, FileTex
 import { Button } from '@/components/ui/button';
 import { seo } from '@/modules/seo';
 import VoiceCommand from '@/components/seo/VoiceCommand';
-import SuccessMetrics from '@/components/SuccessMetrics';
 
 export default function SEOAutomator() {
   const [selectedWebsite, setSelectedWebsite] = useState(null);
@@ -226,7 +225,6 @@ export default function SEOAutomator() {
 
       {/* Success Metrics Section */}
       <seo.ResultsShowcase results={[]} />
-      <SuccessMetrics />
     </div>
   );
 }

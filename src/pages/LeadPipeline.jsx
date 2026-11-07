@@ -272,7 +272,7 @@ export default function LeadPipeline() {
             ) : filtered.length === 0 ? (
               <div className="text-center py-20 text-slate-400">
                 <Users className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                <p>No leads yet. Share your <a href="/get-leads" className="text-blue-500 hover:underline">lead capture page</a>.</p>
+                <p>No leads yet.</p>
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
