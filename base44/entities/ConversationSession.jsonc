@@ -1,29 +1,8 @@
 {
   "name": "ConversationSession",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "client_id": {
-      "type": "string",
-      "description": "Client reference"
-    },
-    "prospect_id": {
-      "type": "string",
-      "description": "Prospect in conversation"
-    },
-    "prospect_name": {
-      "type": "string"
-    },
-    "rep_email": {
-      "type": "string",
-      "description": "Sales rep email"
-    },
     "channel": {
-      "type": "string",
+      "description": "Communication channel",
       "enum": [
         "voice",
         "email",
@@ -33,179 +12,247 @@
         "teams",
         "slack"
       ],
-      "description": "Communication channel"
+      "type": "string"
     },
-    "session_status": {
-      "type": "string",
-      "enum": [
-        "active",
-        "paused",
-        "closed"
-      ],
-      "default": "active"
-    },
-    "conversation_turns": {
-      "type": "array",
-      "description": "Multi-turn conversation history",
-      "items": {
-        "type": "object",
-        "properties": {
-          "turn_number": {
-            "type": "number"
-          },
-          "speaker": {
-            "type": "string",
-            "enum": [
-              "rep",
-              "prospect",
-              "system"
-            ]
-          },
-          "message": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "intent": {
-            "type": "string",
-            "description": "Detected intent for this turn"
-          },
-          "sentiment": {
-            "type": "string",
-            "enum": [
-              "positive",
-              "neutral",
-              "negative"
-            ]
-          },
-          "key_topics": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      }
+    "client_id": {
+      "description": "Client reference",
+      "type": "string"
     },
     "conversation_flow": {
-      "type": "object",
       "description": "Analysis of conversation progression",
       "properties": {
-        "opening_sentiment": {
-          "type": "string"
-        },
         "closing_sentiment": {
           "type": "string"
         },
+        "conversation_depth": {
+          "description": "Number of distinct topics covered",
+          "type": "number"
+        },
+        "engagement_level": {
+          "description": "0-100 engagement score",
+          "type": "number"
+        },
+        "opening_sentiment": {
+          "type": "string"
+        },
+        "rep_to_prospect_ratio": {
+          "description": "Percentage of conversation from rep",
+          "type": "number"
+        },
         "sentiment_trajectory": {
-          "type": "string",
           "enum": [
             "improving",
             "declining",
             "stable",
             "volatile"
-          ]
-        },
-        "engagement_level": {
-          "type": "number",
-          "description": "0-100 engagement score"
-        },
-        "rep_to_prospect_ratio": {
-          "type": "number",
-          "description": "Percentage of conversation from rep"
-        },
-        "conversation_depth": {
-          "type": "number",
-          "description": "Number of distinct topics covered"
+          ],
+          "type": "string"
         }
-      }
+      },
+      "type": "object"
+    },
+    "conversation_turns": {
+      "description": "Multi-turn conversation history",
+      "items": {
+        "properties": {
+          "intent": {
+            "description": "Detected intent for this turn",
+            "type": "string"
+          },
+          "key_topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          },
+          "sentiment": {
+            "enum": [
+              "positive",
+              "neutral",
+              "negative"
+            ],
+            "type": "string"
+          },
+          "speaker": {
+            "enum": [
+              "rep",
+              "prospect",
+              "system"
+            ],
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "turn_number": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "ended_at": {
+      "format": "date-time",
+      "type": "string"
     },
     "extracted_context": {
-      "type": "object",
       "description": "Key insights from full conversation",
       "properties": {
-        "main_topics": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "pain_points": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "deal_signals": {
-          "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "objections_raised": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "next_steps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          },
+          "type": "array"
         },
         "decision_timeline": {
-          "type": "string",
-          "description": "When prospect likely to decide"
+          "description": "When prospect likely to decide",
+          "type": "string"
+        },
+        "main_topics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "next_steps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "objections_raised": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pain_points": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         }
-      }
+      },
+      "type": "object"
+    },
+    "prospect_id": {
+      "description": "Prospect in conversation",
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "rep_email": {
+      "description": "Sales rep email",
+      "type": "string"
+    },
+    "session_status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "paused",
+        "closed"
+      ],
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "type": "string"
     },
     "thread_metadata": {
-      "type": "object",
       "description": "For conversation threading",
       "properties": {
         "parent_session_id": {
-          "type": "string",
-          "description": "Parent conversation if this is a follow-up"
+          "description": "Parent conversation if this is a follow-up",
+          "type": "string"
         },
         "related_sessions": {
-          "type": "array",
+          "description": "IDs of related conversations",
           "items": {
             "type": "string"
           },
-          "description": "IDs of related conversations"
+          "type": "array"
         },
         "thread_tags": {
-          "type": "array",
+          "description": "Tags for organization",
           "items": {
             "type": "string"
           },
-          "description": "Tags for organization"
+          "type": "array"
         }
-      }
-    },
-    "total_turns": {
-      "type": "number",
-      "default": 0
+      },
+      "type": "object"
     },
     "total_duration_seconds": {
-      "type": "number",
-      "description": "Total conversation duration"
+      "description": "Total conversation duration",
+      "type": "number"
     },
-    "started_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "ended_at": {
-      "type": "string",
-      "format": "date-time"
+    "total_turns": {
+      "default": 0,
+      "type": "number"
     }
   },
   "required": [
     "client_id",
     "prospect_id",
     "channel"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
