@@ -1,70 +1,108 @@
 {
   "name": "KeywordTracker",
-  "type": "object",
   "properties": {
+    "cpc": {
+      "description": "Cost per click",
+      "type": "number"
+    },
+    "current_rank": {
+      "description": "Current Google position",
+      "type": "number"
+    },
     "description": {
-      "type": "string",
       "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "website_id": {
-      "type": "string",
-      "description": "Reference to Website"
-    },
-    "keyword": {
+      "maxLength": 1000,
       "type": "string"
     },
-    "search_volume": {
-      "type": "number",
-      "description": "Monthly searches"
-    },
     "difficulty": {
-      "type": "number",
-      "description": "0-100 competition level"
-    },
-    "cpc": {
-      "type": "number",
-      "description": "Cost per click"
+      "description": "0-100 competition level",
+      "type": "number"
     },
     "intent": {
-      "type": "string",
       "enum": [
         "informational",
         "commercial",
         "navigational",
         "transactional"
-      ]
+      ],
+      "type": "string"
     },
-    "current_rank": {
-      "type": "number",
-      "description": "Current Google position"
+    "keyword": {
+      "type": "string"
+    },
+    "last_checked": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "opportunity_score": {
+      "description": "0-100 priority to target",
+      "type": "number"
     },
     "previous_rank": {
       "type": "number"
     },
     "rank_change": {
-      "type": "number",
-      "description": "Position change"
+      "description": "Position change",
+      "type": "number"
     },
-    "url_ranking": {
-      "type": "string",
-      "description": "Which page ranks for this keyword"
-    },
-    "opportunity_score": {
-      "type": "number",
-      "description": "0-100 priority to target"
+    "search_volume": {
+      "description": "Monthly searches",
+      "type": "number"
     },
     "tracked_since": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
     },
-    "last_checked": {
-      "type": "string",
-      "format": "date-time"
+    "url_ranking": {
+      "description": "Which page ranks for this keyword",
+      "type": "string"
+    },
+    "website_id": {
+      "description": "Reference to Website",
+      "type": "string"
     }
   },
   "required": [
     "website_id",
     "keyword"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
