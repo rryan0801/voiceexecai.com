@@ -1,25 +1,57 @@
 {
   "name": "CoachingFeedback",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "rep_email": {
-      "type": "string",
-      "description": "Sales rep email"
+    "acted_upon": {
+      "default": false,
+      "type": "boolean"
     },
     "client_id": {
       "type": "string"
     },
+    "delivered_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "effectiveness": {
+      "description": "1-5 rating of coaching impact",
+      "type": "number"
+    },
+    "feedback_content": {
+      "description": "Coaching guidance",
+      "type": "string"
+    },
+    "feedback_title": {
+      "description": "Short coaching title",
+      "type": "string"
+    },
+    "rep_email": {
+      "description": "Sales rep email",
+      "type": "string"
+    },
+    "sentiment_context": {
+      "description": "Current call sentiment",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "type": "string"
+    },
     "session_id": {
-      "type": "string",
-      "description": "Reference to ConversationSession"
+      "description": "Reference to ConversationSession",
+      "type": "string"
+    },
+    "suggested_response": {
+      "description": "What to say next",
+      "type": "string"
     },
     "trigger_type": {
-      "type": "string",
+      "description": "What triggered the coaching",
       "enum": [
         "sentiment_shift",
         "objection_detected",
@@ -27,49 +59,16 @@
         "silence",
         "closing_opportunity"
       ],
-      "description": "What triggered the coaching"
-    },
-    "feedback_title": {
-      "type": "string",
-      "description": "Short coaching title"
-    },
-    "feedback_content": {
-      "type": "string",
-      "description": "Coaching guidance"
-    },
-    "suggested_response": {
-      "type": "string",
-      "description": "What to say next"
+      "type": "string"
     },
     "urgency": {
-      "type": "string",
+      "description": "How important is this coaching",
       "enum": [
         "low",
         "medium",
         "high"
       ],
-      "description": "How important is this coaching"
-    },
-    "sentiment_context": {
-      "type": "string",
-      "enum": [
-        "positive",
-        "neutral",
-        "negative"
-      ],
-      "description": "Current call sentiment"
-    },
-    "delivered_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "acted_upon": {
-      "type": "boolean",
-      "default": false
-    },
-    "effectiveness": {
-      "type": "number",
-      "description": "1-5 rating of coaching impact"
+      "type": "string"
     }
   },
   "required": [
@@ -78,5 +77,53 @@
     "trigger_type",
     "feedback_title",
     "feedback_content"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
