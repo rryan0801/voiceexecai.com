@@ -46,6 +46,15 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'audio_url and command_id required' }, { status: 400 });
     }
 
+    // Ownership (audit 2026-11-07): the caller must be able to see this command.
+    try {
+      const own = await base44.entities.Command.get(command_id);
+      if (!own) throw new Error('not found');
+    } catch (_e) {
+      command_id = undefined;
+      return Response.json({ error: 'Command not found' }, { status: 404 });
+    }
+
     await base44.asServiceRole.entities.Command.update(command_id, { status: 'transcribing' });
 
     // Download the audio file
