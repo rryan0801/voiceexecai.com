@@ -9,7 +9,8 @@ const SITE_DAILY = 500;
 const SITE_FACTS = `SITE FACTS (the only facts you may state about VoiceExecAI):
 - VoiceExecAI (voiceexecai.com) is a voice assistant for sales reps, run by Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309.
 - You hold the mic button in the web browser and speak (or type) a command. The AI works out what you want.
-- It can: draft an email and send it from the user's connected Microsoft Outlook account (if Outlook is not connected, it only shows the draft); book a meeting on the connected Outlook calendar; create a follow-up task; draft a proposal document. Commands are listed in the dashboard history.
+- It can: draft an email for the user to copy and send themselves; draft meeting details for the user to add to their own calendar; create a follow-up task; draft a proposal document. Commands are listed in the dashboard history.
+- It does NOT send email, book meetings or log anything into a CRM (HubSpot, Salesforce, etc.) for customers yet.
 - It does NOT answer or make phone calls. It does not run 24/7 on its own; it acts only when the user gives a command. There is no app in the Apple App Store or Google Play; it runs in the web browser.
 - AI can make mistakes; users should check drafts before relying on them.
 - Plans (paid only, no free plan, no free trial): Pro $49/month; Enterprise $999/month, set up by email.

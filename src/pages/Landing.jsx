@@ -11,15 +11,15 @@ const LOGO = 'https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7c
 
 // Every line here must match what the app really does (owner rule: no claims the code doesn't back up).
 const WHAT_IT_DOES = [
-  { icon: Mail, title: 'Emails, drafted and sent', text: 'Say who to email and what about. The AI writes it and sends it from your own connected Outlook account. If Outlook is not connected, you get the draft and nothing is sent.' },
-  { icon: Calendar, title: 'Meetings booked', text: 'Say "set up a call with Dana tomorrow at 2pm" and it books the meeting on your connected Outlook calendar.' },
+  { icon: Mail, title: 'Emails, drafted for you', text: 'Say who to email and what about. The AI writes the email for you to copy and send from your own email.' },
+  { icon: Calendar, title: 'Meeting details', text: 'Say "set up a call with Dana tomorrow at 2pm" and it drafts the meeting title, time and note for you to add to your calendar.' },
   { icon: ListTodo, title: 'Follow-up tasks', text: 'Say "remind me to call Acme on Friday" and a task is added to your list.' },
   { icon: FileText, title: 'Proposal drafts', text: 'Ask for a proposal for a prospect and get a first draft to edit.' },
 ];
 
 const EXAMPLES = [
   '"Email John at TechCorp a thank-you for today\'s demo."',
-  '"Book a 30-minute call with Sarah next Tuesday at 10am."',
+  '"Draft a 30-minute call with Sarah for next Tuesday at 10am."',
   '"Remind me to follow up with BlueSky on Friday."',
   '"Draft a proposal for Acme Corp."',
 ];
@@ -72,7 +72,7 @@ export default function Landing() {
             <span className="text-blue-600">Your follow-up gets done.</span>
           </h1>
           <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10">
-            VoiceExecAI turns a spoken command into a sent email, a booked meeting or a follow-up task —
+            VoiceExecAI turns a spoken command into a drafted email, drafted meeting details or a follow-up task —
             so you spend less time clicking and more time selling.
           </p>
           <div className="max-w-2xl mx-auto mb-10 grid sm:grid-cols-2 gap-3 text-left">
@@ -114,7 +114,7 @@ export default function Landing() {
             <div className="text-sm text-slate-600 space-y-1">
               <p><strong>Good to know:</strong> VoiceExecAI does not answer or make phone calls. It acts only when you give it a command.</p>
               <p>AI can make mistakes. Check what it drafts, especially names, dates and amounts.</p>
-              <p>Sending email and booking meetings need your Outlook account connected.</p>
+              <p>VoiceExecAI does not send email or book meetings for you yet. It drafts them, and you send or book them yourself. It does not log anything into your CRM.</p>
             </div>
           </div>
         </div>

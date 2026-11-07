@@ -1,6 +1,6 @@
 # VoiceExecAI
 
-> A voice assistant for sales reps. You speak (or type) a command in your web browser and VoiceExecAI drafts and sends an email from your connected Microsoft Outlook account, books an Outlook meeting, creates a follow-up task, or drafts a proposal document.
+> A voice assistant for sales reps. You speak (or type) a command in your web browser and VoiceExecAI drafts an email for you to send, drafts meeting details for your calendar, creates a follow-up task, or drafts a proposal document. It does not send email, book meetings or update a CRM for you.
 
 - It does not answer or make phone calls. It acts only when you give it a command.
 - Plans: paid only (no free plan, no free trial). Pro $49/month. Enterprise $999/month, set up by email.

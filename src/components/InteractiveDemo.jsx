@@ -16,18 +16,18 @@ const DEMO_SCENARIOS = [
     command: '"Send a follow-up email to John at TechCorp about the proposal we sent."',
     steps: [
       { icon: '🎤', text: 'Your voice is turned into text', delay: 600 },
-      { icon: '🧠', text: 'AI works out what you want: send an email', delay: 1400 },
+      { icon: '🧠', text: 'AI works out what you want: write an email', delay: 1400 },
       { icon: '✍️', text: 'Email drafted', delay: 2200 },
-      { icon: '📧', text: 'Sent from your connected Outlook (or kept as a draft if Outlook is not connected)', delay: 3000 },
+      { icon: '📧', text: 'Draft ready for you to copy and send', delay: 3000 },
       { icon: '✅', text: 'Done', delay: 3600 },
     ]
   },
   {
-    command: '"Book a 30-minute call with the BlueSky team next Tuesday at 10am."',
+    command: '"Set up a 30-minute call with the BlueSky team next Tuesday at 10am."',
     steps: [
       { icon: '🎤', text: 'Your voice is turned into text', delay: 600 },
-      { icon: '🧠', text: 'AI works out what you want: schedule a meeting', delay: 1400 },
-      { icon: '🗓️', text: 'Meeting added to your connected Outlook calendar', delay: 2200 },
+      { icon: '🧠', text: 'AI works out what you want: plan a meeting', delay: 1400 },
+      { icon: '🗓️', text: 'Meeting title, time and note drafted for your calendar', delay: 2200 },
       { icon: '✅', text: 'Done', delay: 3000 },
     ]
   }

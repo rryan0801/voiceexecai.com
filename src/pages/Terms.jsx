@@ -31,8 +31,8 @@ export default function Terms() {
                 VoiceExecAI is a voice assistant. When you give it a spoken or typed command, it can:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Draft an email and send it from your connected Outlook account</li>
-                <li>Book a meeting on your connected Outlook calendar</li>
+                <li>Draft an email for you to send yourself</li>
+                <li>Draft meeting details for you to add to your calendar</li>
                 <li>Create a follow-up task</li>
                 <li>Draft a proposal document</li>
               </ul>

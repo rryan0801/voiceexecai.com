@@ -62,7 +62,7 @@ export default function Privacy() {
                 We do not sell, trade, or otherwise transfer your personal information to outside parties except in the following circumstances:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Service Providers:</strong> We share data with providers that help run the service: Base44 (hosting), Stripe (payments), OpenAI (speech-to-text), Anthropic (AI drafting), Microsoft (only if you connect Outlook), Twilio (text messages, if used), and Google Analytics and Microsoft Clarity (site usage analytics).</li>
+                <li><strong>Service Providers:</strong> We share data with providers that help run the service: Base44 (hosting), Stripe (payments), OpenAI (speech-to-text), Anthropic (AI drafting), Twilio (text messages, if used), and Google Analytics and Microsoft Clarity (site usage analytics).</li>
                 <li><strong>Legal Requirements:</strong> We may disclose information when required by law or to protect our rights.</li>
                 <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
                 <li><strong>With Your Consent:</strong> When you explicitly agree to share information.</li>

@@ -1,7 +1,7 @@
 {
   "name": "VoiceExecAI - Voice Assistant for Sales Follow-Up",
   "short_name": "VoiceExecAI",
-  "description": "Speak a command to send an Outlook email, book a meeting or create a follow-up task.",
+  "description": "Speak a command to draft an email, draft meeting details or create a follow-up task.",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#ffffff",

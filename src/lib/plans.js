@@ -3,8 +3,8 @@
 // Every feature listed here must match what the code actually does.
 export const PRO_FEATURES = [
   'Speak (or type) a command in your web browser',
-  'AI drafts the email and sends it from your connected Outlook',
-  'Book Outlook meetings by voice',
+  'AI drafts the email for you to send',
+  'AI drafts meeting details for you to add to your calendar',
   'Create follow-up tasks by voice',
   'Draft proposal documents',
   'History of every command in your dashboard',

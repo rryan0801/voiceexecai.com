@@ -84,7 +84,7 @@ export default function MobileApp() {
               </h2>
               <p className="text-lg text-slate-500 mb-8 leading-relaxed">
                 The full VoiceExecAI experience optimized for your phone. Voice commands, 
-                CRM updates, deal tracking, and SEO automation — all in your pocket.
+                email drafts, meeting details and follow-up tasks — all in your pocket.
               </p>
 
               <div className="grid gap-4 mb-8">
