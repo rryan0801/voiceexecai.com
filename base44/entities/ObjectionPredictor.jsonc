@@ -1,67 +1,66 @@
 {
   "name": "ObjectionPredictor",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "prospect_id": {
-      "type": "string"
-    },
     "client_id": {
       "type": "string"
     },
-    "prospect_name": {
+    "company_industry_objection_pattern": {
+      "description": "Common objections from this industry",
       "type": "string"
     },
     "company_name": {
       "type": "string"
     },
+    "company_size_objection_pattern": {
+      "description": "Common objections from companies this size",
+      "type": "string"
+    },
+    "confidence_score": {
+      "description": "0-100 confidence in predictions",
+      "type": "number"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "predicted_at": {
+      "format": "date-time",
+      "type": "string"
+    },
     "predicted_objections": {
-      "type": "array",
       "description": "Top objections this prospect likely to raise",
       "items": {
-        "type": "object",
         "properties": {
+          "likelihood": {
+            "description": "0-100 probability",
+            "type": "number"
+          },
           "objection": {
             "type": "string"
           },
-          "likelihood": {
-            "type": "number",
-            "description": "0-100 probability"
-          },
           "reason": {
-            "type": "string",
-            "description": "Why we predict this"
+            "description": "Why we predict this",
+            "type": "string"
           },
           "rebuttal": {
-            "type": "string",
-            "description": "Pre-written response"
+            "description": "Pre-written response",
+            "type": "string"
           },
           "similar_closed_deals": {
-            "type": "number",
-            "description": "How many similar deals we overcame this on"
+            "description": "How many similar deals we overcame this on",
+            "type": "number"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
-    "company_industry_objection_pattern": {
-      "type": "string",
-      "description": "Common objections from this industry"
+    "prospect_id": {
+      "type": "string"
     },
-    "company_size_objection_pattern": {
-      "type": "string",
-      "description": "Common objections from companies this size"
-    },
-    "confidence_score": {
-      "type": "number",
-      "description": "0-100 confidence in predictions"
-    },
-    "predicted_at": {
-      "type": "string",
-      "format": "date-time"
+    "prospect_name": {
+      "type": "string"
     }
   },
   "required": [
@@ -69,5 +68,44 @@
     "client_id",
     "prospect_name",
     "company_name"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
