@@ -1,39 +1,60 @@
 {
   "name": "CompetitorAnalysis",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "analyzed_at": {
+      "format": "date-time",
+      "type": "string"
     },
-    "website_id": {
-      "type": "string",
-      "description": "Reference to Website"
-    },
-    "competitor_url": {
-      "type": "string",
-      "description": "Competitor website URL"
+    "backlinks_count": {
+      "description": "Total inbound links",
+      "type": "number"
     },
     "competitor_name": {
       "type": "string"
     },
-    "estimated_monthly_traffic": {
-      "type": "number",
-      "description": "Estimated organic traffic"
+    "competitor_url": {
+      "description": "Competitor website URL",
+      "type": "string"
+    },
+    "content_gaps": {
+      "description": "Keywords they rank for but we don't",
+      "items": {
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "opportunity_score": {
+            "type": "number"
+          },
+          "our_position": {
+            "type": "number"
+          },
+          "recommended_action": {
+            "type": "string"
+          },
+          "their_position": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "domain_authority": {
-      "type": "number",
-      "description": "0-100 domain strength"
+      "description": "0-100 domain strength",
+      "type": "number"
     },
-    "total_keywords": {
-      "type": "number",
-      "description": "Keywords they rank for"
+    "estimated_monthly_traffic": {
+      "description": "Estimated organic traffic",
+      "type": "number"
     },
     "top_keywords": {
-      "type": "array",
       "items": {
-        "type": "object",
         "properties": {
           "keyword": {
             "type": "string"
@@ -47,50 +68,67 @@
           "url": {
             "type": "string"
           }
-        }
-      }
-    },
-    "content_gaps": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "keyword": {
-            "type": "string"
-          },
-          "their_position": {
-            "type": "number"
-          },
-          "our_position": {
-            "type": "number"
-          },
-          "opportunity_score": {
-            "type": "number"
-          },
-          "recommended_action": {
-            "type": "string"
-          }
-        }
+        },
+        "type": "object"
       },
-      "description": "Keywords they rank for but we don't"
-    },
-    "backlinks_count": {
-      "type": "number",
-      "description": "Total inbound links"
+      "type": "array"
     },
     "top_referring_domains": {
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
-    "analyzed_at": {
-      "type": "string",
-      "format": "date-time"
+    "total_keywords": {
+      "description": "Keywords they rank for",
+      "type": "number"
+    },
+    "website_id": {
+      "description": "Reference to Website",
+      "type": "string"
     }
   },
   "required": [
     "website_id",
     "competitor_url"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
