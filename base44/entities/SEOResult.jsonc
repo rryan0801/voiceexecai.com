@@ -1,55 +1,54 @@
 {
   "name": "SEOResult",
-  "type": "object",
   "properties": {
-    "website_id": {
-      "type": "string",
-      "description": "Reference to Website"
-    },
-    "metric_type": {
-      "type": "string",
-      "enum": [
-        "traffic_increase",
-        "ranking_improvement",
-        "keyword_gained",
-        "issue_fixed",
-        "competitor_overtaken"
-      ]
-    },
-    "title": {
-      "type": "string",
-      "description": "Achievement title"
-    },
-    "description": {
-      "type": "string",
-      "description": "What was achieved"
-    },
-    "before_value": {
-      "type": "number"
+    "achieved_at": {
+      "format": "date-time",
+      "type": "string"
     },
     "after_value": {
       "type": "number"
     },
-    "improvement_percentage": {
+    "before_value": {
+      "type": "number"
+    },
+    "description": {
+      "description": "What was achieved",
+      "type": "string"
+    },
+    "estimated_revenue_impact": {
+      "description": "Estimated monthly revenue increase",
       "type": "number"
     },
     "impact": {
-      "type": "string",
+      "description": "Business impact level",
       "enum": [
         "low",
         "medium",
         "high",
         "massive"
       ],
-      "description": "Business impact level"
+      "type": "string"
     },
-    "estimated_revenue_impact": {
-      "type": "number",
-      "description": "Estimated monthly revenue increase"
+    "improvement_percentage": {
+      "type": "number"
     },
-    "achieved_at": {
-      "type": "string",
-      "format": "date-time"
+    "metric_type": {
+      "enum": [
+        "traffic_increase",
+        "ranking_improvement",
+        "keyword_gained",
+        "issue_fixed",
+        "competitor_overtaken"
+      ],
+      "type": "string"
+    },
+    "title": {
+      "description": "Achievement title",
+      "type": "string"
+    },
+    "website_id": {
+      "description": "Reference to Website",
+      "type": "string"
     }
   },
   "required": [
@@ -57,5 +56,44 @@
     "metric_type",
     "title",
     "description"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
