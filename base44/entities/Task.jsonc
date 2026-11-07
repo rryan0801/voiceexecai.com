@@ -1,58 +1,102 @@
 {
   "name": "Task",
-  "type": "object",
   "properties": {
-    "client_id": {
-      "type": "string",
-      "description": "Reference to Client entity"
+    "assigned_to": {
+      "description": "Email of the person assigned",
+      "type": "string"
     },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect entity"
+    "client_id": {
+      "description": "Reference to Client entity",
+      "type": "string"
     },
     "command_id": {
-      "type": "string",
-      "description": "Reference to Command entity that created this task"
-    },
-    "title": {
-      "type": "string",
-      "description": "Task title"
+      "description": "Reference to Command entity that created this task",
+      "type": "string"
     },
     "description": {
-      "type": "string",
-      "description": "Task details"
+      "description": "Task details",
+      "type": "string"
     },
     "due_date": {
-      "type": "string",
+      "description": "When the task is due",
       "format": "date-time",
-      "description": "When the task is due"
+      "type": "string"
+    },
+    "priority": {
+      "default": "medium",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
+    },
+    "prospect_id": {
+      "description": "Reference to Prospect entity",
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "default": "pending",
       "enum": [
         "pending",
         "in_progress",
         "completed",
         "cancelled"
       ],
-      "default": "pending"
+      "type": "string"
     },
-    "priority": {
-      "type": "string",
-      "enum": [
-        "low",
-        "medium",
-        "high"
-      ],
-      "default": "medium"
-    },
-    "assigned_to": {
-      "type": "string",
-      "description": "Email of the person assigned"
+    "title": {
+      "description": "Task title",
+      "type": "string"
     }
   },
   "required": [
     "client_id",
     "title"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.assigned_to": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.assigned_to": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
