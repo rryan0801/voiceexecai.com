@@ -1,60 +1,8 @@
 {
   "name": "DealPhysics",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "deal_id": {
-      "type": "string",
-      "description": "Reference to DealScore"
-    },
-    "prospect_id": {
-      "type": "string"
-    },
-    "client_id": {
-      "type": "string"
-    },
-    "prospect_name": {
-      "type": "string"
-    },
-    "velocity": {
-      "type": "number",
-      "description": "Activity per day (interactions/day)"
-    },
-    "momentum": {
-      "type": "number",
-      "description": "-1 to 1, negative=decelerating, 1=accelerating"
-    },
-    "friction_points": {
-      "type": "array",
-      "description": "What's slowing the deal down",
-      "items": {
-        "type": "object",
-        "properties": {
-          "factor": {
-            "type": "string"
-          },
-          "impact": {
-            "type": "number",
-            "description": "0-100 friction score"
-          }
-        }
-      }
-    },
-    "predicted_close_date": {
-      "type": "string",
-      "format": "date",
-      "description": "AI-predicted close based on physics"
-    },
-    "close_confidence": {
-      "type": "number",
-      "description": "0-100 confidence in prediction"
-    },
     "acceleration_stage": {
-      "type": "string",
+      "description": "Current momentum stage",
       "enum": [
         "stalled",
         "slow",
@@ -62,18 +10,69 @@
         "accelerating",
         "hyperdrive"
       ],
-      "description": "Current momentum stage"
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "close_confidence": {
+      "description": "0-100 confidence in prediction",
+      "type": "number"
     },
     "days_at_current_velocity": {
       "type": "number"
     },
-    "projected_vs_actual_delta": {
-      "type": "number",
-      "description": "Days ahead/behind original estimate"
+    "deal_id": {
+      "description": "Reference to DealScore",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "friction_points": {
+      "description": "What's slowing the deal down",
+      "items": {
+        "properties": {
+          "factor": {
+            "type": "string"
+          },
+          "impact": {
+            "description": "0-100 friction score",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "last_calculated": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
+    },
+    "momentum": {
+      "description": "-1 to 1, negative=decelerating, 1=accelerating",
+      "type": "number"
+    },
+    "predicted_close_date": {
+      "description": "AI-predicted close based on physics",
+      "format": "date",
+      "type": "string"
+    },
+    "projected_vs_actual_delta": {
+      "description": "Days ahead/behind original estimate",
+      "type": "number"
+    },
+    "prospect_id": {
+      "type": "string"
+    },
+    "prospect_name": {
+      "type": "string"
+    },
+    "velocity": {
+      "description": "Activity per day (interactions/day)",
+      "type": "number"
     }
   },
   "required": [
@@ -82,5 +81,44 @@
     "client_id",
     "velocity",
     "momentum"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
