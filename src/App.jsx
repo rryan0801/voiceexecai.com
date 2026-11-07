@@ -107,37 +107,37 @@ const AuthenticatedApp = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/commands" element={<CommandManagement />} />
       <Route path="/prospects" element={<ProspectManagement />} />
-      <Route path="/widget-test" element={<WidgetTest />} />
-      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/widget-test" element={<AdminOnly><WidgetTest /></AdminOnly>} />
+      <Route path="/analytics" element={<AdminOnly><Analytics /></AdminOnly>} />
       <Route path="/mobile" element={<MobileWidget />} />
-      <Route path="/team" element={<TeamView />} />
-      <Route path="/autopilot" element={<AutoPilot />} />
-      <Route path="/deals" element={<DealIntelligence />} />
-      <Route path="/conversations" element={<ConversationAnalytics />} />
-      <Route path="/meeting-prep" element={<MeetingCopilot />} />
-      <Route path="/playbooks" element={<PlaybookManager />} />
+      <Route path="/team" element={<AdminOnly><TeamView /></AdminOnly>} />
+      <Route path="/autopilot" element={<AdminOnly><AutoPilot /></AdminOnly>} />
+      <Route path="/deals" element={<AdminOnly><DealIntelligence /></AdminOnly>} />
+      <Route path="/conversations" element={<AdminOnly><ConversationAnalytics /></AdminOnly>} />
+      <Route path="/meeting-prep" element={<AdminOnly><MeetingCopilot /></AdminOnly>} />
+      <Route path="/playbooks" element={<AdminOnly><PlaybookManager /></AdminOnly>} />
       <Route path="/tests" element={<AdminOnly><TestRunner /></AdminOnly>} />
-      <Route path="/crm-comms" element={<CRMAndCommsHub />} />
-      <Route path="/call-analysis" element={<CallAnalysisDashboard />} />
-      <Route path="/conversation-context" element={<ConversationContextManager />} />
-      <Route path="/email-engagement" element={<EmailEngagement />} />
-      <Route path="/linkedin-monitor" element={<LinkedInMonitor />} />
-      <Route path="/crm-adapter" element={<CRMAdapterSetup />} />
-      <Route path="/sms" element={<SMSThreads />} />
-      <Route path="/calendar-analytics" element={<CalendarAnalytics />} />
-      <Route path="/linkedin-messaging" element={<LinkedInMessaging />} />
-      <Route path="/actions" element={<ActionDashboard />} />
-      <Route path="/coaching" element={<CoachingCenter />} />
-      <Route path="/deal-physics" element={<DealPhysicsEngine />} />
-      <Route path="/rep-dna" element={<RepDNA />} />
-      <Route path="/objection-preflight" element={<ObjectionPreFlight />} />
-      <Route path="/readiness-pulse" element={<ProspectReadinessPulse />} />
-      <Route path="/quiet-monitor" element={<QuietPeriodMonitor />} />
-      <Route path="/forecasting" element={<RevenueForecasting />} />
-      <Route path="/win-loss" element={<WinLossAnalyzer />} />
-      <Route path="/leaderboard" element={<TeamLeaderboard />} />
-      <Route path="/email-studio" element={<EmailTemplateStudio />} />
-      <Route path="/deal-rooms" element={<DealCollaborationRooms />} />
+      <Route path="/crm-comms" element={<AdminOnly><CRMAndCommsHub /></AdminOnly>} />
+      <Route path="/call-analysis" element={<AdminOnly><CallAnalysisDashboard /></AdminOnly>} />
+      <Route path="/conversation-context" element={<AdminOnly><ConversationContextManager /></AdminOnly>} />
+      <Route path="/email-engagement" element={<AdminOnly><EmailEngagement /></AdminOnly>} />
+      <Route path="/linkedin-monitor" element={<AdminOnly><LinkedInMonitor /></AdminOnly>} />
+      <Route path="/crm-adapter" element={<AdminOnly><CRMAdapterSetup /></AdminOnly>} />
+      <Route path="/sms" element={<AdminOnly><SMSThreads /></AdminOnly>} />
+      <Route path="/calendar-analytics" element={<AdminOnly><CalendarAnalytics /></AdminOnly>} />
+      <Route path="/linkedin-messaging" element={<AdminOnly><LinkedInMessaging /></AdminOnly>} />
+      <Route path="/actions" element={<AdminOnly><ActionDashboard /></AdminOnly>} />
+      <Route path="/coaching" element={<AdminOnly><CoachingCenter /></AdminOnly>} />
+      <Route path="/deal-physics" element={<AdminOnly><DealPhysicsEngine /></AdminOnly>} />
+      <Route path="/rep-dna" element={<AdminOnly><RepDNA /></AdminOnly>} />
+      <Route path="/objection-preflight" element={<AdminOnly><ObjectionPreFlight /></AdminOnly>} />
+      <Route path="/readiness-pulse" element={<AdminOnly><ProspectReadinessPulse /></AdminOnly>} />
+      <Route path="/quiet-monitor" element={<AdminOnly><QuietPeriodMonitor /></AdminOnly>} />
+      <Route path="/forecasting" element={<AdminOnly><RevenueForecasting /></AdminOnly>} />
+      <Route path="/win-loss" element={<AdminOnly><WinLossAnalyzer /></AdminOnly>} />
+      <Route path="/leaderboard" element={<AdminOnly><TeamLeaderboard /></AdminOnly>} />
+      <Route path="/email-studio" element={<AdminOnly><EmailTemplateStudio /></AdminOnly>} />
+      <Route path="/deal-rooms" element={<AdminOnly><DealCollaborationRooms /></AdminOnly>} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/security" element={<Security />} />
@@ -146,9 +146,9 @@ const AuthenticatedApp = () => {
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
       <Route path="/lead-pipeline" element={<AdminOnly><LeadPipeline /></AdminOnly>} />
       <Route path="/download-guide" element={<AdminOnly><DownloadGuide /></AdminOnly>} />
-      <Route path="/seo-automator" element={<SEOAutomator />} />
+      <Route path="/seo-automator" element={<AdminOnly><SEOAutomator /></AdminOnly>} />
       <Route path="/mobile-app" element={<MobileApp />} />
-      <Route path="/seo-results" element={<SEOResults />} />
+      <Route path="/seo-results" element={<AdminOnly><SEOResults /></AdminOnly>} />
       {/* Add your page Route elements here */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
