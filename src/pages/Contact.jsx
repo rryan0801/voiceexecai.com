@@ -31,7 +31,7 @@ export default function Contact() {
       });
 
       setSubmitted(true);
-      toast.success('Message sent! We\'ll get back to you within 24 hours.');
+      toast.success('Message sent! We will get back to you as soon as we can.');
       setFormData({ name: '', email: '', company: '', subject: 'general', message: '' });
       
       setTimeout(() => setSubmitted(false), 5000);
@@ -63,8 +63,8 @@ export default function Contact() {
     },
     {
       icon: <MapPin className="w-5 h-5" />,
-      label: 'Location',
-      value: 'Remote-first, serving customers worldwide'
+      label: 'Business',
+      value: 'Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309'
     }
   ];
 
@@ -229,7 +229,7 @@ export default function Contact() {
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Need Immediate Help?</h3>
                 <p className="text-sm text-slate-700 mb-4">
-                  For urgent issues, check our documentation or visit the dashboard.
+                  You can also email support@voiceexecai.com or ask the Ask Richy AI assistant (button at the bottom right).
                 </p>
                 <div className="flex gap-3">
                   <a href="/dashboard" className="text-sm text-blue-600 hover:underline font-medium">

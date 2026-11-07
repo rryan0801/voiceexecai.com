@@ -82,7 +82,7 @@ export default function Security() {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Transcriptions encrypted and tied to your account only</span>
+                <span>Transcriptions are sent over encrypted HTTPS and kept with your account</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -90,7 +90,7 @@ export default function Security() {
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Role-based access control (RBAC) for team members</span>
+                <span>Admin pages are limited to site admins</span>
               </div>
             </CardContent>
           </Card>
