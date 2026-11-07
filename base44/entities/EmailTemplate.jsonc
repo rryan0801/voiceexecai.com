@@ -1,12 +1,36 @@
 {
   "name": "EmailTemplate",
-  "type": "object",
   "properties": {
+    "body": {
+      "description": "Full email with personalization placeholders",
+      "type": "string"
+    },
+    "click_rate": {
+      "type": "number"
+    },
     "client_id": {
       "type": "string"
     },
-    "rep_email": {
+    "generated_at": {
+      "format": "date-time",
       "type": "string"
+    },
+    "inspired_by_rep_dna": {
+      "description": "Winning phrases used",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "open_rate": {
+      "type": "number"
+    },
+    "personalization_factors": {
+      "description": "What made this unique",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "prospect_id": {
       "type": "string"
@@ -14,8 +38,17 @@
     "prospect_name": {
       "type": "string"
     },
+    "rep_email": {
+      "type": "string"
+    },
+    "sent": {
+      "default": false,
+      "type": "boolean"
+    },
+    "subject": {
+      "type": "string"
+    },
     "template_type": {
-      "type": "string",
       "enum": [
         "initial_outreach",
         "follow_up",
@@ -23,46 +56,12 @@
         "proposal",
         "check_in",
         "closing"
-      ]
-    },
-    "subject": {
+      ],
       "type": "string"
     },
-    "body": {
-      "type": "string",
-      "description": "Full email with personalization placeholders"
-    },
     "tone": {
-      "type": "string",
-      "description": "Matches rep DNA signature"
-    },
-    "personalization_factors": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "What made this unique"
-    },
-    "inspired_by_rep_dna": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Winning phrases used"
-    },
-    "generated_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "sent": {
-      "type": "boolean",
-      "default": false
-    },
-    "open_rate": {
-      "type": "number"
-    },
-    "click_rate": {
-      "type": "number"
+      "description": "Matches rep DNA signature",
+      "type": "string"
     }
   },
   "required": [
@@ -72,5 +71,53 @@
     "template_type",
     "subject",
     "body"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
