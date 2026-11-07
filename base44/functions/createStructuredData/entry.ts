@@ -51,6 +51,10 @@ Deno.serve(async (req) => {
       - reviews/ratings (if applicable)
       - offers/pricing (if applicable)
       
+      STRICT RULE: use only facts given in Website and Page Data above. Never invent reviews,
+      ratings, review counts, prices, addresses, phone numbers or social profiles. If a value
+      is not provided, leave that property out.
+
       Return ONLY the JSON-LD object (no markdown, no explanation).`,
       response_json_schema: {
         type: "object",
