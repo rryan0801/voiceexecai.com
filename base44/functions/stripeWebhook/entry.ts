@@ -30,14 +30,29 @@ export default async function(req: Request): Promise<Response> {
 
     console.log('Stripe webhook received:', event.type, 'id:', event.id);
 
-    // Subscription status is queried live from Stripe by checkStripeSubscription,
-    // so no entity writes are needed here — acknowledge the event and log it for
-    // debugging/fulfillment tracking.
+    // Paid features check the admin-only Subscription entity, written ONLY here
+    // (service role). Tips (mode 'payment') never create or change a plan.
+    const Subs = base44.asServiceRole.entities.Subscription;
+    const upsert = async (subscriptionId, data) => {
+      const found = await Subs.filter({ stripe_subscription_id: subscriptionId });
+      if (found.length > 0) await Subs.update(found[0].id, data);
+      else if (data.user_email) await Subs.create({ stripe_subscription_id: subscriptionId, ...data });
+    };
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
-        console.log('Checkout completed:', session.id, 'mode:', session.mode,
-          'email:', session.customer_email || session.metadata?.user_email);
+        if (session.mode !== 'subscription' || !session.subscription) {
+          console.log('Ignoring non-subscription checkout (e.g. a tip):', session.id);
+          break;
+        }
+        const sub = await stripe.subscriptions.retrieve(session.subscription);
+        await upsert(sub.id, {
+          user_email: (session.metadata?.user_email || session.customer_email || session.client_reference_id || '').toLowerCase(),
+          plan_name: session.metadata?.plan_name || 'Pro',
+          status: sub.status,
+          stripe_customer_id: String(sub.customer || ''),
+          current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+        });
         break;
       }
       case 'customer.subscription.created':
@@ -45,6 +60,13 @@ export default async function(req: Request): Promise<Response> {
       case 'customer.subscription.deleted': {
         const sub = event.data.object;
         console.log('Subscription event:', event.type, 'id:', sub.id, 'status:', sub.status);
+        await upsert(sub.id, {
+          ...(sub.metadata?.user_email ? { user_email: String(sub.metadata.user_email).toLowerCase() } : {}),
+          ...(sub.metadata?.plan_name ? { plan_name: sub.metadata.plan_name } : {}),
+          status: event.type === 'customer.subscription.deleted' ? 'canceled' : sub.status,
+          stripe_customer_id: String(sub.customer || ''),
+          current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+        });
         break;
       }
       case 'invoice.paid': {

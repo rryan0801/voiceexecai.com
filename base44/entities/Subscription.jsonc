@@ -1,0 +1,59 @@
+{
+  "description": "Paid plan record. Written only by the Stripe webhook (service role) or an admin. Paid features check this server-side.",
+  "name": "Subscription",
+  "properties": {
+    "current_period_end": {
+      "type": "string"
+    },
+    "plan_name": {
+      "type": "string"
+    },
+    "status": {
+      "description": "Stripe subscription status: active, trialing, past_due, canceled, etc.",
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "stripe_subscription_id": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
+}

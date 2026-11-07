@@ -1,0 +1,44 @@
+{
+  "description": "Ask Richy rate-limit counters. No question text is stored. Admin-only; written by the askRichy backend function.",
+  "name": "AskRichyUsage",
+  "properties": {
+    "count": {
+      "type": "number"
+    },
+    "day": {
+      "type": "string"
+    },
+    "key": {
+      "description": "Hashed visitor key + day, or 'site:<day>' for the site-wide cap",
+      "type": "string"
+    }
+  },
+  "required": [
+    "key",
+    "day",
+    "count"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
+}
