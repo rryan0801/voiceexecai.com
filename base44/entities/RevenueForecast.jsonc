@@ -1,79 +1,117 @@
 {
   "name": "RevenueForecast",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "base_pipeline_value": {
+      "description": "Total pipeline value",
+      "type": "number"
     },
     "client_id": {
       "type": "string"
     },
-    "forecast_period": {
-      "type": "string",
-      "enum": [
-        "quarterly",
-        "annual"
-      ],
-      "default": "quarterly"
-    },
-    "quarter_year": {
-      "type": "string",
-      "description": "Q2-2026 format"
-    },
-    "base_pipeline_value": {
-      "type": "number",
-      "description": "Total pipeline value"
-    },
-    "weighted_expected_revenue": {
-      "type": "number",
-      "description": "Sum of deal_value \u00d7 win_probability"
+    "confidence_level": {
+      "description": "0-100%",
+      "type": "number"
     },
     "conservative_forecast": {
-      "type": "number",
-      "description": "25th percentile"
-    },
-    "optimistic_forecast": {
-      "type": "number",
-      "description": "75th percentile"
-    },
-    "confidence_level": {
-      "type": "number",
-      "description": "0-100%"
+      "description": "25th percentile",
+      "type": "number"
     },
     "deals_included": {
       "type": "number"
     },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "forecast_period": {
+      "default": "quarterly",
+      "enum": [
+        "quarterly",
+        "annual"
+      ],
+      "type": "string"
+    },
     "historical_accuracy": {
-      "type": "number",
-      "description": "vs actual last period"
+      "description": "vs actual last period",
+      "type": "number"
     },
     "key_deals": {
-      "type": "array",
       "items": {
-        "type": "object",
         "properties": {
+          "probability": {
+            "type": "number"
+          },
           "prospect": {
             "type": "string"
           },
           "value": {
             "type": "number"
-          },
-          "probability": {
-            "type": "number"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "optimistic_forecast": {
+      "description": "75th percentile",
+      "type": "number"
     },
     "predicted_at": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
+    },
+    "quarter_year": {
+      "description": "Q2-2026 format",
+      "type": "string"
+    },
+    "weighted_expected_revenue": {
+      "description": "Sum of deal_value \u00d7 win_probability",
+      "type": "number"
     }
   },
   "required": [
     "client_id",
     "forecast_period",
     "quarter_year"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
