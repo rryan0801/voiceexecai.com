@@ -1,0 +1,14 @@
+# VoiceExecAI
+
+> A voice assistant for sales reps. You speak (or type) a command in your web browser and VoiceExecAI drafts and sends an email from your connected Microsoft Outlook account, books an Outlook meeting, creates a follow-up task, or drafts a proposal document.
+
+- It does not answer or make phone calls. It acts only when you give it a command.
+- Plans: paid only (no free plan, no free trial). Pro $49/month. Enterprise $999/month, set up by email.
+- Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time.
+- Business: Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309. Contact: richy@voiceexecai.com
+
+## Pages
+- [Home](https://voiceexecai.com/)
+- [Pricing and FAQ](https://voiceexecai.com/pricing)
+- [Privacy](https://voiceexecai.com/privacy)
+- [Terms](https://voiceexecai.com/terms)
