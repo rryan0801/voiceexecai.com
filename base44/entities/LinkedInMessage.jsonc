@@ -1,102 +1,149 @@
 {
   "name": "LinkedInMessage",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect"
+    "buying_signal_detected": {
+      "default": false,
+      "type": "boolean"
     },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
-    },
-    "prospect_name": {
+      "description": "Reference to Client",
       "type": "string"
     },
-    "prospect_linkedin_url": {
-      "type": "string",
-      "description": "LinkedIn profile URL"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
-    "rep_email": {
-      "type": "string",
-      "description": "Sales rep email"
+    "engagement_score": {
+      "description": "0-100 engagement from LinkedIn interaction",
+      "type": "number"
+    },
+    "last_message_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "last_message_from": {
+      "enum": [
+        "prospect",
+        "rep"
+      ],
+      "type": "string"
     },
     "messages": {
-      "type": "array",
       "description": "Conversation thread",
       "items": {
-        "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "direction": {
-            "type": "string",
-            "enum": [
-              "inbound",
-              "outbound"
-            ]
-          },
           "content": {
             "type": "string"
           },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
+          "direction": {
+            "enum": [
+              "inbound",
+              "outbound"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
           },
           "status": {
-            "type": "string",
             "enum": [
               "sent",
               "delivered",
               "read",
               "failed"
-            ]
+            ],
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
-    "total_messages": {
-      "type": "number",
-      "default": 0
+    "prospect_id": {
+      "description": "Reference to Prospect",
+      "type": "string"
     },
-    "last_message_at": {
-      "type": "string",
-      "format": "date-time"
+    "prospect_linkedin_url": {
+      "description": "LinkedIn profile URL",
+      "type": "string"
     },
-    "last_message_from": {
-      "type": "string",
-      "enum": [
-        "prospect",
-        "rep"
-      ]
+    "prospect_name": {
+      "type": "string"
+    },
+    "rep_email": {
+      "description": "Sales rep email",
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "default": "active",
       "enum": [
         "active",
         "closed",
         "archived"
       ],
-      "default": "active"
+      "type": "string"
     },
-    "engagement_score": {
-      "type": "number",
-      "description": "0-100 engagement from LinkedIn interaction"
-    },
-    "buying_signal_detected": {
-      "type": "boolean",
-      "default": false
+    "total_messages": {
+      "default": 0,
+      "type": "number"
     }
   },
   "required": [
     "prospect_id",
     "client_id",
     "prospect_linkedin_url"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
