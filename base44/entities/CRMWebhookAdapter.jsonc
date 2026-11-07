@@ -1,40 +1,55 @@
 {
   "name": "CRMWebhookAdapter",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "adapter_name": {
+      "description": "Custom name for this CRM adapter (e.g., 'Custom Salesforce v2')",
+      "type": "string"
+    },
+    "api_endpoint": {
+      "description": "CRM API base URL for push updates",
+      "type": "string"
+    },
+    "api_key": {
+      "description": "API key for authenticating outbound requests",
+      "type": "string"
     },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
-    },
-    "adapter_name": {
-      "type": "string",
-      "description": "Custom name for this CRM adapter (e.g., 'Custom Salesforce v2')"
+      "description": "Reference to Client",
+      "type": "string"
     },
     "crm_type": {
-      "type": "string",
-      "description": "CRM system name (e.g., 'custom', 'salesforce', 'dynamics365')"
+      "description": "CRM system name (e.g., 'custom', 'salesforce', 'dynamics365')",
+      "type": "string"
     },
-    "webhook_url": {
-      "type": "string",
-      "description": "Incoming webhook URL from the external CRM"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
-    "webhook_secret": {
-      "type": "string",
-      "description": "Secret key for webhook verification"
+    "events_processed": {
+      "default": 0,
+      "description": "Total webhooks successfully processed",
+      "type": "number"
+    },
+    "events_received": {
+      "default": 0,
+      "description": "Total webhooks received",
+      "type": "number"
     },
     "field_mapping": {
-      "type": "object",
       "description": "Maps CRM fields to VoiceExec fields",
       "properties": {
-        "prospect_name_field": {
+        "company_field": {
           "type": "string"
         },
-        "company_field": {
+        "custom_fields": {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        "deal_stage_field": {
+          "type": "string"
+        },
+        "deal_value_field": {
           "type": "string"
         },
         "email_field": {
@@ -43,72 +58,56 @@
         "phone_field": {
           "type": "string"
         },
-        "deal_value_field": {
+        "prospect_name_field": {
           "type": "string"
-        },
-        "deal_stage_field": {
-          "type": "string"
-        },
-        "custom_fields": {
-          "type": "object",
-          "additionalProperties": true
         }
-      }
+      },
+      "type": "object"
     },
-    "api_endpoint": {
-      "type": "string",
-      "description": "CRM API base URL for push updates"
-    },
-    "api_key": {
-      "type": "string",
-      "description": "API key for authenticating outbound requests"
-    },
-    "sync_direction": {
-      "type": "string",
-      "enum": [
-        "inbound",
-        "outbound",
-        "bidirectional"
-      ],
-      "description": "Direction of data sync"
-    },
-    "sync_frequency": {
-      "type": "string",
-      "enum": [
-        "real-time",
-        "hourly",
-        "daily"
-      ],
-      "default": "real-time",
-      "description": "How often to sync"
+    "last_sync": {
+      "description": "Last successful sync timestamp",
+      "format": "date-time",
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "default": "active",
       "enum": [
         "active",
         "inactive",
         "error"
       ],
-      "default": "active"
+      "type": "string"
     },
-    "last_sync": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Last successful sync timestamp"
+    "sync_direction": {
+      "description": "Direction of data sync",
+      "enum": [
+        "inbound",
+        "outbound",
+        "bidirectional"
+      ],
+      "type": "string"
     },
     "sync_error": {
-      "type": "string",
-      "description": "Error message if last sync failed"
+      "description": "Error message if last sync failed",
+      "type": "string"
     },
-    "events_received": {
-      "type": "number",
-      "default": 0,
-      "description": "Total webhooks received"
+    "sync_frequency": {
+      "default": "real-time",
+      "description": "How often to sync",
+      "enum": [
+        "real-time",
+        "hourly",
+        "daily"
+      ],
+      "type": "string"
     },
-    "events_processed": {
-      "type": "number",
-      "default": 0,
-      "description": "Total webhooks successfully processed"
+    "webhook_secret": {
+      "description": "Secret key for webhook verification",
+      "type": "string"
+    },
+    "webhook_url": {
+      "description": "Incoming webhook URL from the external CRM",
+      "type": "string"
     }
   },
   "required": [
@@ -117,5 +116,44 @@
     "crm_type",
     "webhook_url",
     "field_mapping"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
