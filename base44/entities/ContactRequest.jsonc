@@ -1,26 +1,39 @@
 {
   "name": "ContactRequest",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "company": {
+      "description": "Company name",
+      "type": "string"
     },
-    "name": {
-      "type": "string",
-      "description": "Full name"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "email": {
-      "type": "string",
-      "description": "Email address"
+      "description": "Email address",
+      "type": "string"
     },
-    "company": {
-      "type": "string",
-      "description": "Company name"
+    "message": {
+      "description": "Message content",
+      "type": "string"
+    },
+    "name": {
+      "description": "Full name",
+      "type": "string"
+    },
+    "status": {
+      "default": "new",
+      "enum": [
+        "new",
+        "in_progress",
+        "resolved",
+        "closed"
+      ],
+      "type": "string"
     },
     "subject": {
-      "type": "string",
+      "description": "Inquiry type",
       "enum": [
         "general",
         "sales",
@@ -28,25 +41,11 @@
         "security",
         "partnership"
       ],
-      "description": "Inquiry type"
-    },
-    "message": {
-      "type": "string",
-      "description": "Message content"
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "new",
-        "in_progress",
-        "resolved",
-        "closed"
-      ],
-      "default": "new"
+      "type": "string"
     },
     "submitted_at": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -54,5 +53,23 @@
     "email",
     "subject",
     "message"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
 }
