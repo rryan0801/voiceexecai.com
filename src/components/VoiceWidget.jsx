@@ -138,6 +138,36 @@ export default function VoiceWidget({ config = {} }) {
                 {result.summary || result.result?.summary || 'Done!'}
               </span>
             </div>
+            {(() => {
+              const r = result.result || {};
+              const draft = [
+                r.subject && `Subject: ${r.subject}`,
+                r.meeting_subject && `Meeting: ${r.meeting_subject}`,
+                r.meeting_start && `Starts: ${r.meeting_start}`,
+                r.meeting_end && `Ends: ${r.meeting_end}`,
+                r.task_title && `Task: ${r.task_title}`,
+                r.body,
+                r.crm_note && `Note: ${r.crm_note}`,
+              ].filter(Boolean).join('\n\n');
+              return (
+                <>
+                  {(r.warnings || []).map((w, i) => (
+                    <p key={i} className="text-xs text-amber-200">{w}</p>
+                  ))}
+                  {draft && (
+                    <div className="bg-slate-900/60 rounded-xl p-3">
+                      <pre className="whitespace-pre-wrap text-xs text-slate-200 font-sans">{draft}</pre>
+                      <button
+                        onClick={() => navigator.clipboard?.writeText(draft)}
+                        className="mt-2 text-xs text-blue-300 underline"
+                      >
+                        Copy draft
+                      </button>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
             <button
               onClick={reset}
               className="w-full py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-slate-300 text-sm flex items-center justify-center gap-2"
