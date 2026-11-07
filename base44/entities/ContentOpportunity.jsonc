@@ -1,45 +1,49 @@
 {
   "name": "ContentOpportunity",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "ai_generated_content": {
+      "description": "Full AI-written article",
+      "type": "string"
     },
-    "website_id": {
-      "type": "string",
-      "description": "Reference to Website"
-    },
-    "topic": {
-      "type": "string",
-      "description": "Content topic/title"
-    },
-    "target_keywords": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "search_volume": {
-      "type": "number",
-      "description": "Total monthly searches"
-    },
-    "difficulty": {
-      "type": "number",
-      "description": "0-100 competition level"
-    },
-    "intent": {
-      "type": "string",
-      "enum": [
-        "informational",
-        "commercial",
-        "transactional",
-        "navigational"
-      ]
+    "content_brief": {
+      "properties": {
+        "external_references": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "internal_links": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "key_points": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "meta_description": {
+          "type": "string"
+        },
+        "outline": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "suggested_title": {
+          "type": "string"
+        },
+        "word_count": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     },
     "content_type": {
-      "type": "string",
       "enum": [
         "blog_post",
         "guide",
@@ -48,56 +52,45 @@
         "case_study",
         "landing_page",
         "product_page"
-      ]
+      ],
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "difficulty": {
+      "description": "0-100 competition level",
+      "type": "number"
     },
     "estimated_traffic_potential": {
-      "type": "number",
-      "description": "Estimated monthly traffic if ranking #1"
+      "description": "Estimated monthly traffic if ranking #1",
+      "type": "number"
     },
-    "content_brief": {
-      "type": "object",
-      "properties": {
-        "suggested_title": {
-          "type": "string"
-        },
-        "meta_description": {
-          "type": "string"
-        },
-        "outline": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "word_count": {
-          "type": "number"
-        },
-        "key_points": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "internal_links": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "external_references": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
+    "intent": {
+      "enum": [
+        "informational",
+        "commercial",
+        "transactional",
+        "navigational"
+      ],
+      "type": "string"
     },
-    "ai_generated_content": {
-      "type": "string",
-      "description": "Full AI-written article"
+    "priority_score": {
+      "description": "0-100 priority to create this content",
+      "type": "number"
+    },
+    "search_volume": {
+      "description": "Total monthly searches",
+      "type": "number"
     },
     "status": {
-      "type": "string",
+      "default": "identified",
       "enum": [
         "identified",
         "brief_ready",
@@ -105,20 +98,65 @@
         "published",
         "ranking"
       ],
-      "default": "identified"
+      "type": "string"
     },
-    "priority_score": {
-      "type": "number",
-      "description": "0-100 priority to create this content"
+    "target_keywords": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+    "topic": {
+      "description": "Content topic/title",
+      "type": "string"
+    },
+    "website_id": {
+      "description": "Reference to Website",
+      "type": "string"
     }
   },
   "required": [
     "website_id",
     "topic",
     "search_volume"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
