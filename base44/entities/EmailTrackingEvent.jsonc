@@ -1,91 +1,86 @@
 {
   "name": "EmailTrackingEvent",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect"
+    "click_count": {
+      "default": 0,
+      "description": "Total link clicks",
+      "type": "number"
     },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
+      "description": "Reference to Client",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "email_id": {
-      "type": "string",
-      "description": "Unique email identifier"
+      "description": "Unique email identifier",
+      "type": "string"
     },
-    "prospect_email": {
-      "type": "string",
-      "description": "Email address tracked"
-    },
-    "subject": {
-      "type": "string",
-      "description": "Email subject line"
-    },
-    "sent_by": {
-      "type": "string",
-      "description": "Sender email/name"
-    },
-    "sent_at": {
-      "type": "string",
-      "format": "date-time",
-      "description": "When email was sent"
-    },
-    "open_count": {
-      "type": "number",
-      "default": 0,
-      "description": "Number of times opened"
-    },
-    "first_open_at": {
-      "type": "string",
-      "format": "date-time",
-      "description": "First open timestamp"
-    },
-    "last_open_at": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Most recent open"
-    },
-    "click_count": {
-      "type": "number",
-      "default": 0,
-      "description": "Total link clicks"
+    "engagement_score": {
+      "description": "0-100 engagement rating",
+      "type": "number"
     },
     "first_click_at": {
-      "type": "string",
+      "description": "First click timestamp",
       "format": "date-time",
-      "description": "First click timestamp"
+      "type": "string"
+    },
+    "first_open_at": {
+      "description": "First open timestamp",
+      "format": "date-time",
+      "type": "string"
+    },
+    "last_open_at": {
+      "description": "Most recent open",
+      "format": "date-time",
+      "type": "string"
     },
     "links_clicked": {
-      "type": "array",
       "description": "Links clicked in email",
       "items": {
-        "type": "object",
         "properties": {
-          "url": {
-            "type": "string"
-          },
           "click_count": {
             "type": "number"
           },
           "first_click": {
-            "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
-    "engagement_score": {
-      "type": "number",
-      "description": "0-100 engagement rating"
+    "open_count": {
+      "default": 0,
+      "description": "Number of times opened",
+      "type": "number"
+    },
+    "prospect_email": {
+      "description": "Email address tracked",
+      "type": "string"
+    },
+    "prospect_id": {
+      "description": "Reference to Prospect",
+      "type": "string"
+    },
+    "sent_at": {
+      "description": "When email was sent",
+      "format": "date-time",
+      "type": "string"
+    },
+    "sent_by": {
+      "description": "Sender email/name",
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "description": "Email status",
       "enum": [
         "sent",
         "opened",
@@ -93,7 +88,11 @@
         "replied",
         "bounced"
       ],
-      "description": "Email status"
+      "type": "string"
+    },
+    "subject": {
+      "description": "Email subject line",
+      "type": "string"
     }
   },
   "required": [
@@ -102,5 +101,44 @@
     "email_id",
     "prospect_email",
     "subject"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
