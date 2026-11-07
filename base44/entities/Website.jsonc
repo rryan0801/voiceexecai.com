@@ -1,75 +1,122 @@
 {
   "name": "Website",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "user_id": {
-      "type": "string",
-      "description": "Owner user ID"
-    },
-    "url": {
-      "type": "string",
-      "description": "Website URL"
-    },
-    "name": {
-      "type": "string",
-      "description": "Website name"
-    },
-    "industry": {
-      "type": "string",
-      "description": "Business industry"
-    },
-    "target_keywords": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Primary keywords to target"
-    },
     "competitors": {
-      "type": "array",
+      "description": "Competitor website URLs",
       "items": {
         "type": "string"
       },
-      "description": "Competitor website URLs"
+      "type": "array"
     },
-    "seo_health_score": {
-      "type": "number",
-      "description": "Overall SEO score 0-100"
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
     },
-    "last_audit_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "google_search_console_connected": {
-      "type": "boolean",
-      "default": false
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "google_analytics_connected": {
-      "type": "boolean",
-      "default": false
+      "default": false,
+      "type": "boolean"
+    },
+    "google_search_console_connected": {
+      "default": false,
+      "type": "boolean"
+    },
+    "industry": {
+      "description": "Business industry",
+      "type": "string"
+    },
+    "last_audit_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "description": "Website name",
+      "type": "string"
+    },
+    "seo_health_score": {
+      "description": "Overall SEO score 0-100",
+      "type": "number"
     },
     "status": {
-      "type": "string",
+      "default": "active",
       "enum": [
         "active",
         "paused",
         "error"
       ],
-      "default": "active"
+      "type": "string"
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+    "target_keywords": {
+      "description": "Primary keywords to target",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "url": {
+      "description": "Website URL",
+      "type": "string"
+    },
+    "user_id": {
+      "description": "Owner user ID",
+      "type": "string"
     }
   },
   "required": [
     "user_id",
     "url",
     "name"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
