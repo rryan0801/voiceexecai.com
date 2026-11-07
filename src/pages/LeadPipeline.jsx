@@ -16,24 +16,8 @@ const STAGES = [
 ];
 
 const EMAIL_TEMPLATES = [
-  {
-    type: 'welcome',
-    label: 'Welcome Email',
-    subject: 'Welcome to VoiceExecAI Leads, {{name}}!',
-    body: `Hi {{name}},\n\nWelcome! You're now in our lead network for {{vertical}} contractors in {{city}}, {{state}}.\n\nHere's what happens next:\n- We match you with verified buyers in your area\n- You get notified immediately when a lead matches\n- Full contact info delivered to your inbox\n\nReady to get started? Check out our plans: https://voiceexecai.com/pricing\n\n— The VoiceExecAI Team`
-  },
-  {
-    type: 'follow_up',
-    label: 'Follow-Up',
-    subject: 'Still looking for {{vertical}} leads near {{city}}?',
-    body: `Hi {{name}},\n\nJust checking in — we have active buyers looking for {{vertical}} services in your area right now.\n\nDon't miss out. Leads go to the first contractor to respond.\n\nView available leads: https://voiceexecai.com/pricing\n\n— VoiceExecAI Leads`
-  },
-  {
-    type: 'promo',
-    label: 'Promo Offer',
-    subject: 'Limited: First 3 leads FREE for {{vertical}} contractors',
-    body: `Hi {{name}},\n\nFor a limited time, we're offering your first 3 leads completely free — no credit card required.\n\nThis is for {{vertical}} contractors in {{city}} only, and spots are limited.\n\nClaim your free leads: https://voiceexecai.com/pricing\n\nOffer expires in 48 hours.\n\n— VoiceExecAI Leads`
-  },
+  // Lead-network templates removed (audit 2026-11-07): the buyer-leads program does not exist.
+  // Sending is disabled in base44/functions/sendOutreachCampaign.
   {
     type: 'custom',
     label: 'Custom Message',
