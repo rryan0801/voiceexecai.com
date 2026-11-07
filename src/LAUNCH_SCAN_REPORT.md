@@ -39,7 +39,7 @@
   - Data collection disclosed
   - Third-party services listed (Stripe, OpenAI, Twilio)
   - User rights documented
-  - Contact: support@voiceexecai.com
+  - Contact: richy@voiceexecai.com
 
 - ✅ Terms of Service live at `/terms`
   - Acceptable use policy
@@ -240,7 +240,7 @@
 
 ### **3. Email Configuration** 🟡 **RECOMMENDED**
 
-**Current State:** support@voiceexecai.com listed
+**Current State:** richy@voiceexecai.com listed
 
 **Missing:**
 - Email DNS records (SPF, DKIM, DMARC)
@@ -248,7 +248,7 @@
 - Automated email responses
 
 **Recommendation:**
-1. Set up Google Workspace or similar for support@voiceexecai.com
+1. Set up Google Workspace or similar for richy@voiceexecai.com
 2. Configure DNS records:
    - SPF record for email authentication
    - DKIM for email signing
@@ -360,9 +360,9 @@ VoiceExec AI has:
 
 ## 📞 SUPPORT CONTACTS
 
-**General:** support@voiceexecai.com  
-**Security:** security@voiceexecai.com  
-**Sales:** sales@voiceexecai.com
+**General:** richy@voiceexecai.com  
+**Security:** richy@voiceexecai.com  
+**Sales:** richy@voiceexecai.com
 
 **Response SLAs:**
 - General: 24 hours

@@ -11,7 +11,7 @@
 - ✅ Privacy Policy live at `/privacy`
   - Covers data collection, cookies, third-party services (Stripe, OpenAI, Twilio)
   - GDPR/CCPA compliant with user rights section
-  - Contact: support@voiceexecai.com
+  - Contact: richy@voiceexecai.com
 - ✅ Terms of Service live at `/terms`
   - Acceptable use, payment terms, cancellation policy
   - Liability limitations and indemnification
@@ -136,9 +136,9 @@
 
 ## 📞 CONTACT POINTS
 
-**General:** support@voiceexecai.com  
-**Security:** security@voiceexecai.com  
-**Sales:** sales@voiceexecai.com  
+**General:** richy@voiceexecai.com  
+**Security:** richy@voiceexecai.com  
+**Sales:** richy@voiceexecai.com  
 
 **Response SLAs:**
 - General: 24 hours

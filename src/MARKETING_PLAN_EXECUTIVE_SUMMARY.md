@@ -329,7 +329,7 @@ className="font-['Inter'] font-800 text-48px"  // H1
 
 **Contact:**
 - Email: richy@folderwiseai.com
-- Support: hello@voiceexecai.com
+- Support: richy@voiceexecai.com
 
 **Tools:**
 - GA4: https://analytics.google.com

@@ -263,7 +263,7 @@ Twitter Card URL: https://media.base44.com/images/public/[YOUR_APP_ID]/twitter-c
         ],
         "contactPoint": {
           "@type": "ContactPoint",
-          "email": "hello@voiceexecai.com",
+          "email": "richy@voiceexecai.com",
           "contactType": "customer support"
         }
       },
@@ -863,7 +863,7 @@ if (window.self !== window.top) {
 **Monitoring:**
 - [ ] Error logging enabled
 - [ ] Analytics dashboards set up
-- [ ] Support email monitored (hello@voiceexecai.com)
+- [ ] Support email monitored (richy@voiceexecai.com)
 
 ---
 

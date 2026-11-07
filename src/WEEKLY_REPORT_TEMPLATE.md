@@ -268,7 +268,7 @@
 ---
 
 **Prepared by:** [Your Name]
-**Sent to:** hello@voiceexecai.com
+**Sent to:** richy@voiceexecai.com
 **Next Report:** [Date]
 
 ---

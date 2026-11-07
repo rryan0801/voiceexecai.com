@@ -13,7 +13,7 @@ This playbook provides a complete, step-by-step marketing strategy for VoiceExec
 
 **Deadline:** Sections 1–4 complete within 7 days. Sections 5–10 within 30 days.
 
-**Contact for Help:** hello@voiceexecai.com
+**Contact for Help:** richy@voiceexecai.com
 
 ---
 
@@ -258,7 +258,7 @@ Resend (resend.com) is the email API for VoiceExecAI:
 ### Step 1 — Create Your Resend Account
 
 1. Go to: https://resend.com/signup
-2. Sign up with `hello@voiceexecai.com`
+2. Sign up with `richy@voiceexecai.com`
 3. Verify your email address
 4. You'll land on the dashboard
 
@@ -309,7 +309,7 @@ Send a test email via Resend's dashboard or API. You should receive it within 30
 #### Welcome Sequence (5 emails over 7 days)
 
 **Email 1 — Immediately on signup**
-- From: `VoiceExecAI <hello@voiceexecai.com>`
+- From: `VoiceExecAI <richy@voiceexecai.com>`
 - Subject: "Voice Commands. Inbox Zero. 5 Minutes."
 - Preview: "5 minutes. Voice commands. Done every morning."
 - Body: Welcome, 3-step onboarding, primary CTA
@@ -571,7 +571,7 @@ Sitemap: https://voiceexecai.com/sitemap.xml
 - □ No emails between 10pm–7am in user's timezone
 - □ Best send times: Tuesday–Thursday, 9am–11am or 2pm–4pm
 - □ Never send on Friday afternoon or weekends
-- □ Always send from: `hello@voiceexecai.com` (not no-reply@)
+- □ Always send from: `richy@voiceexecai.com` (not no-reply@)
 
 ### Email Performance Benchmarks
 
@@ -1043,7 +1043,7 @@ THIS WEEK'S FOCUS:
 - [1–3 specific actions, not goals]
 ```
 
-**Send to:** hello@voiceexecai.com every Monday morning.
+**Send to:** richy@voiceexecai.com every Monday morning.
 
 ### Monthly Deep Review (First Monday of Each Month)
 
@@ -1105,7 +1105,7 @@ THIS WEEK'S FOCUS:
 - □ First 5 LinkedIn posts scheduled
 - □ Twitter/X account active with first 5 posts
 - □ Join r/productivity and r/Entrepreneur (lurk and contribute first)
-- □ First weekly report sent to hello@voiceexecai.com
+- □ First weekly report sent to richy@voiceexecai.com
 
 ### Week 2 (Days 8–14)
 
@@ -1163,7 +1163,7 @@ THIS WEEK'S FOCUS:
 3. At least 1 blog post per week (minimum)
 4. Social can pause. Paid can pause. These two cannot.
 
-Email hello@voiceexecai.com if you're blocked for more than 48 hours.
+Email richy@voiceexecai.com if you're blocked for more than 48 hours.
 
 ---
 
@@ -1282,7 +1282,7 @@ Email hello@voiceexecai.com if you're blocked for more than 48 hours.
 
 ## End of Document
 
-**Questions?** Contact: hello@voiceexecai.com
+**Questions?** Contact: richy@voiceexecai.com
 
 **Next Steps:**
 1. Complete Day 1 tasks (GSC + GA4)

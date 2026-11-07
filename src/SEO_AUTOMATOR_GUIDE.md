@@ -228,7 +228,7 @@ SEO Automator is included in all VoiceExecAI plans:
 For questions or issues:
 - Check the **Issues** tab for SEO problems
 - Review **Pending Optimizations** for AI suggestions
-- Contact support at support@voiceexecai.com
+- Contact support at richy@voiceexecai.com
 
 ---
 

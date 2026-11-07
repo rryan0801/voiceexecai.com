@@ -7,7 +7,7 @@
 
 ### Email 1 — Immediately on Signup
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Voice Commands. Inbox Zero. 5 Minutes.
 **Preview:** 5 minutes. Voice commands. Done every morning.
 
@@ -40,7 +40,7 @@ P.S. The median time across 12,000+ sessions is 4 minutes 12 seconds. You've got
 
 ### Email 2 — Day 1 (24 hours after signup)
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** You spend 2.5 hours a day on email
 **Preview:** That's 38 days a year.
 
@@ -80,7 +80,7 @@ Takes 2 minutes to set up. No credit card required.
 
 ### Email 3 — Day 3
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** "I got 38 days back this year"
 **Preview:** Real user, real results.
 
@@ -119,7 +119,7 @@ Takes 2 minutes. No credit card required.
 
 ### Email 4 — Day 5 (Reply-Bait — Short)
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Quick question
 **Preview:** Seriously, just one.
 
@@ -139,7 +139,7 @@ Hit reply. I read every one.
 
 ### Email 5 — Day 7
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** One thing I haven't told you yet
 **Preview:** Your unique feature reveal.
 
@@ -181,7 +181,7 @@ Ready to get there?
 
 ### Email A — Day 14
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Your inbox is waiting for you.
 
 ```
@@ -208,7 +208,7 @@ Voice commands. 5 minutes. Done.
 
 ### Email B — Day 17
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** We just shipped something you'll want to see
 
 ```
@@ -235,7 +235,7 @@ See what changed:
 
 ### Email C — Day 20 (Last One)
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Should I take you off the list?
 
 ```
@@ -264,7 +264,7 @@ P.S. This email gets 30–40% open rates. It works because it's honest.
 
 ### Email A — Same Day (Limit Hit)
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** You've hit your limit — here's how to keep going
 
 ```
@@ -292,7 +292,7 @@ Questions? Reply to this email.
 
 ### Email B — Day 3 (If Not Upgraded)
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** What you're missing on the Pro plan
 
 ```
@@ -326,7 +326,7 @@ Try it for a month. If it's not worth it, cancel.
 
 ### Email A — Immediately After Payment
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** You're on Pro. Here's exactly what to do next.
 
 ```
@@ -367,7 +367,7 @@ P.S. Want to earn 30% recurring commission? Join our Ambassador Program:
 
 ### Email B — Day 3
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Your first 3 days on Pro — here's what to unlock
 
 ```
@@ -401,7 +401,7 @@ Questions? Reply anytime.
 
 ### Email C — Day 7
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** Invite your team (they'll thank you)
 
 ```
@@ -433,7 +433,7 @@ Recurring. For as long as they stay.
 
 ### Email A — Immediately After Cancellation
 
-**From:** VoiceExecAI <hello@voiceexecai.com>
+**From:** VoiceExecAI <richy@voiceexecai.com>
 **Subject:** We're sorry to see you go. Here's a 1-month credit.
 
 ```
@@ -480,7 +480,7 @@ Either way, I hope you find your inbox zero.
 - □ No emails between 10pm–7am in user's timezone
 - □ Best send times: Tuesday–Thursday, 9am–11am or 2pm–4pm
 - □ Never send on Friday afternoon or weekends
-- □ Always send from: hello@voiceexecai.com (not no-reply@)
+- □ Always send from: richy@voiceexecai.com (not no-reply@)
 - □ Always include unsubscribe link in footer
 - □ Always include physical mailing address (legal requirement)
 

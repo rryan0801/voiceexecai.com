@@ -287,7 +287,7 @@ whileTap={{ scale: 0.95 }}
 - **Footer:** Links organized by category, social icons, legal
 
 ### Email Templates
-- **From:** hello@voiceexecai.com (never no-reply)
+- **From:** richy@voiceexecai.com (never no-reply)
 - **Subject:** 40–60 characters, value-first
 - **Preview text:** 80–100 characters, curiosity builder
 - **Body width:** Max 600px for readability
@@ -373,4 +373,4 @@ Before publishing any new brand asset:
 ---
 
 **Last Updated:** June 5, 2026  
-**Contact:** hello@voiceexecai.com for brand questions
+**Contact:** richy@voiceexecai.com for brand questions

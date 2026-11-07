@@ -296,7 +296,7 @@ THIS WEEK'S FOCUS:
 - [1-3 specific actions]
 ```
 
-**Send:** Every Monday by 10am to hello@voiceexecai.com
+**Send:** Every Monday by 10am to richy@voiceexecai.com
 
 ---
 
@@ -425,7 +425,7 @@ THIS WEEK'S FOCUS:
 ## 12. Contact & Support
 
 **For Questions:**
-- Email: hello@voiceexecai.com
+- Email: richy@voiceexecai.com
 - Brand questions: See BRAND_GUIDELINES.md
 - Technical setup: See MARKETING_PLAYBOOK.md Sections 1-3
 - Content strategy: See SOCIAL_MEDIA_CALENDAR.md

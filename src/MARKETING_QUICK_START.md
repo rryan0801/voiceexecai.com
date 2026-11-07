@@ -438,7 +438,7 @@ Stuck? Email me: richy@folderwiseai.com
 
 **Questions?**
 - Email: richy@folderwiseai.com
-- Support: hello@voiceexecai.com
+- Support: richy@voiceexecai.com
 
 **Resources:**
 - Playbook: VOICEEXECAI_MARKETING_PLAYBOOK.md

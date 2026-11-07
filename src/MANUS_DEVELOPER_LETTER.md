@@ -142,7 +142,7 @@ Three schema types implemented:
 - Name: VoiceExecAI
 - Logo: Brand logo URL
 - SameAs: Twitter, LinkedIn, Product Hunt
-- ContactPoint: support@voiceexecai.com
+- ContactPoint: richy@voiceexecai.com
 
 **FAQPage Schema:**
 - 5 FAQ items with questions and answers

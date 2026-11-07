@@ -588,7 +588,7 @@ THIS WEEK'S FOCUS:
 
 **Contact:**
 - Email: richy@folderwiseai.com
-- Support: hello@voiceexecai.com
+- Support: richy@voiceexecai.com
 
 ---
 

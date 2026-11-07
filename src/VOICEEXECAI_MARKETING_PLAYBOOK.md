@@ -2,7 +2,7 @@
 
 **Version:** 1.0 | **Created:** June 10, 2026  
 **Owner:** Richard Ryan | **Status:** Active  
-**Website:** voiceexecai.com | **Support:** hello@voiceexecai.com
+**Website:** voiceexecai.com | **Support:** richy@voiceexecai.com
 
 ---
 
@@ -798,7 +798,7 @@ gtag('event', 'connect_email', { method: 'resend' });
 
 **Questions?** Reach out:
 - **Email:** richy@folderwiseai.com
-- **Support:** hello@voiceexecai.com
+- **Support:** richy@voiceexecai.com
 - **LinkedIn:** linkedin.com/company/voiceexecai
 - **Twitter:** @voiceexecai
 
