@@ -2,6 +2,9 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 import jsPDF from 'npm:jspdf@4.0.0';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07, second pass): unused or unfinished, or an unauthenticated webhook.
+  if (true) return Response.json({ disabled: true, reason: 'This feature is turned off.' });
+
   // Admin only (audit 2026-11-07): internal deployment guide.
   {
     const b44 = createClientFromRequest(req);

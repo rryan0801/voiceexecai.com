@@ -3,6 +3,9 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07, second pass): unused or unfinished, or an unauthenticated webhook.
+  if (true) return Response.json({ disabled: true, reason: 'This feature is turned off.' });
+
   try {
     const base44 = createClientFromRequest(req);
 

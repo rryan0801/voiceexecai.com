@@ -2,6 +2,9 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 import { secrets } from 'base44:runtime';
 
 export default async function(req: Request): Promise<Response> {
+  // DISABLED (audit 2026-11-07, second pass): unused or unfinished, or an unauthenticated webhook.
+  if (true) return Response.json({ disabled: true, reason: 'This feature is turned off.' });
+
   try {
     // Auth: require the shared bearer token (MODULE_API_KEY secret)
     const expectedToken = 'Bearer ' + secrets.get('MODULE_API_KEY');

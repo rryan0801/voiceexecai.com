@@ -4,6 +4,9 @@ import Anthropic from 'npm:@anthropic-ai/sdk@0.39.0';
 const anthropic = new Anthropic({ apiKey: Deno.env.get('CLAUDE_API_KEY') });
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07, second pass): unused or unfinished, or an unauthenticated webhook.
+  if (true) return Response.json({ disabled: true, reason: 'This feature is turned off.' });
+
   try {
     const base44 = createClientFromRequest(req);
     const { rep_email, client_id, draft_email } = await req.json();
