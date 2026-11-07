@@ -20,7 +20,6 @@ const VERTICALS = [
 
 const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
-const SHOW_TESTIMONIALS = false;
 
 export default function GetLeads() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', vertical: '', city: '', state: '', company: '' });
@@ -127,14 +126,6 @@ export default function GetLeads() {
               </motion.div>
             ))}
           </div>
-          {/* Social proof: off (2026-11-04) until there are real, permitted customer quotes. */}
-          {SHOW_TESTIMONIALS && <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-5 border border-slate-100">
-            <div className="flex gap-1 mb-2">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />)}
-            </div>
-            <p className="text-slate-700 text-sm italic mb-2">"First lead I received turned into a $14k roofing job. Closed it in 3 days."</p>
-            <p className="text-xs text-slate-500 font-semibold">— Marcus T., Roofing Contractor, DFW</p>
-          </div>}
         </motion.div>
 
         {/* Right: Form */}
