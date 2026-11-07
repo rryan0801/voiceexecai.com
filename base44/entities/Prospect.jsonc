@@ -1,50 +1,88 @@
 {
   "name": "Prospect",
-  "type": "object",
   "properties": {
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client entity"
-    },
-    "prospect_name": {
-      "type": "string",
-      "description": "Name of the prospect"
+      "description": "Reference to Client entity",
+      "type": "string"
     },
     "company_name": {
-      "type": "string",
-      "description": "Company name"
-    },
-    "email": {
-      "type": "string",
-      "description": "Email address"
-    },
-    "phone": {
-      "type": "string",
-      "description": "Phone number"
+      "description": "Company name",
+      "type": "string"
     },
     "custom_fields": {
-      "type": "object",
+      "additionalProperties": true,
       "description": "Custom fields for extensibility",
-      "additionalProperties": true
+      "type": "object"
+    },
+    "email": {
+      "description": "Email address",
+      "type": "string"
     },
     "interaction_count": {
-      "type": "number",
       "default": 0,
-      "description": "Total number of interactions"
+      "description": "Total number of interactions",
+      "type": "number"
     },
     "last_interaction_date": {
-      "type": "string",
+      "description": "Last interaction timestamp",
       "format": "date-time",
-      "description": "Last interaction timestamp"
+      "type": "string"
     },
     "notes": {
-      "type": "string",
-      "description": "Internal notes about prospect"
+      "description": "Internal notes about prospect",
+      "type": "string"
+    },
+    "phone": {
+      "description": "Phone number",
+      "type": "string"
+    },
+    "prospect_name": {
+      "description": "Name of the prospect",
+      "type": "string"
     }
   },
   "required": [
     "client_id",
     "prospect_name",
     "company_name"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
