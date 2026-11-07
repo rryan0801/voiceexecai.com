@@ -1,14 +1,84 @@
 {
   "name": "DealRoom",
-  "type": "object",
   "properties": {
+    "action_items": {
+      "items": {
+        "properties": {
+          "due": {
+            "format": "date",
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "task": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "collaborators": {
+      "description": "Team member emails",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
     "deal_id": {
       "type": "string"
     },
-    "prospect_id": {
+    "key_contacts": {
+      "items": {
+        "properties": {
+          "engagement_level": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "notes": {
+      "items": {
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "owner_email": {
+      "description": "Account owner/rep",
       "type": "string"
     },
-    "client_id": {
+    "prospect_id": {
       "type": "string"
     },
     "prospect_name": {
@@ -17,95 +87,24 @@
     "room_name": {
       "type": "string"
     },
-    "owner_email": {
-      "type": "string",
-      "description": "Account owner/rep"
-    },
-    "collaborators": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Team member emails"
+    "strategy": {
+      "description": "Agreed deal strategy",
+      "type": "string"
     },
     "timeline": {
-      "type": "object",
       "properties": {
-        "target_close": {
-          "type": "string",
-          "format": "date"
-        },
         "current_stage": {
           "type": "string"
         },
         "estimated_days_to_close": {
           "type": "number"
+        },
+        "target_close": {
+          "format": "date",
+          "type": "string"
         }
-      }
-    },
-    "strategy": {
-      "type": "string",
-      "description": "Agreed deal strategy"
-    },
-    "key_contacts": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "engagement_level": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "notes": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "author": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      }
-    },
-    "action_items": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "task": {
-            "type": "string"
-          },
-          "owner": {
-            "type": "string"
-          },
-          "due": {
-            "type": "string",
-            "format": "date"
-          },
-          "status": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -114,5 +113,53 @@
     "client_id",
     "prospect_name",
     "owner_email"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.owner_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.owner_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.owner_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
