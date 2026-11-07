@@ -1,45 +1,41 @@
 {
   "name": "RepConversationDNA",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "rep_email": {
-      "type": "string"
-    },
     "client_id": {
       "type": "string"
     },
-    "winning_phrases": {
-      "type": "array",
-      "description": "Top phrases used in closed deals",
+    "closing_triggers": {
+      "description": "What signals rep uses to close",
       "items": {
-        "type": "object",
-        "properties": {
-          "phrase": {
-            "type": "string"
-          },
-          "usage_count": {
-            "type": "number"
-          },
-          "close_rate_when_used": {
-            "type": "number",
-            "description": "% of deals using this that closed"
-          }
-        }
-      }
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "deal_count_analyzed": {
+      "description": "How many closed deals analyzed",
+      "type": "number"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "dna_strength": {
+      "description": "0-100 confidence in DNA signature",
+      "type": "number"
+    },
+    "last_updated": {
+      "format": "date-time",
+      "type": "string"
     },
     "question_patterns": {
-      "type": "array",
       "description": "Types of questions rep asks",
       "items": {
-        "type": "object",
         "properties": {
+          "frequency": {
+            "type": "number"
+          },
           "pattern": {
-            "type": "string",
             "enum": [
               "discovery",
               "pain_point",
@@ -47,65 +43,116 @@
               "budget",
               "timeline",
               "objection_handling"
-            ]
-          },
-          "frequency": {
-            "type": "number"
+            ],
+            "type": "string"
           },
           "success_rate": {
             "type": "number"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "rep_email": {
+      "type": "string"
     },
     "tone_signature": {
-      "type": "object",
       "description": "Rep's natural communication style",
       "properties": {
+        "confidence_level": {
+          "description": "0-100",
+          "type": "number"
+        },
         "formality": {
-          "type": "string",
           "enum": [
             "formal",
             "conversational",
             "casual"
-          ]
-        },
-        "confidence_level": {
-          "type": "number",
-          "description": "0-100"
+          ],
+          "type": "string"
         },
         "listening_ratio": {
-          "type": "number",
-          "description": "% of call rep lets prospect talk"
+          "description": "% of call rep lets prospect talk",
+          "type": "number"
         },
         "urgency_creation": {
-          "type": "number",
-          "description": "How often they create urgency"
+          "description": "How often they create urgency",
+          "type": "number"
         }
-      }
+      },
+      "type": "object"
     },
-    "closing_triggers": {
-      "type": "array",
-      "description": "What signals rep uses to close",
+    "winning_phrases": {
+      "description": "Top phrases used in closed deals",
       "items": {
-        "type": "string"
-      }
-    },
-    "deal_count_analyzed": {
-      "type": "number",
-      "description": "How many closed deals analyzed"
-    },
-    "dna_strength": {
-      "type": "number",
-      "description": "0-100 confidence in DNA signature"
-    },
-    "last_updated": {
-      "type": "string",
-      "format": "date-time"
+        "properties": {
+          "close_rate_when_used": {
+            "description": "% of deals using this that closed",
+            "type": "number"
+          },
+          "phrase": {
+            "type": "string"
+          },
+          "usage_count": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
     }
   },
   "required": [
     "rep_email",
     "client_id"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
