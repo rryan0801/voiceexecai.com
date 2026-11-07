@@ -1,62 +1,63 @@
 {
   "name": "BillAnalysis",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "user_email": {
-      "type": "string",
-      "description": "Email of user who uploaded"
-    },
-    "file_name": {
+    "analysis_details": {
+      "description": "Full AI analysis text",
       "type": "string"
     },
-    "file_url": {
-      "type": "string",
-      "description": "Uploaded bill/receipt file"
-    },
     "analysis_status": {
-      "type": "string",
+      "default": "pending",
       "enum": [
         "pending",
         "analyzing",
         "complete",
         "error"
       ],
-      "default": "pending"
+      "type": "string"
+    },
+    "analyzed_at": {
+      "format": "date-time",
+      "type": "string"
     },
     "bills_detected": {
-      "type": "array",
       "description": "List of detected bills/subscriptions",
       "items": {
-        "type": "object",
         "properties": {
-          "service": {
+          "category": {
             "type": "string"
           },
-          "category": {
+          "issue": {
+            "description": "overcharge, forgotten_trial, price_hike, duplicate, etc",
             "type": "string"
           },
           "monthly_cost": {
             "type": "number"
           },
-          "issue": {
-            "type": "string",
-            "description": "overcharge, forgotten_trial, price_hike, duplicate, etc"
+          "service": {
+            "type": "string"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "file_url": {
+      "description": "Uploaded bill/receipt file",
+      "type": "string"
     },
     "leaks_found": {
-      "type": "array",
       "description": "Money leak items",
       "items": {
-        "type": "object",
         "properties": {
-          "service": {
+          "action": {
             "type": "string"
           },
           "leak_type": {
@@ -68,35 +69,81 @@
           "potential_yearly_savings": {
             "type": "number"
           },
-          "action": {
+          "service": {
             "type": "string"
           }
-        }
-      }
-    },
-    "total_monthly_savings": {
-      "type": "number",
-      "description": "Total potential monthly savings"
-    },
-    "total_yearly_savings": {
-      "type": "number",
-      "description": "Total potential yearly savings"
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "money_leak_score": {
-      "type": "number",
-      "description": "0-100 score of how much money is leaking"
+      "description": "0-100 score of how much money is leaking",
+      "type": "number"
     },
-    "analysis_details": {
-      "type": "string",
-      "description": "Full AI analysis text"
+    "total_monthly_savings": {
+      "description": "Total potential monthly savings",
+      "type": "number"
     },
-    "analyzed_at": {
-      "type": "string",
-      "format": "date-time"
+    "total_yearly_savings": {
+      "description": "Total potential yearly savings",
+      "type": "number"
+    },
+    "user_email": {
+      "description": "Email of user who uploaded",
+      "type": "string"
     }
   },
   "required": [
     "user_email",
     "file_url"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
