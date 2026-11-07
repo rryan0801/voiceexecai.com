@@ -1,30 +1,55 @@
 {
   "name": "CalendarEvent",
-  "type": "object",
   "properties": {
+    "attendees": {
+      "items": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "response": {
+            "enum": [
+              "accepted",
+              "declined",
+              "tentative"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
-    },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect"
-    },
-    "rep_email": {
-      "type": "string",
-      "description": "Sales rep email"
-    },
-    "prospect_name": {
+      "description": "Reference to Client",
       "type": "string"
     },
     "company_name": {
+      "type": "string"
+    },
+    "deal_stage_after": {
+      "description": "Deal stage after meeting",
+      "type": "string"
+    },
+    "deal_stage_before": {
+      "description": "Deal stage before meeting",
+      "type": "string"
+    },
+    "duration_minutes": {
+      "type": "number"
+    },
+    "ended_at": {
+      "format": "date-time",
       "type": "string"
     },
     "event_title": {
       "type": "string"
     },
     "event_type": {
-      "type": "string",
+      "description": "Type of meeting",
       "enum": [
         "discovery",
         "demo",
@@ -34,85 +59,107 @@
         "check_in",
         "other"
       ],
-      "description": "Type of meeting"
+      "type": "string"
     },
-    "started_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "ended_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "duration_minutes": {
-      "type": "number"
-    },
-    "attendees": {
-      "type": "array",
+    "next_steps": {
       "items": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "response": {
-            "type": "string",
-            "enum": [
-              "accepted",
-              "declined",
-              "tentative"
-            ]
-          }
-        }
-      }
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "notes": {
+      "description": "Meeting notes/summary",
+      "type": "string"
     },
     "outcome": {
-      "type": "string",
+      "description": "Meeting outcome",
       "enum": [
         "completed",
         "no_show",
         "rescheduled",
         "cancelled"
       ],
-      "description": "Meeting outcome"
+      "type": "string"
     },
-    "notes": {
-      "type": "string",
-      "description": "Meeting notes/summary"
+    "outlook_event_id": {
+      "description": "Outlook calendar event ID",
+      "type": "string"
     },
-    "next_steps": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "prospect_id": {
+      "description": "Reference to Prospect",
+      "type": "string"
     },
-    "deal_stage_before": {
-      "type": "string",
-      "description": "Deal stage before meeting"
+    "prospect_name": {
+      "type": "string"
     },
-    "deal_stage_after": {
-      "type": "string",
-      "description": "Deal stage after meeting"
+    "rep_email": {
+      "description": "Sales rep email",
+      "type": "string"
     },
     "sentiment": {
-      "type": "string",
       "enum": [
         "positive",
         "neutral",
         "negative"
-      ]
+      ],
+      "type": "string"
     },
-    "outlook_event_id": {
-      "type": "string",
-      "description": "Outlook calendar event ID"
+    "started_at": {
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
     "client_id",
     "event_title",
     "started_at"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
