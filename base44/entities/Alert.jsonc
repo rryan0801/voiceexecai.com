@@ -1,46 +1,68 @@
 {
   "name": "Alert",
-  "type": "object",
   "properties": {
-    "title": {
-      "type": "string",
-      "description": "Alert title"
-    },
     "description": {
-      "type": "string",
-      "description": "Alert description"
+      "description": "Alert description",
+      "type": "string"
     },
-    "type": {
-      "type": "string",
-      "enum": [
-        "negative_review",
-        "rating_drop",
-        "mention",
-        "milestone"
-      ],
-      "description": "Type of alert"
+    "is_read": {
+      "default": false,
+      "type": "boolean"
+    },
+    "related_review_id": {
+      "description": "ID of related review if applicable",
+      "type": "string"
     },
     "severity": {
-      "type": "string",
+      "default": "medium",
       "enum": [
         "low",
         "medium",
         "high",
         "critical"
       ],
-      "default": "medium"
+      "type": "string"
     },
-    "is_read": {
-      "type": "boolean",
-      "default": false
+    "title": {
+      "description": "Alert title",
+      "type": "string"
     },
-    "related_review_id": {
-      "type": "string",
-      "description": "ID of related review if applicable"
+    "type": {
+      "description": "Type of alert",
+      "enum": [
+        "negative_review",
+        "rating_drop",
+        "mention",
+        "milestone"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "title",
     "type"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
 }
