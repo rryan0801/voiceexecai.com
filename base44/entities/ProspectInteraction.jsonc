@@ -1,17 +1,12 @@
 {
   "name": "ProspectInteraction",
-  "type": "object",
   "properties": {
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect entity"
-    },
     "command_id": {
-      "type": "string",
-      "description": "Reference to Command entity"
+      "description": "Reference to Command entity",
+      "type": "string"
     },
     "interaction_type": {
-      "type": "string",
+      "description": "Type of interaction",
       "enum": [
         "email",
         "call",
@@ -20,26 +15,30 @@
         "document",
         "other"
       ],
-      "description": "Type of interaction"
+      "type": "string"
     },
-    "summary": {
-      "type": "string",
-      "description": "Brief summary of what was done"
+    "prospect_id": {
+      "description": "Reference to Prospect entity",
+      "type": "string"
     },
     "result": {
-      "type": "object",
+      "additionalProperties": true,
       "description": "Result of the interaction",
-      "additionalProperties": true
+      "type": "object"
     },
     "status": {
-      "type": "string",
+      "default": "completed",
+      "description": "Interaction status",
       "enum": [
         "pending",
         "completed",
         "failed"
       ],
-      "default": "completed",
-      "description": "Interaction status"
+      "type": "string"
+    },
+    "summary": {
+      "description": "Brief summary of what was done",
+      "type": "string"
     }
   },
   "required": [
@@ -47,5 +46,44 @@
     "command_id",
     "interaction_type",
     "summary"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
