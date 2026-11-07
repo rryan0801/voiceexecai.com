@@ -1,64 +1,63 @@
 {
   "name": "OutreachCampaign",
-  "type": "object",
   "properties": {
+    "body": {
+      "type": "string"
+    },
+    "converted_count": {
+      "default": 0,
+      "type": "number"
+    },
+    "delivered_count": {
+      "default": 0,
+      "type": "number"
+    },
     "name": {
-      "type": "string",
-      "description": "Campaign name"
+      "description": "Campaign name",
+      "type": "string"
+    },
+    "open_count": {
+      "default": 0,
+      "type": "number"
+    },
+    "recipient_ids": {
+      "description": "BuyerLead IDs",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "sent_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "sent_by": {
+      "type": "string"
+    },
+    "sent_count": {
+      "default": 0,
+      "type": "number"
+    },
+    "status": {
+      "default": "draft",
+      "enum": [
+        "draft",
+        "sent",
+        "failed"
+      ],
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
     },
     "template_type": {
-      "type": "string",
       "enum": [
         "welcome",
         "follow_up",
         "promo",
         "social_proof",
         "custom"
-      ]
-    },
-    "subject": {
-      "type": "string"
-    },
-    "body": {
-      "type": "string"
-    },
-    "recipient_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "BuyerLead IDs"
-    },
-    "sent_count": {
-      "type": "number",
-      "default": 0
-    },
-    "delivered_count": {
-      "type": "number",
-      "default": 0
-    },
-    "open_count": {
-      "type": "number",
-      "default": 0
-    },
-    "converted_count": {
-      "type": "number",
-      "default": 0
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "draft",
-        "sent",
-        "failed"
       ],
-      "default": "draft"
-    },
-    "sent_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "sent_by": {
       "type": "string"
     }
   },
@@ -67,5 +66,28 @@
     "template_type",
     "subject",
     "body"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
 }
