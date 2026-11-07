@@ -43,6 +43,11 @@ async function requirePaidPlan(base44) {
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
   { const denied = await requirePaidPlan(base44); if (denied) return denied; }
+  // Who is calling. Email sending, meeting booking and CRM logging run only for admins
+  // (the owner's own Outlook/HubSpot). Customers get drafts. Audit 2026-11-07, second pass.
+  let me = null;
+  try { me = await base44.auth.me(); } catch (_e) { me = null; }
+  const isAdmin = me?.role === 'admin';
   let command_id;
 
   try {
@@ -53,15 +58,24 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'command_id and transcription required' }, { status: 400 });
     }
 
+    // Ownership: the caller must be able to see this command (owner-only RLS).
+    try {
+      const own = await base44.entities.Command.get(command_id);
+      if (!own) throw new Error('not found');
+    } catch (_e) {
+      command_id = undefined;
+      return Response.json({ error: 'Command not found' }, { status: 404 });
+    }
+
     // Fetch prospect context if provided
     let prospectContext = {};
     if (context?.prospect_name) {
-      const getContextRes = await base44.asServiceRole.functions.invoke('getProspectContext', {
+      const getContextRes = await base44.functions.invoke('getProspectContext', {
         client_id,
         prospect_name: context.prospect_name,
         company_name: context.prospect_company
       });
-      prospectContext = getContextRes.context || {};
+      prospectContext = getContextRes?.data?.context || getContextRes?.context || {};
     }
 
     await base44.asServiceRole.entities.Command.update(command_id, {
@@ -160,16 +174,22 @@ Respond with valid JSON only:
       result.subject = claudeResponse.email_subject;
       result.body = claudeResponse.email_body;
 
-      // Fix #2: Check Outlook connected first
+      // Customers: draft only (we cannot yet guarantee the email goes out from the caller's own Outlook).
       let outlookConnected = false;
-      try {
-        await base44.asServiceRole.functions.invoke('checkOutlookConnection', {});
-        outlookConnected = true;
-      } catch {
-        outlookConnected = false;
+      if (isAdmin) {
+        try {
+          await base44.functions.invoke('checkOutlookConnection', {});
+          outlookConnected = true;
+        } catch {
+          outlookConnected = false;
+        }
       }
 
-      if (!outlookConnected) {
+      if (!isAdmin) {
+        result.sent = false;
+        result.draft_only = true;
+        result.warnings.push('Your email is drafted below. Copy it into your own email to send it.');
+      } else if (!outlookConnected) {
         result.sent = false;
         result.warnings.push('⚠️ Outlook is not connected. Your email has been drafted below but NOT sent. Go to the Prospects page and connect Outlook to enable sending.');
       } else if (!prospectContext?.email) {
@@ -178,7 +198,7 @@ Respond with valid JSON only:
         result.warnings.push(`⚠️ No email address found for ${prospectContext.prospect_name || context?.prospect_name || 'this prospect'}. Your email has been drafted below. Open the Prospects page and add their email address, then try again.`);
       } else {
         try {
-          await base44.asServiceRole.functions.invoke('sendEmailViaOutlook', {
+          await base44.functions.invoke('sendEmailViaOutlook', {
             to: prospectContext.email,
             subject: claudeResponse.email_subject,
             body: claudeResponse.email_body
@@ -194,16 +214,25 @@ Respond with valid JSON only:
 
     // 2) Schedule Meeting via Outlook Calendar
     if (claudeResponse.intent === 'schedule_meeting') {
-      // Fix #2: Check Outlook connected
       let outlookConnected = false;
-      try {
-        await base44.asServiceRole.functions.invoke('checkOutlookConnection', {});
-        outlookConnected = true;
-      } catch {
-        outlookConnected = false;
+      if (isAdmin) {
+        try {
+          await base44.functions.invoke('checkOutlookConnection', {});
+          outlookConnected = true;
+        } catch {
+          outlookConnected = false;
+        }
       }
 
-      if (!outlookConnected) {
+      if (!isAdmin) {
+        result.meeting_scheduled = false;
+        result.draft_only = true;
+        result.meeting_subject = claudeResponse.meeting_subject || `Meeting with ${prospectContext.prospect_name || context?.prospect_name || ''}`.trim();
+        result.meeting_start = claudeResponse.meeting_start;
+        result.meeting_end = claudeResponse.meeting_end;
+        result.body = claudeResponse.meeting_body || '';
+        result.warnings.push('Your meeting details are drafted below. Add them to your own calendar.');
+      } else if (!outlookConnected) {
         result.meeting_scheduled = false;
         result.warnings.push('⚠️ Outlook is not connected. Connect Outlook on the Prospects page to schedule meetings.');
       } else {
@@ -223,7 +252,7 @@ Respond with valid JSON only:
 
         if (result.meeting_scheduled !== false) {
           try {
-            const meetingRes = await base44.asServiceRole.functions.invoke('scheduleOutlookMeeting', {
+            const meetingRes = await base44.functions.invoke('scheduleOutlookMeeting', {
               subject: claudeResponse.meeting_subject || `Meeting with ${prospectContext.prospect_name || context?.prospect_name}`,
               attendee_email: prospectContext.email || null,
               start_datetime: claudeResponse.meeting_start,
@@ -232,8 +261,8 @@ Respond with valid JSON only:
               location: claudeResponse.meeting_location || ''
             });
             result.meeting_scheduled = true;
-            result.event_id = meetingRes.event_id;
-            result.web_link = meetingRes.web_link;
+            result.event_id = meetingRes?.data?.event_id ?? meetingRes?.event_id;
+            result.web_link = meetingRes?.data?.web_link ?? meetingRes?.web_link;
             result.meeting_start = claudeResponse.meeting_start;
             result.meeting_end = claudeResponse.meeting_end;
             if (!prospectContext?.email) {
@@ -250,7 +279,7 @@ Respond with valid JSON only:
     // 3) Create Internal Task — Fix #5: Always works, but surface clear confirmation
     if (claudeResponse.intent === 'create_task') {
       try {
-        const taskRes = await base44.asServiceRole.functions.invoke('createTask', {
+        const taskRes = await base44.functions.invoke('createTask', {
           client_id,
           prospect_id: prospectContext.prospect_id || null,
           command_id,
@@ -260,7 +289,7 @@ Respond with valid JSON only:
           priority: claudeResponse.task_priority || 'medium'
         });
         result.task_created = true;
-        result.task_id = taskRes.task_id;
+        result.task_id = taskRes?.data?.task_id ?? taskRes?.task_id;
         result.task_title = claudeResponse.task_title || claudeResponse.summary;
         result.task_priority = claudeResponse.task_priority || 'medium';
         result.task_due_date = claudeResponse.task_due_date || null;
@@ -273,12 +302,18 @@ Respond with valid JSON only:
     // 4) Log to HubSpot CRM — Fix #6: Edge case handling
     if (claudeResponse.intent === 'log_crm') {
       const prospectIdentifier = prospectContext.prospect_name || context?.prospect_name;
-      if (!prospectIdentifier) {
+      if (!isAdmin) {
+        // HubSpot logging uses the owner's own HubSpot account, so it is admin-only
+        // until each customer can connect their own HubSpot.
+        result.crm_logged = false;
+        result.crm_note = claudeResponse.crm_note || claudeResponse.summary;
+        result.warnings.push('CRM logging is not available yet. Your note is below so you can paste it into your CRM.');
+      } else if (!prospectIdentifier) {
         result.crm_logged = false;
         result.warnings.push('⚠️ No prospect name provided. Please say the prospect\'s name when logging to CRM.');
       } else {
         try {
-          const crmRes = await base44.asServiceRole.functions.invoke('logHubspotContact', {
+          const crmRes = await base44.functions.invoke('logHubspotContact', {
             prospect_name: prospectContext.prospect_name || context?.prospect_name,
             prospect_email: prospectContext.email || null,
             company_name: prospectContext.company_name || context?.prospect_company,
@@ -286,7 +321,7 @@ Respond with valid JSON only:
             interaction_type: 'voice_command'
           });
           result.crm_logged = true;
-          result.crm_contact_id = crmRes.contact_id;
+          result.crm_contact_id = crmRes?.data?.contact_id ?? crmRes?.contact_id;
         } catch (e) {
           result.crm_logged = false;
           result.warnings.push(`⚠️ CRM logging failed: ${e.message}`);
@@ -302,7 +337,7 @@ Respond with valid JSON only:
         result.warnings.push('⚠️ No prospect name provided. Please specify who the document is for.');
       } else {
         try {
-          const docRes = await base44.asServiceRole.functions.invoke('generateProposalDoc', {
+          const docRes = await base44.functions.invoke('generateProposalDoc', {
             prospect_name: prospectName,
             company_name: prospectContext.company_name || context?.prospect_company,
             doc_type: claudeResponse.doc_type || 'proposal',
@@ -310,8 +345,8 @@ Respond with valid JSON only:
             prospect_context: prospectContext
           });
           result.document_generated = true;
-          result.doc_type = docRes.doc_type;
-          result.html = docRes.html;
+          result.doc_type = docRes?.data?.doc_type ?? docRes?.doc_type;
+          result.html = docRes?.data?.html ?? docRes?.html;
         } catch (e) {
           result.document_generated = false;
           result.warnings.push(`⚠️ Document generation failed: ${e.message}`);
@@ -338,7 +373,7 @@ Respond with valid JSON only:
         log_crm: 'other',
         generate_document: 'document'
       };
-      await base44.asServiceRole.functions.invoke('saveProspectInteraction', {
+      await base44.functions.invoke('saveProspectInteraction', {
         prospect_id: prospectContext.prospect_id,
         command_id,
         interaction_type: interactionTypeMap[claudeResponse.intent] || 'other',
