@@ -1,6 +1,10 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07): scheduled sender ran across every user with no per-user sign-in, no auth check and no opt-out handling.
+  // Remove this line only after the owner approves turning it back on.
+  if (true) return Response.json({ disabled: true, reason: "This feature is turned off." });
+
   try {
     const base44 = createClientFromRequest(req);
     const base44Service = base44.asServiceRole;

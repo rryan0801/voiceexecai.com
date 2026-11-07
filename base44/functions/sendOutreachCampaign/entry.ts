@@ -2,6 +2,10 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 import { Resend } from 'npm:resend@4.0.0';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07): cold emails to people who never signed up, promising leads that do not exist.
+  // Remove this line only after the owner approves turning it back on.
+  if (true) return Response.json({ disabled: true, reason: "This feature is turned off." });
+
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();

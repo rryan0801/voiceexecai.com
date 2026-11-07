@@ -1,6 +1,10 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07): it never read the uploaded bill (only the file name), so the savings it showed were invented.
+  // Remove this line only after the owner approves turning it back on.
+  if (true) return Response.json({ disabled: true, reason: "This feature is turned off." });
+
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();

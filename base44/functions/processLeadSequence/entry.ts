@@ -3,6 +3,10 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 // This function is called by a scheduled automation every hour
 // It finds leads that need follow-up emails at 24h and 48h marks
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07): the buyer-leads program it advertises does not exist (sample leads were made up).
+  // Remove this line only after the owner approves turning it back on.
+  if (true) return Response.json({ disabled: true, reason: "This feature is turned off." });
+
   try {
     const base44 = createClientFromRequest(req);
 
