@@ -1,27 +1,58 @@
 {
   "name": "ProspectReadinessPulse",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "prospect_id": {
+    "client_id": {
       "type": "string"
     },
-    "client_id": {
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "hours_to_peak": {
+      "description": "Estimated hours until peak readiness",
+      "type": "number"
+    },
+    "indicators": {
+      "description": "20+ signals contributing to readiness",
+      "items": {
+        "properties": {
+          "current_value": {
+            "type": "string"
+          },
+          "indicator": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "positive",
+              "neutral",
+              "negative"
+            ],
+            "type": "string"
+          },
+          "weight": {
+            "description": "How much it impacts score",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "last_spike": {
+      "description": "When was last readiness spike",
+      "format": "date-time",
+      "type": "string"
+    },
+    "prospect_id": {
       "type": "string"
     },
     "prospect_name": {
       "type": "string"
     },
-    "readiness_score": {
-      "type": "number",
-      "description": "0-100 are they ready to buy NOW"
-    },
     "pulse_status": {
-      "type": "string",
+      "description": "Current pulse trend",
       "enum": [
         "flatline",
         "rising",
@@ -29,41 +60,14 @@
         "critical",
         "declining"
       ],
-      "description": "Current pulse trend"
+      "type": "string"
     },
-    "indicators": {
-      "type": "array",
-      "description": "20+ signals contributing to readiness",
-      "items": {
-        "type": "object",
-        "properties": {
-          "indicator": {
-            "type": "string"
-          },
-          "weight": {
-            "type": "number",
-            "description": "How much it impacts score"
-          },
-          "current_value": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "positive",
-              "neutral",
-              "negative"
-            ]
-          }
-        }
-      }
-    },
-    "hours_to_peak": {
-      "type": "number",
-      "description": "Estimated hours until peak readiness"
+    "readiness_score": {
+      "description": "0-100 are they ready to buy NOW",
+      "type": "number"
     },
     "recommended_action": {
-      "type": "string",
+      "description": "What to do based on pulse",
       "enum": [
         "wait",
         "nurture",
@@ -71,16 +75,11 @@
         "close_now",
         "escalate"
       ],
-      "description": "What to do based on pulse"
-    },
-    "last_spike": {
-      "type": "string",
-      "format": "date-time",
-      "description": "When was last readiness spike"
+      "type": "string"
     },
     "updated_at": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -88,5 +87,44 @@
     "client_id",
     "prospect_name",
     "readiness_score"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
