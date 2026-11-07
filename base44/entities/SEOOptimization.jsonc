@@ -1,21 +1,24 @@
 {
   "name": "SEOOptimization",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "website_id": {
-      "type": "string",
-      "description": "Reference to Website"
-    },
-    "page_url": {
+    "applied_at": {
+      "format": "date-time",
       "type": "string"
     },
+    "applied_by": {
+      "description": "User who applied or 'auto'",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "impact_score": {
+      "description": "Expected SEO impact 0-100",
+      "type": "number"
+    },
     "optimization_type": {
-      "type": "string",
       "enum": [
         "meta_title",
         "meta_description",
@@ -24,34 +27,30 @@
         "heading",
         "content",
         "image_alt"
-      ]
-    },
-    "original_value": {
+      ],
       "type": "string"
     },
     "optimized_value": {
       "type": "string"
     },
+    "original_value": {
+      "type": "string"
+    },
+    "page_url": {
+      "type": "string"
+    },
     "status": {
-      "type": "string",
+      "default": "pending",
       "enum": [
         "pending",
         "applied",
         "rejected"
       ],
-      "default": "pending"
+      "type": "string"
     },
-    "impact_score": {
-      "type": "number",
-      "description": "Expected SEO impact 0-100"
-    },
-    "applied_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "applied_by": {
-      "type": "string",
-      "description": "User who applied or 'auto'"
+    "website_id": {
+      "description": "Reference to Website",
+      "type": "string"
     }
   },
   "required": [
@@ -59,5 +58,44 @@
     "page_url",
     "optimization_type",
     "optimized_value"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
