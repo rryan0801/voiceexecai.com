@@ -16,9 +16,12 @@ import CommandHistory from '@/components/dashboard/CommandHistory';
 import NavBar from '@/components/NavBar';
 import QuickTestRunner from '@/components/dashboard/QuickTestRunner';
 import GettingStarted from '@/components/dashboard/GettingStarted';
+import { useAuth } from '@/lib/AuthContext';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [showNewClientForm, setShowNewClientForm] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
 
@@ -296,7 +299,7 @@ export default function Dashboard() {
             )}
 
             {/* Quick Test Runner */}
-            {clients.length > 0 && <QuickTestRunner />}
+            {isAdmin && clients.length > 0 && <QuickTestRunner />}
 
             {/* Recent Commands Feed */}
             {recentCommands.length > 0 && (
