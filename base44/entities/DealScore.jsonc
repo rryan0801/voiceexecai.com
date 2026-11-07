@@ -1,59 +1,54 @@
 {
   "name": "DealScore",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "autopilot_progress": {
+      "default": 0,
+      "description": "% of AutoPilot sequence completed",
+      "type": "number"
     },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect"
+    "calculated_at": {
+      "description": "When score was last calculated",
+      "format": "date-time",
+      "type": "string"
     },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
-    },
-    "prospect_name": {
-      "type": "string",
-      "description": "Prospect name for easy reference"
+      "description": "Reference to Client",
+      "type": "string"
     },
     "company_name": {
-      "type": "string",
-      "description": "Company name"
+      "description": "Company name",
+      "type": "string"
     },
-    "win_probability": {
-      "type": "number",
-      "description": "0-100 score"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "interaction_count": {
-      "type": "number",
       "default": 0,
-      "description": "Total interactions"
-    },
-    "recency_boost": {
-      "type": "number",
-      "default": 0,
-      "description": "Boost from recent activity (last 7 days)"
-    },
-    "autopilot_progress": {
-      "type": "number",
-      "default": 0,
-      "description": "% of AutoPilot sequence completed"
-    },
-    "reply_detected": {
-      "type": "boolean",
-      "default": false,
-      "description": "Has prospect replied"
+      "description": "Total interactions",
+      "type": "number"
     },
     "last_interaction_date": {
-      "type": "string",
+      "description": "When was the last interaction",
       "format": "date-time",
-      "description": "When was the last interaction"
+      "type": "string"
+    },
+    "prospect_id": {
+      "description": "Reference to Prospect",
+      "type": "string"
+    },
+    "prospect_name": {
+      "description": "Prospect name for easy reference",
+      "type": "string"
+    },
+    "recency_boost": {
+      "default": 0,
+      "description": "Boost from recent activity (last 7 days)",
+      "type": "number"
     },
     "recommended_action": {
-      "type": "string",
+      "description": "Next recommended action",
       "enum": [
         "send_email",
         "schedule_call",
@@ -61,35 +56,78 @@
         "check_in",
         "nurture"
       ],
-      "description": "Next recommended action"
+      "type": "string"
+    },
+    "reply_detected": {
+      "default": false,
+      "description": "Has prospect replied",
+      "type": "boolean"
     },
     "score_factors": {
-      "type": "object",
       "description": "Breakdown of score calculation",
       "properties": {
-        "interaction_score": {
-          "type": "number"
-        },
-        "recency_score": {
-          "type": "number"
-        },
         "autopilot_score": {
           "type": "number"
         },
         "engagement_score": {
           "type": "number"
+        },
+        "interaction_score": {
+          "type": "number"
+        },
+        "recency_score": {
+          "type": "number"
         }
-      }
+      },
+      "type": "object"
     },
-    "calculated_at": {
-      "type": "string",
-      "format": "date-time",
-      "description": "When score was last calculated"
+    "win_probability": {
+      "description": "0-100 score",
+      "type": "number"
     }
   },
   "required": [
     "prospect_id",
     "client_id",
     "win_probability"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
