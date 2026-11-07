@@ -13,7 +13,7 @@ export default function Privacy() {
             <Shield className="w-8 h-8 text-blue-600" />
             <h1 className="text-3xl font-bold text-slate-900">Privacy Policy</h1>
           </div>
-          <p className="text-slate-600">Last updated: May 20, 2026</p>
+          <p className="text-slate-600">Last updated: November 7, 2026</p>
         </div>
 
         <Card>
@@ -21,7 +21,7 @@ export default function Privacy() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">1. Introduction</h2>
               <p className="leading-relaxed">
-                VoiceExec AI ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our voice-to-action platform and related services.
+                VoiceExecAI is a product of Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309 ("we", "our", or "us"). This Privacy Policy explains how we collect, use, share and protect your information when you use voiceexecai.com.
               </p>
             </section>
 
@@ -38,7 +38,7 @@ export default function Privacy() {
                 </div>
                 <div>
                   <h3 className="font-medium text-slate-900">Audio Data</h3>
-                  <p className="text-sm">We process audio recordings to provide transcription and analysis services. Audio is processed securely and not stored unless explicitly configured.</p>
+                  <p className="text-sm">When you record a voice command, the audio is uploaded so it can be turned into text, and the audio file and the text may be kept with your command history. You can ask us to delete them. The Ask Richy assistant does not save the questions you type; it only keeps a daily count to limit use.</p>
                 </div>
               </div>
             </section>
@@ -62,7 +62,7 @@ export default function Privacy() {
                 We do not sell, trade, or otherwise transfer your personal information to outside parties except in the following circumstances:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Service Providers:</strong> We share data with trusted third-party providers (Stripe for payments, Twilio for communications, OpenAI/Claude for AI processing) who assist us in operating our business.</li>
+                <li><strong>Service Providers:</strong> We share data with providers that help run the service: Base44 (hosting), Stripe (payments), OpenAI (speech-to-text), Anthropic (AI drafting), Microsoft (only if you connect Outlook), Twilio (text messages, if used), and Google Analytics and Microsoft Clarity (site usage analytics).</li>
                 <li><strong>Legal Requirements:</strong> We may disclose information when required by law or to protect our rights.</li>
                 <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
                 <li><strong>With Your Consent:</strong> When you explicitly agree to share information.</li>
@@ -72,7 +72,7 @@ export default function Privacy() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">5. Data Security</h2>
               <p className="leading-relaxed">
-                We implement industry-standard security measures including encryption in transit and at rest, access controls, and regular security audits. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.
+                Data travels over encrypted HTTPS connections, the app runs on managed cloud hosting, and access to records is limited by account. No method of sending or storing data over the Internet is 100% secure, and we cannot promise absolute security.
               </p>
             </section>
 
@@ -93,7 +93,7 @@ export default function Privacy() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-slate-900 mb-3">7. Your Rights (GDPR/CCPA)</h2>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">7. Your Rights</h2>
               <p className="leading-relaxed mb-3">Depending on your location, you may have the following rights:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Access to your personal data</li>
@@ -104,7 +104,7 @@ export default function Privacy() {
                 <li>Restriction of processing</li>
               </ul>
               <p className="leading-relaxed mt-3">
-                To exercise these rights, contact us at <a href="mailto:support@voiceexec.ai" className="text-blue-600 hover:underline">support@voiceexec.ai</a>
+                To exercise these rights, contact us at <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a>
               </p>
             </section>
 
@@ -133,17 +133,12 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold text-slate-900 mb-3">11. Contact Us</h2>
               <p className="leading-relaxed">
                 For questions about this Privacy Policy or our data practices, contact us at:<br />
+                <strong>Business:</strong> Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309<br />
                 <strong>Email:</strong> <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a><br />
                 <strong>Website:</strong> <a href="https://voiceexecai.com" className="text-blue-600 hover:underline">voiceexecai.com</a>
               </p>
             </section>
 
-            <div className="pt-6 border-t border-slate-200">
-              <div className="flex items-center gap-2 text-sm text-slate-500">
-                <CheckCircle className="w-4 h-4 text-green-600" />
-                <span>This policy complies with GDPR, CCPA, and Stripe's requirements</span>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
