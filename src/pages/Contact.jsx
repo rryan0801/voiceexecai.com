@@ -94,7 +94,7 @@ export default function Contact() {
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <CheckCircle className="w-16 h-16 text-green-600 mb-4" />
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">Message Sent!</h3>
-                  <p className="text-slate-600">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+                  <p className="text-slate-600">Thank you for reaching out. We will get back to you as soon as we can.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -208,7 +208,7 @@ export default function Contact() {
               <CardContent className="space-y-3 text-sm text-slate-700">
                 <div className="flex justify-between items-center py-2 border-b">
                   <span>General Inquiries</span>
-                  <span className="font-medium">Within 24 hours</span>
+                  <span className="font-medium">As soon as we can</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b">
                   <span>Support</span>
