@@ -212,15 +212,15 @@ export default function Contact() {
                 </div>
                 <div className="flex justify-between items-center py-2 border-b">
                   <span>Support</span>
-                  <span className="font-medium">Within 4 hours (business hours)</span>
+                  <span className="font-medium">As soon as we can</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b">
                   <span>Sales</span>
-                  <span className="font-medium">Within 1 business day</span>
+                  <span className="font-medium">As soon as we can</span>
                 </div>
                 <div className="flex justify-between items-center py-2">
                   <span>Security</span>
-                  <span className="font-medium">Within 2 hours (24/7)</span>
+                  <span className="font-medium">As soon as we can</span>
                 </div>
               </CardContent>
             </Card>
