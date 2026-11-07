@@ -2,6 +2,14 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 import jsPDF from 'npm:jspdf@4.0.0';
 
 Deno.serve(async (req) => {
+  // Admin only (audit 2026-11-07): internal deployment guide.
+  {
+    const b44 = createClientFromRequest(req);
+    let u = null;
+    try { u = await b44.auth.me(); } catch (_e) { u = null; }
+    if (!u || u.role !== "admin") return Response.json({ error: "Admins only" }, { status: 403 });
+  }
+
   try {
     const base44 = createClientFromRequest(req);
     
@@ -201,7 +209,7 @@ Deno.serve(async (req) => {
           '',
           'Step 4: Verify Stripe Products Exist',
           'Check Stripe Dashboard > Products for 3 products:',
-          '- Free ($0/month)',
+          '- (No free plan: paid plans only)',
           '- Pro ($49/month)',
           '- Enterprise ($999/month)'
         ]
@@ -247,7 +255,7 @@ Deno.serve(async (req) => {
           '',
           'Test 2: Stripe Checkout',
           '1. Go to /pricing page',
-          '2. Click "Start Pro Trial"',
+          '2. Click "Get Pro"',
           '3. Use Stripe test card: 4242 4242 4242 4242',
           '4. Verify redirect to /checkout-success',
           '',
