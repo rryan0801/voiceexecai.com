@@ -13,7 +13,7 @@ export default function Terms() {
             <FileText className="w-8 h-8 text-blue-600" />
             <h1 className="text-3xl font-bold text-slate-900">Terms of Service</h1>
           </div>
-          <p className="text-slate-600">Last updated: May 20, 2026</p>
+          <p className="text-slate-600">Last updated: November 7, 2026</p>
         </div>
 
         <Card>
@@ -21,22 +21,24 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">1. Agreement to Terms</h2>
               <p className="leading-relaxed">
-                By accessing or using VoiceExec AI ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access or use the Service.
+                VoiceExecAI (the "Service") is provided by Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309 ("we", "us"). By accessing or using the Service, you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access or use the Service.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">2. Description of Service</h2>
               <p className="leading-relaxed mb-3">
-                VoiceExec AI provides a voice-to-action platform that enables users to:
+                VoiceExecAI is a voice assistant. When you give it a spoken or typed command, it can:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Transcribe and analyze audio conversations</li>
-                <li>Automate sales workflows and follow-ups</li>
-                <li>Generate AI-powered insights and coaching</li>
-                <li>Integrate with CRM systems and communication platforms</li>
-                <li>Track and analyze sales performance metrics</li>
+                <li>Draft an email and send it from your connected Outlook account</li>
+                <li>Book a meeting on your connected Outlook calendar</li>
+                <li>Create a follow-up task</li>
+                <li>Draft a proposal document</li>
               </ul>
+              <p className="leading-relaxed mt-3">
+                The Service does not answer or make phone calls. AI output can be wrong; you are responsible for checking what is sent in your name.
+              </p>
               <p className="leading-relaxed mt-3">
                 We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time.
               </p>
@@ -76,31 +78,35 @@ export default function Terms() {
                 <strong>Billing:</strong> VoiceExec AI operates on a subscription basis. You agree to pay all fees at the rates then in effect.
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Fees are billed in advance on a monthly or annual basis</li>
-                <li>All payments are processed through Stripe and are non-refundable except as required by law</li>
+                <li>Fees are billed monthly in advance through Stripe</li>
+                <li>There is no free plan and no free trial</li>
+                <li>Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time.</li>
                 <li>Failed payments may result in suspension of service</li>
                 <li>Price changes will be communicated 30 days in advance</li>
-                <li>You can cancel your subscription at any time; access continues through the end of the billing period</li>
+                <li>You can cancel by emailing support@voiceexecai.com before your next billing date; access continues through the end of the paid period</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">6. Refund and Cancellation Policy</h2>
               <p className="leading-relaxed mb-3">
-                <strong>Cancellation:</strong> You may cancel your subscription at any time through your account settings or by contacting support.
+                <strong>Cancellation:</strong> Email support@voiceexecai.com before your next billing date. Cancellations take effect at the end of the current paid period.
               </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Cancellations take effect at the end of the current billing period</li>
-                <li>No refunds are provided for partial billing periods</li>
-                <li>Data retention: We retain your data for 30 days after cancellation, after which it is permanently deleted</li>
-                <li>Export your data before cancellation if you wish to keep it</li>
-              </ul>
+              <p className="leading-relaxed mb-3">
+                <strong>Refunds:</strong> Refunds are handled case by case — email us.
+              </p>
+              <p className="leading-relaxed">
+                <strong>Your data:</strong> You can ask us to export or delete your data at any time.
+              </p>
+              <p className="leading-relaxed mt-3">
+                <strong>Tips:</strong> An optional "Buy us a coffee" tip is a one-time payment. It is not a donation and does not include a plan.
+              </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">7. Intellectual Property Rights</h2>
               <p className="leading-relaxed mb-3">
-                <strong>Our Property:</strong> VoiceExec AI, including its features, code, designs, and content, is owned by VoiceExec AI and protected by intellectual property laws.
+                <strong>Our Property:</strong> VoiceExec AI, including its features, code, designs, and content, is owned by Richard Ryan LLC and protected by intellectual property laws.
               </p>
               <p className="leading-relaxed mb-3">
                 <strong>Your Content:</strong> You retain ownership of your audio recordings, transcripts, and data. By using the Service, you grant us a license to process and store this content solely for providing the Service.
@@ -120,7 +126,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">9. Limitation of Liability</h2>
               <p className="leading-relaxed">
-                TO THE MAXIMUM EXTENT PERMITTED BY LAW, VOICEEXEC AI SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUES, DATA, OR USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM YOUR ACCESS TO OR USE OF THE SERVICE.
+                TO THE MAXIMUM EXTENT PERMITTED BY LAW, RICHARD RYAN LLC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUES, DATA, OR USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM YOUR ACCESS TO OR USE OF THE SERVICE.
               </p>
               <p className="leading-relaxed mt-3">
                 OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU IN THE 12 MONTHS PRECEDING THE CLAIM.
@@ -130,7 +136,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">10. Indemnification</h2>
               <p className="leading-relaxed">
-                You agree to indemnify, defend, and hold harmless VoiceExec AI from any claims, liabilities, damages, losses, or expenses (including legal fees) arising from your use of the Service, violation of these Terms, or infringement of any third-party rights.
+                You agree to indemnify, defend, and hold harmless Richard Ryan LLC from any claims, liabilities, damages, losses, or expenses (including legal fees) arising from your use of the Service, violation of these Terms, or infringement of any third-party rights.
               </p>
             </section>
 
@@ -158,7 +164,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">14. Governing Law</h2>
               <p className="leading-relaxed">
-                These Terms shall be governed by and construed in accordance with the laws of [Your State/Country], without regard to its conflict of law provisions. Any disputes shall be resolved in the courts located in [Your Jurisdiction].
+                These Terms are governed by the laws of the State of Iowa, without regard to its conflict of law rules. Any dispute will be handled in the state or federal courts located in Polk County, Iowa.
               </p>
             </section>
 
@@ -166,17 +172,12 @@ export default function Terms() {
               <h2 className="text-xl font-semibold text-slate-900 mb-3">15. Contact Information</h2>
               <p className="leading-relaxed">
                 For questions about these Terms, please contact us at:<br />
+                <strong>Business:</strong> Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309<br />
                 <strong>Email:</strong> <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a><br />
                 <strong>Website:</strong> <a href="https://voiceexecai.com" className="text-blue-600 hover:underline">voiceexecai.com</a>
               </p>
             </section>
 
-            <div className="pt-6 border-t border-slate-200">
-              <div className="flex items-center gap-2 text-sm text-slate-500">
-                <CheckCircle className="w-4 h-4 text-green-600" />
-                <span>These terms comply with Stripe's requirements and standard SaaS practices</span>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
