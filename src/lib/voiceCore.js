@@ -112,7 +112,8 @@ export class VoiceCore {
       });
     } catch (error) {
       this.setPhase('error');
-      this.config.onError(error.message || 'Processing failed');
+      // Show the server's plain-English message (e.g. "A paid plan is needed...").
+      this.config.onError(error?.response?.data?.error || error.message || 'Processing failed');
     }
   }
 
