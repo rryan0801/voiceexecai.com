@@ -1,13 +1,23 @@
 {
   "name": "FollowUpSequence",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
     "client_id": {
+      "type": "string"
+    },
+    "completed_steps": {
+      "default": 0,
+      "type": "number"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "next_step_date": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "prospect_email": {
       "type": "string"
     },
     "prospect_id": {
@@ -16,96 +26,124 @@
     "prospect_name": {
       "type": "string"
     },
-    "prospect_email": {
-      "type": "string"
-    },
-    "trigger_command_id": {
-      "type": "string",
-      "description": "The voice command that started this sequence"
+    "reply_detected": {
+      "default": false,
+      "type": "boolean"
     },
     "status": {
-      "type": "string",
+      "default": "active",
       "enum": [
         "active",
         "paused",
         "completed",
         "cancelled"
       ],
-      "default": "active"
+      "type": "string"
     },
     "steps": {
-      "type": "array",
       "description": "Sequence of follow-up steps",
       "items": {
-        "type": "object",
         "properties": {
-          "step_number": {
-            "type": "number"
-          },
           "action": {
-            "type": "string",
             "enum": [
               "send_email",
               "create_task",
               "wait"
-            ]
-          },
-          "delay_days": {
-            "type": "number"
-          },
-          "subject": {
+            ],
             "type": "string"
           },
           "body": {
             "type": "string"
           },
-          "task_title": {
-            "type": "string"
-          },
           "condition": {
-            "type": "string",
+            "default": "if_no_reply",
             "enum": [
               "always",
               "if_no_reply",
               "if_replied"
             ],
-            "default": "if_no_reply"
+            "type": "string"
+          },
+          "delay_days": {
+            "type": "number"
+          },
+          "executed_at": {
+            "format": "date-time",
+            "type": "string"
           },
           "status": {
-            "type": "string",
+            "default": "pending",
             "enum": [
               "pending",
               "executed",
               "skipped"
             ],
-            "default": "pending"
+            "type": "string"
           },
-          "executed_at": {
-            "type": "string",
-            "format": "date-time"
+          "step_number": {
+            "type": "number"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "task_title": {
+            "type": "string"
           }
-        }
-      }
-    },
-    "next_step_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "reply_detected": {
-      "type": "boolean",
-      "default": false
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "total_steps": {
-      "type": "number",
-      "default": 0
+      "default": 0,
+      "type": "number"
     },
-    "completed_steps": {
-      "type": "number",
-      "default": 0
+    "trigger_command_id": {
+      "description": "The voice command that started this sequence",
+      "type": "string"
     }
   },
   "required": [
     "client_id",
     "prospect_id"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
