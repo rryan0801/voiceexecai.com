@@ -1,6 +1,10 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 Deno.serve(async (req) => {
+  // DISABLED (audit 2026-11-07): old mock pipeline that returned made-up transcriptions/results.
+  // The real pipeline is createCommand -> transcribeAudioStream -> executeVoiceCommandStream.
+  if (true) return Response.json({ disabled: true, reason: "This feature is turned off." });
+
   try {
     const base44 = createClientFromRequest(req);
     const { client_id, detected_intent, parameters, command_id } = await req.json();
