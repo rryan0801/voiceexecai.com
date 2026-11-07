@@ -55,7 +55,6 @@ const PLANS = [
       'Unlimited reps',
       'Custom intent models',
       'Dedicated infrastructure',
-      'SLA & uptime guarantee',
       'Onboarding & success team'
     ],
     cta: 'Contact Sales',

@@ -56,7 +56,6 @@ const PLANS = [
       'Unlimited clients',
       'Custom intent models',
       'Dedicated infrastructure',
-      'SLA & uptime guarantee',
       'Onboarding & success team',
       'Custom integrations'
     ],
