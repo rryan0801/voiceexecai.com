@@ -1,88 +1,126 @@
 {
   "name": "Client",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "api_key": {
+      "description": "Unique API key for widget authentication",
+      "type": "string"
     },
     "company_name": {
-      "type": "string",
-      "description": "Name of the client company"
+      "description": "Name of the client company",
+      "type": "string"
     },
-    "api_key": {
-      "type": "string",
-      "description": "Unique API key for widget authentication"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
     "heyrichy_account_id": {
-      "type": "string",
-      "description": "HeyRichyAI account ID for command execution"
+      "description": "HeyRichyAI account ID for command execution",
+      "type": "string"
+    },
+    "monthly_quota": {
+      "default": 10000,
+      "description": "Monthly API call limit",
+      "type": "number"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "suspended",
+        "inactive"
+      ],
+      "type": "string"
     },
     "webhook_url": {
-      "type": "string",
-      "description": "Optional webhook URL to receive execution results"
+      "description": "Optional webhook URL to receive execution results",
+      "type": "string"
     },
     "widget_config": {
-      "type": "object",
       "description": "Widget customization settings",
       "properties": {
-        "primary_color": {
-          "type": "string",
-          "default": "#000000"
-        },
-        "secondary_color": {
-          "type": "string",
-          "default": "#FFFFFF"
-        },
         "accent_color": {
-          "type": "string",
-          "default": "#0066FF"
+          "default": "#0066FF",
+          "type": "string"
         },
         "brand_logo_url": {
           "type": "string"
         },
-        "widget_title": {
-          "type": "string",
-          "default": "VoiceRep AI"
-        },
         "enabled_tools": {
-          "type": "array",
+          "description": "List of tool names available to this client",
           "items": {
             "type": "string"
           },
-          "description": "List of tool names available to this client"
+          "type": "array"
         },
         "position": {
-          "type": "string",
+          "default": "bottom-right",
           "enum": [
             "bottom-right",
             "bottom-left",
             "top-right",
             "top-left"
           ],
-          "default": "bottom-right"
+          "type": "string"
+        },
+        "primary_color": {
+          "default": "#000000",
+          "type": "string"
+        },
+        "secondary_color": {
+          "default": "#FFFFFF",
+          "type": "string"
+        },
+        "widget_title": {
+          "default": "VoiceRep AI",
+          "type": "string"
         }
-      }
-    },
-    "monthly_quota": {
-      "type": "number",
-      "default": 10000,
-      "description": "Monthly API call limit"
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "active",
-        "suspended",
-        "inactive"
-      ],
-      "default": "active"
+      },
+      "type": "object"
     }
   },
   "required": [
     "company_name",
     "api_key",
     "heyrichy_account_id"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
