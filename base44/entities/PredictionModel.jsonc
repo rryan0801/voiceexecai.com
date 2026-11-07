@@ -1,72 +1,69 @@
 {
   "name": "PredictionModel",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "deal_id": {
-      "type": "string",
-      "description": "Reference to DealScore entity"
-    },
-    "prospect_id": {
+    "client_id": {
       "type": "string"
     },
-    "client_id": {
+    "confidence_score": {
+      "description": "0-1 confidence in prediction",
+      "type": "number"
+    },
+    "deal_id": {
+      "description": "Reference to DealScore entity",
+      "type": "string"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "key_drivers": {
+      "description": "Top factors affecting prediction",
+      "items": {
+        "properties": {
+          "evidence": {
+            "type": "string"
+          },
+          "factor": {
+            "type": "string"
+          },
+          "impact": {
+            "description": "Positive or negative impact on win probability",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "next_best_action": {
+      "description": "Recommended action to increase win probability",
+      "type": "string"
+    },
+    "predicted_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "prospect_id": {
       "type": "string"
     },
     "prospect_name": {
       "type": "string"
     },
-    "win_prediction": {
-      "type": "number",
-      "description": "0-100 probability of winning"
-    },
-    "confidence_score": {
-      "type": "number",
-      "description": "0-1 confidence in prediction"
-    },
-    "key_drivers": {
-      "type": "array",
-      "description": "Top factors affecting prediction",
-      "items": {
-        "type": "object",
-        "properties": {
-          "factor": {
-            "type": "string"
-          },
-          "impact": {
-            "type": "number",
-            "description": "Positive or negative impact on win probability"
-          },
-          "evidence": {
-            "type": "string"
-          }
-        }
-      }
+    "recommended_timeline": {
+      "description": "Expected close date based on signals",
+      "type": "string"
     },
     "risk_factors": {
-      "type": "array",
       "description": "Identified risks to close",
       "items": {
         "type": "string"
-      }
-    },
-    "next_best_action": {
-      "type": "string",
-      "description": "Recommended action to increase win probability"
-    },
-    "recommended_timeline": {
-      "type": "string",
-      "description": "Expected close date based on signals"
+      },
+      "type": "array"
     },
     "similar_won_deals": {
-      "type": "array",
       "description": "Similar deals that won in the past",
       "items": {
-        "type": "object",
         "properties": {
           "prospect_name": {
             "type": "string"
@@ -74,12 +71,14 @@
           "similarity_score": {
             "type": "number"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
-    "predicted_at": {
-      "type": "string",
-      "format": "date-time"
+    "win_prediction": {
+      "description": "0-100 probability of winning",
+      "type": "number"
     }
   },
   "required": [
@@ -87,5 +86,44 @@
     "prospect_id",
     "client_id",
     "win_prediction"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
