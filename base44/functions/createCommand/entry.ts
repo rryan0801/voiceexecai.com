@@ -39,7 +39,8 @@ Deno.serve(async (req) => {
     }
 
     // Create initial command record
-    const command = await base44.asServiceRole.entities.Command.create({
+    // Created as the signed-in user so the Command RLS (owner-only) lets them see their history.
+    const command = await base44.entities.Command.create({
       client_id,
       audio_url,
       context: context || {},
