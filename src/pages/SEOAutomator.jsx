@@ -151,7 +151,7 @@ export default function SEOAutomator() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-3">Your Complete SEO Department on Autopilot</h2>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-              Everything you need to rank #1 — powered by AI, running 24/7, zero manual work required
+              Tools to track and improve your search rankings, with AI doing the heavy lifting
             </p>
           </div>
           

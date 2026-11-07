@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 
 export default function SuccessMetrics() {
+  // Off Nov 7: showed made-up visitor/ranking numbers and fixed '+127%' style trends.
+  return null;
   const { data: websites } = useQuery({
     queryKey: ['websites'],
     queryFn: async () => await base44.entities.Website.filter({})
