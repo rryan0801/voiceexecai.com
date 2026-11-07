@@ -69,7 +69,7 @@ export default function Landing() {
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
             Say it once.<br />
-            <span className="text-blue-600">Your follow-up gets done.</span>
+            <span className="text-blue-600">Your follow-up gets drafted.</span>
           </h1>
           <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10">
             VoiceExecAI turns a spoken command into a drafted email, drafted meeting details or a follow-up task —

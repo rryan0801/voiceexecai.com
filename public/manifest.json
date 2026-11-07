@@ -21,7 +21,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity", "sales"],
+  "categories": [
+    "business",
+    "productivity",
+    "sales"
+  ],
   "screenshots": [
     {
       "src": "/screenshot-1.png",
@@ -42,21 +46,12 @@
       "short_name": "Dashboard",
       "description": "View your analytics dashboard",
       "url": "/dashboard",
-      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "SEO Automator",
-      "short_name": "SEO",
-      "description": "Automated SEO optimization",
-      "url": "/seo-automator",
-      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Deal Intelligence",
-      "short_name": "Deals",
-      "description": "Track and manage deals",
-      "url": "/deals",
-      "icons": [{ "src": "/app-icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "/app-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ],
   "share_target": {

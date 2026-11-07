@@ -8,9 +8,12 @@ import { Input } from '@/components/ui/input';
 import { formatDistanceToNow } from 'date-fns';
 import { Users, Mail, Phone, Pencil, Check, X } from 'lucide-react';
 import OutlookConnectBanner from '@/components/OutlookConnectBanner';
+import { useAuth } from '@/lib/AuthContext';
 import NavBar from '@/components/NavBar';
 
 export default function ProspectManagement() {
+  const { user: authUser } = useAuth();
+  const isAdmin = authUser?.role === 'admin';
   const [selectedProspect, setSelectedProspect] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [editingEmail, setEditingEmail] = useState(false);
@@ -59,7 +62,7 @@ export default function ProspectManagement() {
           <p className="text-slate-500 mt-1">Track interactions and context for each prospect</p>
         </div>
 
-        <OutlookConnectBanner />
+        {isAdmin && <OutlookConnectBanner />}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Prospects List */}
