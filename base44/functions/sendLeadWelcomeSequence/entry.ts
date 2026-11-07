@@ -15,8 +15,6 @@ const SAMPLE_LEADS = {
   other: { job: 'Commercial property maintenance contract', value: '$3,600/mo', area: 'Your area' }
 };
 
-// Off (2026-11-04): these quotes were not from real customers. Turn on only with real, permitted quotes.
-const SHOW_TESTIMONIALS = false;
 
 Deno.serve(async (req) => {
   // DISABLED (audit 2026-11-07): the buyer-leads program it advertises does not exist (sample leads were made up).
@@ -104,16 +102,6 @@ Deno.serve(async (req) => {
           <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px">
             <p>Hi ${lead.name.split(' ')[0]},</p>
             <p>Just checking in about <strong>${lead.vertical.replace('_', ' ')} leads</strong> in your area.</p>
-            ${(SHOW_TESTIMONIALS ? [
-              { name: 'Marcus T.', role: 'Roofing contractor, DFW', quote: 'First lead I got turned into a $14k job. Closed it in 3 days.' },
-              { name: 'Sandra R.', role: 'HVAC owner, Austin TX', quote: 'I was skeptical. Now I turn off lead flow because I\'m booked 6 weeks out.' },
-              { name: 'James K.', role: 'General contractor, Nashville', quote: 'The leads are pre-qualified. No tire kickers. These people are ready to hire.' }
-            ].map(t => `
-              <div style="background:#f8fafc;border-left:4px solid #7C3AED;padding:16px;margin:16px 0;border-radius:4px">
-                <p style="margin:0 0 8px;font-style:italic;color:#334155">"${t.quote}"</p>
-                <p style="margin:0;font-size:13px;font-weight:600;color:#0f172a">${t.name}</p>
-                <p style="margin:2px 0 0;font-size:12px;color:#64748b">${t.role}</p>
-              </div>`) : []).join('')}
             <p>Ready to start getting leads in <strong>${lead.city}, ${lead.state}</strong>?</p>
             <a href="https://voiceexecai.com/pricing" style="display:inline-block;background:linear-gradient(135deg,#2563EB,#7C3AED);color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:8px">Start Getting Leads Now →</a>
             <p style="margin-top:32px;font-size:13px;color:#94a3b8">— The VoiceExecAI Team | <a href="https://voiceexecai.com" style="color:#94a3b8">voiceexecai.com</a></p>
