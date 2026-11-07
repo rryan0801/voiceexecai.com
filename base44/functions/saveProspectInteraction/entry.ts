@@ -54,7 +54,7 @@ Deno.serve(async (req) => {
     }
 
     // Save interaction
-    const interaction = await base44.asServiceRole.entities.ProspectInteraction.create({
+    const interaction = await base44.entities.ProspectInteraction.create({
       prospect_id,
       command_id,
       interaction_type,
@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
     });
 
     // Update prospect record
-    const prospect = await base44.asServiceRole.entities.Prospect.update(prospect_id, {
+    const prospect = await base44.entities.Prospect.update(prospect_id, {
       interaction_count: {
         $inc: 1
       },

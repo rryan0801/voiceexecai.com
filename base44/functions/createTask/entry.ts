@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'client_id and title required' }, { status: 400 });
     }
 
-    const task = await base44.asServiceRole.entities.Task.create({
+    const task = await base44.entities.Task.create({
       client_id,
       prospect_id: prospect_id || null,
       command_id: command_id || null,

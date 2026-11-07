@@ -45,19 +45,7 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    const apiKey = req.headers.get('X-API-Key');
-
-    if (!apiKey) {
-      return Response.json({ error: 'API key required' }, { status: 401 });
-    }
-
-    // Verify API key
-    const clients = await base44.asServiceRole.entities.Client.filter({ api_key: apiKey });
-    if (!clients || clients.length === 0) {
-      return Response.json({ error: 'Invalid API key' }, { status: 401 });
-    }
-    const client = clients[0];
-
+    // Signed-in paid user required (gate above). The old API-key path is gone.
     const formData = await req.formData();
     const audioFile = formData.get('file');
 
@@ -77,8 +65,7 @@ Deno.serve(async (req) => {
 
     return Response.json({
       success: true,
-      audio_url: uploadRes.file_url,
-      client_id: client.id
+      audio_url: uploadRes.file_url
     });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });

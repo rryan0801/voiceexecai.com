@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
     }
 
     // Find or create prospect
-    let prospects = await base44.asServiceRole.entities.Prospect.filter({
+    let prospects = await base44.entities.Prospect.filter({
       client_id,
       prospect_name,
       company_name: company_name || null
@@ -60,7 +60,7 @@ Deno.serve(async (req) => {
     let prospect = prospects.length > 0 ? prospects[0] : null;
 
     if (!prospect) {
-      prospect = await base44.asServiceRole.entities.Prospect.create({
+      prospect = await base44.entities.Prospect.create({
         client_id,
         prospect_name,
         company_name: company_name || 'Unknown',
@@ -69,7 +69,7 @@ Deno.serve(async (req) => {
     }
 
     // Fetch recent interactions
-    const interactions = await base44.asServiceRole.entities.ProspectInteraction.filter({
+    const interactions = await base44.entities.ProspectInteraction.filter({
       prospect_id: prospect.id
     }, '-created_date', 5);
 
