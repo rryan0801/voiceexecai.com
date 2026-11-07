@@ -55,6 +55,7 @@ import MobileApp from '@/pages/MobileApp';
 import SEOResults from '@/pages/SEOResults';
 import AdminOnly from '@/components/AdminOnly';
 import AskRichy from '@/components/AskRichy';
+import RequirePlan from '@/components/RequirePlan';
 
 const PUBLIC_PATHS = ['/', '/pricing', '/contact', '/privacy', '/terms', '/security', '/mobile-app', '/checkout-success'];
 
@@ -104,12 +105,12 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/commands" element={<CommandManagement />} />
-      <Route path="/prospects" element={<ProspectManagement />} />
+      <Route path="/dashboard" element={<RequirePlan><Dashboard /></RequirePlan>} />
+      <Route path="/commands" element={<RequirePlan><CommandManagement /></RequirePlan>} />
+      <Route path="/prospects" element={<RequirePlan><ProspectManagement /></RequirePlan>} />
       <Route path="/widget-test" element={<AdminOnly><WidgetTest /></AdminOnly>} />
       <Route path="/analytics" element={<AdminOnly><Analytics /></AdminOnly>} />
-      <Route path="/mobile" element={<MobileWidget />} />
+      <Route path="/mobile" element={<RequirePlan><MobileWidget /></RequirePlan>} />
       <Route path="/team" element={<AdminOnly><TeamView /></AdminOnly>} />
       <Route path="/autopilot" element={<AdminOnly><AutoPilot /></AdminOnly>} />
       <Route path="/deals" element={<AdminOnly><DealIntelligence /></AdminOnly>} />

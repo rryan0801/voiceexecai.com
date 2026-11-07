@@ -21,6 +21,7 @@ const FAQS = [
 export default function Pricing() {
   const [searchParams] = useSearchParams();
   const canceled = searchParams.get('canceled') === 'true';
+  const needsPlan = searchParams.get('needs_plan') === '1';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50">
@@ -30,6 +31,11 @@ export default function Pricing() {
         <div className="text-center mb-12">
           <h1 className="text-5xl font-extrabold text-slate-900 mb-4">Choose your plan</h1>
           <p className="text-xl text-slate-500 max-w-2xl mx-auto">Paid plans only. No surprises.</p>
+          {needsPlan && (
+            <div className="mt-6 inline-flex items-center gap-2 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 text-sm">
+              <AlertCircle className="w-4 h-4" /> You are signed in, but you do not have a plan yet. Pick a plan below to start using VoiceExecAI.
+            </div>
+          )}
           {canceled && (
             <div className="mt-6 inline-flex items-center gap-2 px-4 py-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 text-sm">
               <AlertCircle className="w-4 h-4" /> Checkout was canceled. You were not charged.
