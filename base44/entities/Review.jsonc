@@ -1,13 +1,38 @@
 {
   "name": "Review",
-  "type": "object",
   "properties": {
+    "ai_response": {
+      "description": "AI-generated response suggestion",
+      "type": "string"
+    },
+    "content": {
+      "description": "Review text content",
+      "type": "string"
+    },
+    "rating": {
+      "description": "Rating out of 5",
+      "type": "number"
+    },
+    "review_date": {
+      "description": "Date the review was posted",
+      "format": "date",
+      "type": "string"
+    },
     "reviewer_name": {
-      "type": "string",
-      "description": "Name of the person who left the review"
+      "description": "Name of the person who left the review",
+      "type": "string"
+    },
+    "sentiment": {
+      "description": "AI-detected sentiment",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "type": "string"
     },
     "source": {
-      "type": "string",
+      "description": "Platform where the review was posted",
       "enum": [
         "google",
         "yelp",
@@ -17,49 +42,46 @@
         "reddit",
         "other"
       ],
-      "description": "Platform where the review was posted"
-    },
-    "rating": {
-      "type": "number",
-      "description": "Rating out of 5"
-    },
-    "content": {
-      "type": "string",
-      "description": "Review text content"
-    },
-    "sentiment": {
-      "type": "string",
-      "enum": [
-        "positive",
-        "neutral",
-        "negative"
-      ],
-      "description": "AI-detected sentiment"
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "default": "new",
+      "description": "Response status",
       "enum": [
         "new",
         "responded",
         "flagged",
         "archived"
       ],
-      "default": "new",
-      "description": "Response status"
-    },
-    "ai_response": {
-      "type": "string",
-      "description": "AI-generated response suggestion"
-    },
-    "review_date": {
-      "type": "string",
-      "format": "date",
-      "description": "Date the review was posted"
+      "type": "string"
     }
   },
   "required": [
     "reviewer_name",
     "content",
     "source"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
 }
