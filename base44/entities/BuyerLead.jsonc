@@ -1,21 +1,59 @@
 {
   "name": "BuyerLead",
-  "type": "object",
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "Full name"
+    "city": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
     },
     "email": {
-      "type": "string",
-      "description": "Email address"
+      "description": "Email address",
+      "type": "string"
+    },
+    "followup1_sent": {
+      "default": false,
+      "type": "boolean"
+    },
+    "followup2_sent": {
+      "default": false,
+      "type": "boolean"
+    },
+    "name": {
+      "description": "Full name",
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
     },
     "phone": {
-      "type": "string",
-      "description": "Phone number"
+      "description": "Phone number",
+      "type": "string"
+    },
+    "source": {
+      "default": "landing_page",
+      "type": "string"
+    },
+    "stage": {
+      "default": "new",
+      "enum": [
+        "new",
+        "contacted",
+        "nurturing",
+        "converted",
+        "lost"
+      ],
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "submitted_at": {
+      "format": "date-time",
+      "type": "string"
     },
     "vertical": {
-      "type": "string",
+      "description": "Service vertical",
       "enum": [
         "roofing",
         "plumbing",
@@ -29,50 +67,11 @@
         "solar",
         "other"
       ],
-      "description": "Service vertical"
-    },
-    "city": {
       "type": "string"
-    },
-    "state": {
-      "type": "string"
-    },
-    "company": {
-      "type": "string"
-    },
-    "stage": {
-      "type": "string",
-      "enum": [
-        "new",
-        "contacted",
-        "nurturing",
-        "converted",
-        "lost"
-      ],
-      "default": "new"
-    },
-    "notes": {
-      "type": "string"
-    },
-    "source": {
-      "type": "string",
-      "default": "landing_page"
     },
     "welcome_sent": {
-      "type": "boolean",
-      "default": false
-    },
-    "followup1_sent": {
-      "type": "boolean",
-      "default": false
-    },
-    "followup2_sent": {
-      "type": "boolean",
-      "default": false
-    },
-    "submitted_at": {
-      "type": "string",
-      "format": "date-time"
+      "default": false,
+      "type": "boolean"
     }
   },
   "required": [
@@ -89,6 +88,11 @@
         "role": "admin"
       }
     },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
     "read": {
       "user_condition": {
         "role": "admin"
@@ -98,11 +102,7 @@
       "user_condition": {
         "role": "admin"
       }
-    },
-    "delete": {
-      "user_condition": {
-        "role": "admin"
-      }
     }
-  }
+  },
+  "type": "object"
 }
