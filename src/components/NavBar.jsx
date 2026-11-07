@@ -8,6 +8,10 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { base44 } from '@/api/base44Client';
+import { useAuth } from '@/lib/AuthContext';
+
+// Pages customers can use. Everything else is admin-only (see App.jsx).
+const CUSTOMER_PATHS = new Set(['/dashboard', '/prospects', '/commands', '/mobile', '/mobile-app']);
 
 const NAV_GROUPS = [
   {
@@ -173,6 +177,11 @@ function UserMenu() {
 export default function NavBar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user: authUser } = useAuth();
+  const isAdmin = authUser?.role === 'admin';
+  const groups = NAV_GROUPS
+    .map((g) => ({ ...g, items: g.items.filter((i) => isAdmin || CUSTOMER_PATHS.has(i.path)) }))
+    .filter((g) => g.items.length > 0);
 
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-40">
@@ -192,7 +201,7 @@ export default function NavBar() {
 
           {/* Desktop Nav — grouped dropdowns */}
           <div className="hidden md:flex items-center gap-0.5">
-            {NAV_GROUPS.map((group) => (
+            {groups.map((group) => (
               <NavDropdown key={group.label} group={group} />
             ))}
           </div>
@@ -220,7 +229,7 @@ export default function NavBar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-100 bg-white max-h-[80vh] overflow-y-auto">
-          {NAV_GROUPS.map((group) => (
+          {groups.map((group) => (
             <div key={group.label} className="py-2 border-b border-slate-100 last:border-0">
               <p className="px-4 py-1 text-xs font-semibold text-slate-400 uppercase tracking-wider">{group.label}</p>
               {group.items.map(({ path, label, icon: Icon, badge }) => {
