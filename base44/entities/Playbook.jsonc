@@ -1,27 +1,15 @@
 {
   "name": "Playbook",
-  "type": "object",
   "properties": {
     "client_id": {
       "type": "string"
     },
-    "manager_email": {
-      "type": "string",
-      "description": "Manager who created this playbook"
-    },
-    "name": {
-      "type": "string",
-      "description": "Playbook name (e.g., 'Q2 Enterprise Close')"
-    },
-    "description": {
+    "created_at": {
+      "format": "date-time",
       "type": "string"
     },
-    "industry": {
-      "type": "string",
-      "description": "Target industry (optional)"
-    },
     "deal_stage": {
-      "type": "string",
+      "description": "Deal stage this playbook targets",
       "enum": [
         "prospecting",
         "qualification",
@@ -29,49 +17,60 @@
         "negotiation",
         "closing"
       ],
-      "description": "Deal stage this playbook targets"
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "industry": {
+      "description": "Target industry (optional)",
+      "type": "string"
+    },
+    "manager_email": {
+      "description": "Manager who created this playbook",
+      "type": "string"
+    },
+    "name": {
+      "description": "Playbook name (e.g., 'Q2 Enterprise Close')",
+      "type": "string"
     },
     "steps": {
-      "type": "array",
       "description": "Sequence of actions",
       "items": {
-        "type": "object",
         "properties": {
-          "step_number": {
-            "type": "number"
-          },
           "action": {
-            "type": "string",
             "enum": [
               "send_email",
               "schedule_call",
               "send_proposal",
               "log_note"
-            ]
-          },
-          "delay_days": {
-            "type": "number"
+            ],
+            "type": "string"
           },
           "content_template": {
             "type": "string"
           },
+          "delay_days": {
+            "type": "number"
+          },
           "description": {
             "type": "string"
+          },
+          "step_number": {
+            "type": "number"
           }
-        }
-      }
-    },
-    "usage_count": {
-      "type": "number",
-      "default": 0
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "success_rate": {
-      "type": "number",
-      "description": "% of deals using this playbook that closed"
+      "description": "% of deals using this playbook that closed",
+      "type": "number"
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+    "usage_count": {
+      "default": 0,
+      "type": "number"
     }
   },
   "required": [
@@ -79,5 +78,53 @@
     "manager_email",
     "name",
     "steps"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.manager_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.manager_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.manager_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
