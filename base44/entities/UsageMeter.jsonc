@@ -1,58 +1,87 @@
 {
   "name": "UsageMeter",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "average_response_time_ms": {
+      "default": 0,
+      "type": "number"
     },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client entity"
-    },
-    "label": {
-      "type": "string",
-      "description": "Human-readable description of the billing period (e.g. 'June 2026 Usage')"
-    },
-    "month": {
-      "type": "string",
-      "format": "date",
-      "description": "Month for billing (YYYY-MM-01)"
-    },
-    "total_requests": {
-      "type": "number",
-      "default": 0,
-      "description": "Total API requests this month"
-    },
-    "transcription_requests": {
-      "type": "number",
-      "default": 0
-    },
-    "intent_parsing_requests": {
-      "type": "number",
-      "default": 0
-    },
-    "execution_requests": {
-      "type": "number",
-      "default": 0
-    },
-    "failed_requests": {
-      "type": "number",
-      "default": 0
-    },
-    "average_response_time_ms": {
-      "type": "number",
-      "default": 0
+      "description": "Reference to Client entity",
+      "type": "string"
     },
     "cost_estimate": {
-      "type": "number",
       "default": 0,
-      "description": "Estimated cost for month (for future billing)"
+      "description": "Estimated cost for month (for future billing)",
+      "type": "number"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "execution_requests": {
+      "default": 0,
+      "type": "number"
+    },
+    "failed_requests": {
+      "default": 0,
+      "type": "number"
+    },
+    "intent_parsing_requests": {
+      "default": 0,
+      "type": "number"
+    },
+    "label": {
+      "description": "Human-readable description of the billing period (e.g. 'June 2026 Usage')",
+      "type": "string"
+    },
+    "month": {
+      "description": "Month for billing (YYYY-MM-01)",
+      "format": "date",
+      "type": "string"
+    },
+    "total_requests": {
+      "default": 0,
+      "description": "Total API requests this month",
+      "type": "number"
+    },
+    "transcription_requests": {
+      "default": 0,
+      "type": "number"
     }
   },
   "required": [
     "client_id",
     "month"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  },
+  "type": "object"
 }
