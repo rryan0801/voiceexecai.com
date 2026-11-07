@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Zap, BarChart3, Bot, UsersRound,
   MessageCircle, Phone, BookOpen, TrendingUp, Mail, AlertCircle,
-  Target, DollarSign, ChevronDown, Menu, X, Brain, Calendar,
-  GitBranch, Beaker, Settings, LogOut, User, Globe, Trophy, Smartphone
+  Target, ChevronDown, Menu, X, Brain, Calendar,
+  GitBranch, Settings, LogOut, Globe, Trophy, Smartphone
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { base44 } from '@/api/base44Client';

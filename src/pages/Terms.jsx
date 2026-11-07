@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '@/components/NavBar';
 import { Card, CardContent } from '@/components/ui/card';
-import { FileText, Shield, CheckCircle } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 export default function Terms() {
   return (

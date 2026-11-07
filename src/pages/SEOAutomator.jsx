@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Globe, Search, BarChart3, Target, TrendingUp, Zap, Award, FileText, Users, Mic, Keyboard } from 'lucide-react';
+import { Plus, Globe, Search, Target, TrendingUp, Zap, FileText, Users, Mic, Keyboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WebsiteCard from '@/components/seo/WebsiteCard';
 import AddWebsiteForm from '@/components/seo/AddWebsiteForm';

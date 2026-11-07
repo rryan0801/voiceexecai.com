@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Smartphone, Download, Star, Zap, Shield, Cloud, ArrowRight, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Smartphone, Download, Shield, ArrowRight, CheckCircle } from 'lucide-react';
 
 export default function MobileApp() {
   const features = [

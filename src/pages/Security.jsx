@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '@/components/NavBar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Lock, FileCheck, Server, CheckCircle, Globe } from 'lucide-react';
+import { Shield, Lock, FileCheck, Server, CheckCircle } from 'lucide-react';
 
 export default function Security() {
   const securityFeatures = [

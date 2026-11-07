@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '@/components/NavBar';
 import { Card, CardContent } from '@/components/ui/card';
-import { Shield, FileText, CheckCircle } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 export default function Privacy() {
   return (

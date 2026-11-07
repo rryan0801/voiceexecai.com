@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
-  Users, Mail, Send, BarChart3, ChevronDown, X, CheckCircle, ArrowRight,
-  Phone, MapPin, Briefcase, Edit3, Filter, Search, Eye, Loader2
+  Users, Mail, Send, ChevronDown, MapPin, Search, Loader2
 } from 'lucide-react';
 
 const STAGES = [
