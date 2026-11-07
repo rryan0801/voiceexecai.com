@@ -27,9 +27,12 @@ Deno.serve(async (req) => {
 
     const adapter = adapters[0];
 
-    // Verify webhook secret (mock implementation)
-    const providedSecret = req.headers.get('x-webhook-signature');
-    // In production, verify HMAC signature
+    // Verify webhook secret (audit 2026-11-07): the caller must send the adapter's
+    // webhook_secret in the x-webhook-signature header, or nothing is written.
+    const providedSecret = req.headers.get('x-webhook-signature') || '';
+    if (!adapter.webhook_secret || providedSecret !== adapter.webhook_secret) {
+      return Response.json({ error: 'Invalid webhook signature' }, { status: 401 });
+    }
 
     // Parse incoming CRM data using field mapping
     const { field_mapping } = adapter;
