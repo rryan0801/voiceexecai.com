@@ -42,22 +42,21 @@ import WinLossAnalyzer from '@/pages/WinLossAnalyzer';
 import TeamLeaderboard from '@/pages/TeamLeaderboard';
 import EmailTemplateStudio from '@/pages/EmailTemplateStudio';
 import DealCollaborationRooms from '@/pages/DealCollaborationRooms';
-import BillShield from '@/pages/BillShield';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import Security from '@/pages/Security';
 import Contact from '@/pages/Contact';
 import Pricing from '@/pages/Pricing';
 import CheckoutSuccess from '@/pages/CheckoutSuccess';
-import Ambassador from '@/pages/Ambassador';
-import GetLeads from '@/pages/GetLeads';
 import LeadPipeline from '@/pages/LeadPipeline';
 import DownloadGuide from '@/pages/DownloadGuide';
 import SEOAutomator from '@/pages/SEOAutomator';
 import MobileApp from '@/pages/MobileApp';
 import SEOResults from '@/pages/SEOResults';
+import AdminOnly from '@/components/AdminOnly';
+import AskRichy from '@/components/AskRichy';
 
-const PUBLIC_PATHS = ['/', '/pricing', '/contact', '/privacy', '/terms', '/security', '/get-leads', '/download-guide', '/ambassador', '/mobile-app'];
+const PUBLIC_PATHS = ['/', '/pricing', '/contact', '/privacy', '/terms', '/security', '/mobile-app', '/checkout-success'];
 
 // Known routes that require authentication. Unknown paths are intentionally NOT
 // listed here so they fall through to the catch-all 404 page rather than silently
@@ -69,7 +68,7 @@ const KNOWN_AUTH_ROUTES = new Set([
   '/linkedin-monitor', '/crm-adapter', '/sms', '/calendar-analytics', '/linkedin-messaging',
   '/actions', '/coaching', '/deal-physics', '/rep-dna', '/objection-preflight',
   '/readiness-pulse', '/quiet-monitor', '/forecasting', '/win-loss', '/leaderboard',
-  '/email-studio', '/deal-rooms', '/billshield', '/checkout-success', '/lead-pipeline',
+  '/email-studio', '/deal-rooms', '/lead-pipeline', '/download-guide',
   '/seo-automator', '/seo-results'
 ]);
 
@@ -117,7 +116,7 @@ const AuthenticatedApp = () => {
       <Route path="/conversations" element={<ConversationAnalytics />} />
       <Route path="/meeting-prep" element={<MeetingCopilot />} />
       <Route path="/playbooks" element={<PlaybookManager />} />
-      <Route path="/tests" element={<TestRunner />} />
+      <Route path="/tests" element={<AdminOnly><TestRunner /></AdminOnly>} />
       <Route path="/crm-comms" element={<CRMAndCommsHub />} />
       <Route path="/call-analysis" element={<CallAnalysisDashboard />} />
       <Route path="/conversation-context" element={<ConversationContextManager />} />
@@ -139,17 +138,14 @@ const AuthenticatedApp = () => {
       <Route path="/leaderboard" element={<TeamLeaderboard />} />
       <Route path="/email-studio" element={<EmailTemplateStudio />} />
       <Route path="/deal-rooms" element={<DealCollaborationRooms />} />
-      <Route path="/billshield" element={<BillShield />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/security" element={<Security />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
-      <Route path="/ambassador" element={<Ambassador />} />
-      <Route path="/get-leads" element={<GetLeads />} />
-      <Route path="/lead-pipeline" element={<LeadPipeline />} />
-      <Route path="/download-guide" element={<DownloadGuide />} />
+      <Route path="/lead-pipeline" element={<AdminOnly><LeadPipeline /></AdminOnly>} />
+      <Route path="/download-guide" element={<AdminOnly><DownloadGuide /></AdminOnly>} />
       <Route path="/seo-automator" element={<SEOAutomator />} />
       <Route path="/mobile-app" element={<MobileApp />} />
       <Route path="/seo-results" element={<SEOResults />} />
@@ -169,6 +165,7 @@ function App() {
           <AuthenticatedApp />
         </Router>
         <Toaster />
+        <AskRichy />
         <PWAInstallPrompt />
         <OfflineIndicator />
       </QueryClientProvider>
