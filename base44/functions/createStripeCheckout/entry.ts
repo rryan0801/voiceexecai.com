@@ -1,17 +1,32 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
 import Stripe from 'npm:stripe@17.0.0';
 
-// Act-now deal (Richy, 2026-11-04): 50% off the first 3 months of any monthly plan.
-// No end date is shown to visitors (the site says it can end at any time without
-// notice). DEAL_ENDS_AT is a hidden backstop; to end early, set it to a past time
-// here AND in src/lib/actNowDeal.js, then publish.
-const DEAL_ENDS_AT = Date.parse('2026-11-16T05:59:59Z');
+// Owner rules (Richy, audit 2026-11-07):
+// - Paid plans only. No free plan, no free trial.
+// - ONE deal: "Special pricing for new members: 50% off your first 3 months.
+//   We may end or change this offer at any time." No end date. The 50% is applied
+//   HERE with Stripe coupon ACTNOW50X3 (50% off, repeating, 3 months). If the coupon
+//   can't be applied, checkout is BLOCKED rather than charging full price.
+// - Tip box: "Buy us a coffee" $5 / $10 / $25 only, fixed here on the server. A tip
+//   never unlocks a plan (stripeWebhook ignores non-subscription sessions).
 const DEAL_COUPON_ID = 'ACTNOW50X3';
 
-async function dealCoupon(stripe) {
+// Only these plans can be bought online. Enterprise is set up by email (/contact).
+const PLAN_PRICES: Record<string, string> = {
+  'price_1TdNAuIcky2cOtqj5Yz6Xu82': 'Pro',
+};
+
+// Tip amounts in cents. Anything else is refused.
+const TIP_AMOUNTS = new Set([500, 1000, 2500]);
+
+async function dealCoupon(stripe: Stripe): Promise<string | null> {
   try {
     const c = await stripe.coupons.retrieve(DEAL_COUPON_ID);
-    if (c?.valid) return c.id;
+    if (c?.valid && c.percent_off === 50 && c.duration === 'repeating' && c.duration_in_months === 3) return c.id;
+    if (c) {
+      console.error('Coupon ACTNOW50X3 exists but is not 50% / repeating / 3 months, or is invalid.');
+      return null;
+    }
   } catch (_e) { /* not found: create below */ }
   try {
     const c = await stripe.coupons.create({
@@ -23,12 +38,12 @@ async function dealCoupon(stripe) {
     });
     return c?.id || null;
   } catch (e) {
-    console.error('Deal coupon could not be made:', e.message);
+    console.error('Deal coupon could not be made:', (e as Error).message);
     return null;
   }
 }
 
-async function isMonthlyPrice(stripe, priceId) {
+async function isMonthlyPrice(stripe: Stripe, priceId: string): Promise<boolean> {
   try {
     const p = await stripe.prices.retrieve(priceId);
     return p?.recurring?.interval === 'month' && (p.recurring.interval_count || 1) === 1;
@@ -40,119 +55,84 @@ async function isMonthlyPrice(stripe, priceId) {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    let user: { email?: string } | null = null;
+    try { user = await base44.auth.me(); } catch (_e) { user = null; }
 
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY"));
-
-    const {
-      price_id,
-      plan_name,
-      coupon_code,
-      mode = 'subscription',
-      amount,
-      tip_name,
-    } = await req.json();
-
+    const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') as string);
+    const { price_id, mode = 'subscription', amount } = await req.json();
     const origin = req.headers.get('origin') || 'https://voiceexecai.com';
 
-    // One-time payment (e.g., a Tip). Never use "Support" or "Donate".
+    // ---- Tip ("Buy us a coffee"): one-time payment, fixed amounts, signed-out is fine.
     if (mode === 'payment') {
-      if (!amount) {
-        return Response.json({ error: 'Amount required for one-time payment' }, { status: 400 });
+      const cents = Math.round(Number(amount));
+      if (!TIP_AMOUNTS.has(cents)) {
+        return Response.json({ error: 'Tips are $5, $10 or $25.' }, { status: 400 });
       }
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              unit_amount: Math.round(Number(amount)),
-              product_data: { name: tip_name || 'Tip' },
-            },
-            quantity: 1,
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            unit_amount: cents,
+            product_data: { name: 'Tip - Buy us a coffee (does not include a plan)' },
           },
-        ],
+          quantity: 1,
+        }],
         mode: 'payment',
         success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&tip=true`,
-        cancel_url: `${origin}/pricing?canceled=true`,
+        cancel_url: `${origin}/?tip=canceled`,
         metadata: {
-          base44_app_id: Deno.env.get("BASE44_APP_ID"),
-          user_email: user.email,
+          base44_app_id: Deno.env.get('BASE44_APP_ID') || '',
           type: 'tip',
+          ...(user?.email ? { user_email: user.email } : {}),
         },
-        client_reference_id: user.email,
       });
       return Response.json({ url: session.url });
     }
 
-    // Subscription
-    if (!price_id) {
-      return Response.json({ error: 'Price ID required' }, { status: 400 });
+    // ---- Subscription: must be signed in.
+    if (!user?.email) {
+      return Response.json({ error: 'Please sign in first.' }, { status: 401 });
+    }
+    const planName = PLAN_PRICES[price_id];
+    if (!planName) {
+      return Response.json({ error: 'That plan cannot be bought online. Email support@voiceexecai.com.' }, { status: 400 });
     }
 
-    // SECURITY (2026-11-04): a coupon sent from the browser is never applied. The pricing
-    // page used to send a 100%-off code (FULLOFF-...) with every checkout, which could
-    // make subscriptions free. Customers can still type a real promotion code on Stripe's
-    // own checkout page (allow_promotion_codes below); Stripe checks those itself.
-    void coupon_code;
-    // No free trials (Richy, 2026-11-06): subscriptions are charged from day one.
+    // The advertised deal MUST be applied. If not, block checkout.
+    const monthly = await isMonthlyPrice(stripe, price_id);
+    const couponId = monthly ? await dealCoupon(stripe) : null;
+    if (!couponId) {
+      console.error('Checkout blocked: deal coupon could not be applied for', price_id);
+      return Response.json({
+        error: 'Checkout is paused for a moment because we could not apply your 50% new-member price. Please try again later or email support@voiceexecai.com.',
+        blocked: true,
+      }, { status: 503 });
+    }
 
-    // Act-now deal: monthly plans only, while on.
-    const dealCouponId = Date.now() <= DEAL_ENDS_AT && await isMonthlyPrice(stripe, price_id)
-      ? await dealCoupon(stripe)
-      : null;
-
-    const subscriptionData = {
-      metadata: {
-        base44_app_id: Deno.env.get("BASE44_APP_ID"),
-        user_email: user.email,
-      },
+    const meta = {
+      base44_app_id: Deno.env.get('BASE44_APP_ID') || '',
+      user_email: user.email,
+      plan_name: planName,
+      deal: 'actnow50x3',
     };
 
-    const buildSession = (withDeal) => stripe.checkout.sessions.create({
+    const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: [
-        {
-          price: price_id,
-          quantity: 1,
-        },
-      ],
+      line_items: [{ price: price_id, quantity: 1 }],
       mode: 'subscription',
-      ...(withDeal ? { discounts: [{ coupon: dealCouponId }] } : { allow_promotion_codes: true }),
-      success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(plan_name || 'Pro')}`,
+      discounts: [{ coupon: couponId }],
+      success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}&plan=${encodeURIComponent(planName)}`,
       cancel_url: `${origin}/pricing?canceled=true`,
-      metadata: {
-        base44_app_id: Deno.env.get("BASE44_APP_ID"),
-        user_email: user.email,
-        plan_name: plan_name || 'unknown',
-        ...(withDeal ? { deal: 'actnow50x3' } : {}),
-      },
+      metadata: meta,
       client_reference_id: user.email,
-      subscription_data: subscriptionData,
+      customer_email: user.email,
+      subscription_data: { metadata: meta },
     });
 
-    let session = null;
-    let deal = false;
-    if (dealCouponId) {
-      try {
-        session = await buildSession(true);
-        deal = true;
-      } catch (e) {
-        console.error('Deal checkout failed, falling back to normal checkout:', e.message);
-      }
-    }
-    if (!session) session = await buildSession(false);
-
-    return Response.json({ url: session.url, deal });
+    return Response.json({ url: session.url, deal: true });
   } catch (error) {
     console.error('Stripe checkout error:', error);
-    return Response.json({
-      error: error.message,
-      details: 'Failed to create checkout session'
-    }, { status: 500 });
+    return Response.json({ error: 'Failed to create checkout session' }, { status: 500 });
   }
 });
