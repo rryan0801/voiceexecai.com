@@ -1,21 +1,20 @@
 {
   "name": "RepPattern",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "rep_email": {
-      "type": "string",
-      "description": "Rep's email address"
-    },
     "client_id": {
       "type": "string"
     },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "frequency": {
+      "description": "How many times this pattern appeared",
+      "type": "number"
+    },
     "pattern_type": {
-      "type": "string",
+      "description": "Type of pattern detected",
       "enum": [
         "closing_phrase",
         "opening_approach",
@@ -23,41 +22,41 @@
         "tone",
         "success_keyword"
       ],
-      "description": "Type of pattern detected"
+      "type": "string"
     },
     "pattern_value": {
-      "type": "string",
-      "description": "The actual pattern (e.g., 'ROI' or 'Let me ask you...')"
-    },
-    "success_rate": {
-      "type": "number",
-      "description": "Percentage of deals with this pattern that closed"
-    },
-    "frequency": {
-      "type": "number",
-      "description": "How many times this pattern appeared"
+      "description": "The actual pattern (e.g., 'ROI' or 'Let me ask you...')",
+      "type": "string"
     },
     "recommendation": {
-      "type": "string",
-      "description": "Coaching tip for the rep"
+      "description": "Coaching tip for the rep",
+      "type": "string"
+    },
+    "rep_email": {
+      "description": "Rep's email address",
+      "type": "string"
     },
     "sample_deals": {
-      "type": "array",
       "items": {
-        "type": "object",
         "properties": {
-          "prospect_name": {
-            "type": "string"
-          },
           "outcome": {
-            "type": "string",
             "enum": [
               "won",
               "lost"
-            ]
+            ],
+            "type": "string"
+          },
+          "prospect_name": {
+            "type": "string"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "success_rate": {
+      "description": "Percentage of deals with this pattern that closed",
+      "type": "number"
     }
   },
   "required": [
@@ -65,5 +64,53 @@
     "client_id",
     "pattern_type",
     "pattern_value"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
