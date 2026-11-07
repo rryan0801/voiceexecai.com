@@ -1,99 +1,137 @@
 {
   "name": "SMSThread",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
-    },
-    "prospect_id": {
-      "type": "string",
-      "description": "Reference to Prospect"
-    },
     "client_id": {
-      "type": "string",
-      "description": "Reference to Client"
+      "description": "Reference to Client",
+      "type": "string"
     },
-    "prospect_name": {
-      "type": "string",
-      "description": "Prospect name"
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
     },
-    "prospect_phone": {
-      "type": "string",
-      "description": "Prospect phone number (E.164 format)"
+    "engagement_score": {
+      "description": "0-100 engagement from SMS interaction",
+      "type": "number"
+    },
+    "last_message_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "last_message_from": {
+      "enum": [
+        "prospect",
+        "rep"
+      ],
+      "type": "string"
     },
     "messages": {
-      "type": "array",
       "description": "Conversation thread",
       "items": {
-        "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "direction": {
-            "type": "string",
-            "enum": [
-              "inbound",
-              "outbound"
-            ]
-          },
           "content": {
             "type": "string"
           },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
+          "direction": {
+            "enum": [
+              "inbound",
+              "outbound"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
           },
           "status": {
-            "type": "string",
             "enum": [
               "sent",
               "delivered",
               "failed",
               "read"
-            ]
+            ],
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
           },
           "twilio_sid": {
-            "type": "string",
-            "description": "Twilio message SID"
+            "description": "Twilio message SID",
+            "type": "string"
           }
-        }
-      }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
-    "total_messages": {
-      "type": "number",
-      "default": 0
+    "prospect_id": {
+      "description": "Reference to Prospect",
+      "type": "string"
     },
-    "last_message_at": {
-      "type": "string",
-      "format": "date-time"
+    "prospect_name": {
+      "description": "Prospect name",
+      "type": "string"
     },
-    "last_message_from": {
-      "type": "string",
-      "enum": [
-        "prospect",
-        "rep"
-      ]
+    "prospect_phone": {
+      "description": "Prospect phone number (E.164 format)",
+      "type": "string"
     },
     "status": {
-      "type": "string",
+      "default": "active",
       "enum": [
         "active",
         "closed",
         "archived"
       ],
-      "default": "active"
+      "type": "string"
     },
-    "engagement_score": {
-      "type": "number",
-      "description": "0-100 engagement from SMS interaction"
+    "total_messages": {
+      "default": 0,
+      "type": "number"
     }
   },
   "required": [
     "prospect_id",
     "client_id",
     "prospect_phone"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
