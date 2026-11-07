@@ -44,12 +44,12 @@ Deno.serve(async (req) => {
             <div style="background:#fff;padding:32px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px">
               <div style="white-space:pre-line;line-height:1.7">${personalizedBody}</div>
               <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
-              <p style="font-size:12px;color:#94a3b8;margin:0">© 2026 VoiceExecAI · <a href="https://voiceexecai.com" style="color:#94a3b8">voiceexecai.com</a> · <a href="mailto:hello@voiceexecai.com" style="color:#94a3b8">Unsubscribe</a></p>
+              <p style="font-size:12px;color:#94a3b8;margin:0">© 2026 VoiceExecAI · <a href="https://voiceexecai.com" style="color:#94a3b8">voiceexecai.com</a> · <a href="mailto:richy@voiceexecai.com" style="color:#94a3b8">Unsubscribe</a></p>
             </div>
           </div>`;
 
         await resend.emails.send({
-          from: 'VoiceExecAI Leads <hello@voiceexecai.com>',
+          from: 'VoiceExecAI Leads <richy@voiceexecai.com>',
           to: lead.email,
           subject,
           html

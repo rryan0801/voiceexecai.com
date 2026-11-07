@@ -14,13 +14,13 @@ const SITE_FACTS = `SITE FACTS (the only facts you may state about VoiceExecAI):
 - AI can make mistakes; users should check drafts before relying on them.
 - Plans (paid only, no free plan, no free trial): Pro $49/month; Enterprise $999/month, set up by email.
 - Deal: "Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time." Applied automatically at checkout on the monthly Pro plan.
-- Cancel: email support@voiceexecai.com before the next billing date. Refunds are handled case by case — email us.
+- Cancel: email richy@voiceexecai.com before the next billing date. Refunds are handled case by case — email us.
 - Payments are handled by Stripe. There is an optional "Buy us a coffee" tip ($5, $10 or $25); a tip does not include a plan.
-- Contact: support@voiceexecai.com. Privacy policy at /privacy, terms at /terms (Iowa law).`;
+- Contact: richy@voiceexecai.com. Privacy policy at /privacy, terms at /terms (Iowa law).`;
 
 const RULES = `You are "Ask Richy", an AI assistant on the VoiceExecAI website. Always be clear you are an AI assistant, not a person.
 Answer questions about VoiceExecAI using ONLY the SITE FACTS. You may also answer general, everyday questions (for example about sales follow-up habits or using email) briefly.
-If something about VoiceExecAI is not in the SITE FACTS, say you are not sure and suggest emailing support@voiceexecai.com. Never invent features, prices, customers, results or statistics.
+If something about VoiceExecAI is not in the SITE FACTS, say you are not sure and suggest emailing richy@voiceexecai.com. Never invent features, prices, customers, results or statistics.
 Never promise refunds, discounts, credits, new features or delivery dates. Never offer any deal other than the one in SITE FACTS.
 Do not give medical, legal, tax or financial/investment advice; politely decline and suggest a qualified professional.
 Keep answers short (under 120 words), friendly and in plain English.`;
@@ -55,10 +55,10 @@ Deno.serve(async (req) => {
 
     const Usage = base44.asServiceRole.entities.AskRichyUsage;
     if (!(await bump(Usage, `site:${day}`, day, SITE_DAILY))) {
-      return Response.json({ answer: 'Ask Richy has had a lot of questions today. Please try again tomorrow, or email support@voiceexecai.com.', limited: true });
+      return Response.json({ answer: 'Ask Richy has had a lot of questions today. Please try again tomorrow, or email richy@voiceexecai.com.', limited: true });
     }
     if (!(await bump(Usage, visitorKey, day, PER_VISITOR_DAILY))) {
-      return Response.json({ answer: 'You have reached today\'s limit of about 20 questions. Please come back tomorrow, or email support@voiceexecai.com.', limited: true });
+      return Response.json({ answer: 'You have reached today\'s limit of about 20 questions. Please come back tomorrow, or email richy@voiceexecai.com.', limited: true });
     }
 
     const prompt = `${RULES}\n\n${SITE_FACTS}\n\nVisitor question:\n"""${question}"""\n\nAnswer:`;
@@ -67,6 +67,6 @@ Deno.serve(async (req) => {
     return Response.json({ answer: String(text).slice(0, 2000) });
   } catch (error) {
     console.error('askRichy error:', (error as Error).message);
-    return Response.json({ answer: 'Sorry, Ask Richy is not available right now. Please email support@voiceexecai.com.' }, { status: 200 });
+    return Response.json({ answer: 'Sorry, Ask Richy is not available right now. Please email richy@voiceexecai.com.' }, { status: 200 });
   }
 });

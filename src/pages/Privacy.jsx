@@ -104,7 +104,7 @@ export default function Privacy() {
                 <li>Restriction of processing</li>
               </ul>
               <p className="leading-relaxed mt-3">
-                To exercise these rights, contact us at <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a>
+                To exercise these rights, contact us at <a href="mailto:richy@voiceexecai.com" className="text-blue-600 hover:underline">richy@voiceexecai.com</a>
               </p>
             </section>
 
@@ -134,7 +134,7 @@ export default function Privacy() {
               <p className="leading-relaxed">
                 For questions about this Privacy Policy or our data practices, contact us at:<br />
                 <strong>Business:</strong> Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309<br />
-                <strong>Email:</strong> <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a><br />
+                <strong>Email:</strong> <a href="mailto:richy@voiceexecai.com" className="text-blue-600 hover:underline">richy@voiceexecai.com</a><br />
                 <strong>Website:</strong> <a href="https://voiceexecai.com" className="text-blue-600 hover:underline">voiceexecai.com</a>
               </p>
             </section>

@@ -83,14 +83,14 @@ export default function Terms() {
                 <li>Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time.</li>
                 <li>Failed payments may result in suspension of service</li>
                 <li>Price changes will be communicated 30 days in advance</li>
-                <li>You can cancel by emailing support@voiceexecai.com before your next billing date; access continues through the end of the paid period</li>
+                <li>You can cancel by emailing richy@voiceexecai.com before your next billing date; access continues through the end of the paid period</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-slate-900 mb-3">6. Refund and Cancellation Policy</h2>
               <p className="leading-relaxed mb-3">
-                <strong>Cancellation:</strong> Email support@voiceexecai.com before your next billing date. Cancellations take effect at the end of the current paid period.
+                <strong>Cancellation:</strong> Email richy@voiceexecai.com before your next billing date. Cancellations take effect at the end of the current paid period.
               </p>
               <p className="leading-relaxed mb-3">
                 <strong>Refunds:</strong> Refunds are handled case by case — email us.
@@ -173,7 +173,7 @@ export default function Terms() {
               <p className="leading-relaxed">
                 For questions about these Terms, please contact us at:<br />
                 <strong>Business:</strong> Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309<br />
-                <strong>Email:</strong> <a href="mailto:support@voiceexecai.com" className="text-blue-600 hover:underline">support@voiceexecai.com</a><br />
+                <strong>Email:</strong> <a href="mailto:richy@voiceexecai.com" className="text-blue-600 hover:underline">richy@voiceexecai.com</a><br />
                 <strong>Website:</strong> <a href="https://voiceexecai.com" className="text-blue-600 hover:underline">voiceexecai.com</a>
               </p>
             </section>

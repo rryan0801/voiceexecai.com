@@ -96,7 +96,7 @@ Deno.serve(async (req) => {
     }
     const planName = PLAN_PRICES[price_id];
     if (!planName) {
-      return Response.json({ error: 'That plan cannot be bought online. Email support@voiceexecai.com.' }, { status: 400 });
+      return Response.json({ error: 'That plan cannot be bought online. Email richy@voiceexecai.com.' }, { status: 400 });
     }
 
     // The advertised deal MUST be applied. If not, block checkout.
@@ -105,7 +105,7 @@ Deno.serve(async (req) => {
     if (!couponId) {
       console.error('Checkout blocked: deal coupon could not be applied for', price_id);
       return Response.json({
-        error: 'Checkout is paused for a moment because we could not apply your 50% new-member price. Please try again later or email support@voiceexecai.com.',
+        error: 'Checkout is paused for a moment because we could not apply your 50% new-member price. Please try again later or email richy@voiceexecai.com.',
         blocked: true,
       }, { status: 503 });
     }

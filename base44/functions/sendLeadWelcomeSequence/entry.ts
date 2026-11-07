@@ -124,7 +124,7 @@ Deno.serve(async (req) => {
     }
 
     const result = await resend.emails.send({
-      from: 'VoiceExecAI Leads <hello@voiceexecai.com>',
+      from: 'VoiceExecAI Leads <richy@voiceexecai.com>',
       to: lead.email,
       subject,
       html

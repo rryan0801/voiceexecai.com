@@ -38,5 +38,5 @@ export const PLANS = [
 ];
 
 export const TIP_AMOUNTS = [5, 10, 25];
-export const SUPPORT_EMAIL = 'support@voiceexecai.com';
+export const SUPPORT_EMAIL = 'richy@voiceexecai.com';
 export const BUSINESS_LINE = 'Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309';

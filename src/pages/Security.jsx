@@ -127,8 +127,8 @@ export default function Security() {
             <p className="text-sm text-slate-700 mb-4">
               For security inquiries, data processing agreements, or compliance documentation, contact our security team:
             </p>
-            <a href="mailto:security@voiceexecai.com" className="text-blue-600 hover:underline font-medium">
-              security@voiceexecai.com
+            <a href="mailto:richy@voiceexecai.com" className="text-blue-600 hover:underline font-medium">
+              richy@voiceexecai.com
             </a>
           </CardContent>
         </Card>

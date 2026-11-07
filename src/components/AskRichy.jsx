@@ -33,7 +33,7 @@ export default function AskRichy() {
       const res = await base44.functions.invoke('askRichy', { question, visitor_id: visitorId() });
       setMsgs((m) => [...m, { from: 'ai', text: res.data?.answer || 'Sorry, I could not answer that.' }]);
     } catch (_e) {
-      setMsgs((m) => [...m, { from: 'ai', text: 'Sorry, Ask Richy is not available right now. Please email support@voiceexecai.com.' }]);
+      setMsgs((m) => [...m, { from: 'ai', text: 'Sorry, Ask Richy is not available right now. Please email richy@voiceexecai.com.' }]);
     } finally {
       setBusy(false);
     }
