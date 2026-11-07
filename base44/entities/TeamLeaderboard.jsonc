@@ -1,14 +1,40 @@
 {
   "name": "TeamLeaderboard",
-  "type": "object",
   "properties": {
-    "description": {
-      "type": "string",
-      "description": "Additional details or notes about this record",
-      "maxLength": 1000
+    "avg_deal_velocity": {
+      "description": "days to close",
+      "type": "number"
     },
     "client_id": {
       "type": "string"
+    },
+    "coaching_effectiveness": {
+      "description": "% of coaching applied",
+      "type": "number"
+    },
+    "deals_won": {
+      "type": "number"
+    },
+    "description": {
+      "description": "Additional details or notes about this record",
+      "maxLength": 1000,
+      "type": "string"
+    },
+    "dna_strength": {
+      "description": "0-100",
+      "type": "number"
+    },
+    "period": {
+      "default": "month",
+      "enum": [
+        "week",
+        "month",
+        "quarter"
+      ],
+      "type": "string"
+    },
+    "rank": {
+      "type": "number"
     },
     "rep_email": {
       "type": "string"
@@ -16,60 +42,33 @@
     "rep_name": {
       "type": "string"
     },
-    "period": {
-      "type": "string",
-      "enum": [
-        "week",
-        "month",
-        "quarter"
-      ],
-      "default": "month"
+    "revenue_closed": {
+      "type": "number"
     },
     "total_deals": {
       "type": "number"
     },
-    "deals_won": {
-      "type": "number"
-    },
-    "win_rate": {
-      "type": "number",
-      "description": "%"
-    },
     "total_pipeline_value": {
       "type": "number"
     },
-    "weighted_expected": {
-      "type": "number"
-    },
-    "revenue_closed": {
-      "type": "number"
-    },
-    "avg_deal_velocity": {
-      "type": "number",
-      "description": "days to close"
-    },
-    "coaching_effectiveness": {
-      "type": "number",
-      "description": "% of coaching applied"
-    },
-    "dna_strength": {
-      "type": "number",
-      "description": "0-100"
-    },
-    "rank": {
-      "type": "number"
-    },
     "trend": {
-      "type": "string",
       "enum": [
         "up",
         "down",
         "stable"
-      ]
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "type": "string"
+    },
+    "weighted_expected": {
+      "type": "number"
+    },
+    "win_rate": {
+      "description": "%",
+      "type": "number"
     }
   },
   "required": [
@@ -77,5 +76,53 @@
     "rep_email",
     "rep_name",
     "period"
-  ]
+  ],
+  "rls": {
+    "delete": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.rep_email": "{{user.email}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "type": "object"
 }
