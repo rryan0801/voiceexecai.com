@@ -4,6 +4,7 @@ import InteractiveDemo from '@/components/InteractiveDemo';
 import ActNowDealBox from '@/components/ActNowDealBox';
 import PricingCards from '@/components/PricingCards';
 import TipBox from '@/components/TipBox';
+import MadeByRichyRyan from '@/components/MadeByRichyRyan';
 import { BUSINESS_LINE, SUPPORT_EMAIL } from '@/lib/plans';
 import { ArrowRight, Menu, X, Mic, Mail, Calendar, ListTodo, FileText, Info } from 'lucide-react';
 
@@ -172,6 +173,9 @@ export default function Landing() {
           </div>
           <div className="border-t border-slate-800 pt-8 text-slate-500 text-xs space-y-1">
             <p>© 2026 VoiceExecAI, a product of {BUSINESS_LINE}.</p>
+            <div className="py-2">
+              <MadeByRichyRyan className="text-slate-300" />
+            </div>
             <p>Questions: <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-white">{SUPPORT_EMAIL}</a></p>
           </div>
         </div>
