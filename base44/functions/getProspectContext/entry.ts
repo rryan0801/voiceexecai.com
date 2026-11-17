@@ -40,7 +40,7 @@ async function __gatePaid(req) {
 }
 
 Deno.serve(async (req) => {
-  { const __denied = await __gateUser(req); if (__denied) return __denied; } // audit 2026-11-07, second pass
+  { const __denied = await __gatePaid(req); if (__denied) return __denied; } // paid plan required (ready-to-sell 2026-11-17)
 
   try {
     const base44 = createClientFromRequest(req);
