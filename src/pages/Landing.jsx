@@ -14,7 +14,7 @@ const LOGO = 'https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7c
 const WHAT_IT_DOES = [
   { icon: Mail, title: 'Emails, drafted for you', text: 'Say who to email and what about. The AI writes the email for you to copy and send from your own email.' },
   { icon: Calendar, title: 'Meeting details', text: 'Say "set up a call with Dana tomorrow at 2pm" and it drafts the meeting title, time and note for you to add to your calendar.' },
-  { icon: ListTodo, title: 'Follow-up tasks', text: 'Say "remind me to call Acme on Friday" and a task is added to your list.' },
+  { icon: ListTodo, title: 'Follow-up tasks', text: 'Say "remind me to call Acme on Friday" and a task is added to your task list in VoiceExecAI.' },
   { icon: FileText, title: 'Proposal drafts', text: 'Ask for a proposal for a prospect and get a first draft to edit.' },
 ];
 
@@ -99,7 +99,7 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-4xl font-bold mb-4">What VoiceExecAI does</h2>
-            <p className="text-lg text-slate-500">You hold the mic button and talk. The AI works out what you want and does it.</p>
+            <p className="text-lg text-slate-500">You tap the mic button and talk. The AI works out what you want and drafts it for you.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {WHAT_IT_DOES.map(({ icon: Icon, title, text }) => (

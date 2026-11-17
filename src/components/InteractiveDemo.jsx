@@ -161,10 +161,10 @@ export default function InteractiveDemo() {
                 {isRunning ? 'Running...' : visibleSteps.length > 0 ? 'Run Again' : 'Run Demo'}
               </button>
               <a
-                href="/dashboard"
+                href="#pricing"
                 className="flex items-center gap-2 px-6 py-4 text-slate-300 hover:text-white text-sm font-medium transition-colors"
               >
-                Try with real data <ArrowRight className="w-4 h-4" />
+                See plans <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           </div>

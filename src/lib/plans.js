@@ -2,12 +2,13 @@
 // Paid plans only (owner rule): no free plan, no free trial.
 // Every feature listed here must match what the code actually does.
 export const PRO_FEATURES = [
-  'Speak (or type) a command in your web browser',
+  'Speak a command in your web browser (computer or phone)',
   'AI drafts the email for you to send',
   'AI drafts meeting details for you to add to your calendar',
-  'Create follow-up tasks by voice',
+  'Create follow-up tasks by voice, with a task list you can tick off',
   'Draft proposal documents',
   'History of every command in your dashboard',
+  'Up to 50 voice commands a day',
 ];
 
 export const PLANS = [

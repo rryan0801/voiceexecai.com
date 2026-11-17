@@ -8,13 +8,14 @@ const SITE_DAILY = 500;
 
 const SITE_FACTS = `SITE FACTS (the only facts you may state about VoiceExecAI):
 - VoiceExecAI (voiceexecai.com) is a voice assistant for sales reps, run by Richard Ryan LLC, 555 5th Avenue #1910, Des Moines, Iowa 50309.
-- You hold the mic button in the web browser and speak (or type) a command. The AI works out what you want.
+- You tap the mic button in the web browser and speak a command. The AI works out what you want.
 - It can: draft an email for the user to copy and send themselves; draft meeting details for the user to add to their own calendar; create a follow-up task; draft a proposal document. Commands are listed in the dashboard history.
 - It does NOT send email, book meetings or log anything into a CRM (HubSpot, Salesforce, etc.) for customers yet.
 - It does NOT answer or make phone calls. It does not run 24/7 on its own; it acts only when the user gives a command. There is no app in the Apple App Store or Google Play; it runs in the web browser.
 - AI can make mistakes; users should check drafts before relying on them.
 - Plans (paid only, no free plan, no free trial): Pro $49/month; Enterprise $999/month, set up by email.
-- Deal: "Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time." Applied automatically at checkout on the monthly Pro plan.
+- Deal: "Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time." First-time members only (returning members pay the regular price). Applied automatically at checkout on the monthly Pro plan.
+- Pro includes up to 50 voice commands and 20 proposal drafts a day.
 - Cancel: email richy@voiceexecai.com before the next billing date. Refunds are handled case by case — email us.
 - Payments are handled by Stripe. There is an optional "Buy us a coffee" tip ($5, $10 or $25); a tip does not include a plan.
 - Contact: richy@voiceexecai.com. Privacy policy at /privacy, terms at /terms (Iowa law).`;

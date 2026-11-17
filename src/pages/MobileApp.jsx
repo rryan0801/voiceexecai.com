@@ -40,7 +40,7 @@ export default function MobileApp() {
             className="text-xl text-slate-500 max-w-2xl mx-auto mb-10"
           >
             Open VoiceExecAI in your phone's browser and add it to your home screen 
-            to take voice-powered sales automation anywhere.
+            to draft emails, meeting details and follow-up tasks by voice wherever you are.
           </motion.p>
 
           <motion.div
@@ -83,8 +83,8 @@ export default function MobileApp() {
                 Everything you love, now mobile
               </h2>
               <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-                The full VoiceExecAI experience optimized for your phone. Voice commands, 
-                email drafts, meeting details and follow-up tasks — all in your pocket.
+                The same VoiceExecAI in your phone's browser: voice commands, 
+                email drafts, meeting details and follow-up tasks.
               </p>
 
               <div className="grid gap-4 mb-8">
@@ -166,7 +166,7 @@ export default function MobileApp() {
             Ready to go mobile?
           </h2>
           <p className="text-blue-100 text-lg mb-10">
-            Open VoiceExecAI on your phone today and take voice-powered automation everywhere.
+            Open VoiceExecAI in your phone's browser and add it to your home screen.
           </p>
           <div className="flex flex-col items-center gap-6">
             <Link
