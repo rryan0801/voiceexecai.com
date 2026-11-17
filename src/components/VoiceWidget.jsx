@@ -10,6 +10,18 @@ import { Mic, Square, RotateCcw, CheckCircle2, AlertCircle, Loader2, ChevronDown
 import { cn } from '@/lib/utils';
 import VoiceCore from '@/lib/voiceCore';
 
+// Proposal drafts come back as HTML from the AI. Show them as plain text (never inject HTML).
+function htmlToText(html) {
+  try {
+    const doc = new DOMParser().parseFromString(String(html), 'text/html');
+    doc.querySelectorAll('br').forEach((b) => b.replaceWith('\n'));
+    doc.querySelectorAll('p,h1,h2,h3,h4,li,div,tr').forEach((el) => el.append('\n'));
+    return (doc.body.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+  } catch (_e) {
+    return '';
+  }
+}
+
 export default function VoiceWidget({ config = {} }) {
   const [phase, setPhase] = useState('idle');
   const [transcription, setTranscription] = useState('');
@@ -70,7 +82,7 @@ export default function VoiceWidget({ config = {} }) {
   const containerBg = config.containerBg || 'bg-gradient-to-b from-slate-900 to-slate-800';
 
   return (
-    <div className={`min-h-screen ${containerBg} flex flex-col items-center justify-between p-6 pt-12 pb-10`}>
+    <div className={`${config.compact ? 'rounded-2xl min-h-[420px] gap-6' : 'min-h-screen'} ${containerBg} flex flex-col items-center justify-between p-6 pt-12 pb-10`}>
       {/* Header */}
       {config.showHeader !== false && (
         <div className="text-center">
@@ -145,9 +157,10 @@ export default function VoiceWidget({ config = {} }) {
                 r.meeting_subject && `Meeting: ${r.meeting_subject}`,
                 r.meeting_start && `Starts: ${r.meeting_start}`,
                 r.meeting_end && `Ends: ${r.meeting_end}`,
-                r.task_title && `Task: ${r.task_title}`,
+                r.task_title && `Task added to your list: ${r.task_title}`,
                 r.body,
                 r.crm_note && `Note: ${r.crm_note}`,
+                r.html && htmlToText(r.html),
               ].filter(Boolean).join('\n\n');
               return (
                 <>
@@ -222,7 +235,7 @@ export default function VoiceWidget({ config = {} }) {
 
       {/* Footer */}
       {config.showFooter !== false && (
-        <p className="text-slate-600 text-xs">{config.footer || 'Powered by VoiceExec'}</p>
+        <p className="text-slate-500 text-xs text-center">{config.footer || 'VoiceExecAI uses AI. Check every draft before you use it.'}</p>
       )}
     </div>
   );
