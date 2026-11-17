@@ -13,7 +13,7 @@ export default function Terms() {
             <FileText className="w-8 h-8 text-blue-600" />
             <h1 className="text-3xl font-bold text-slate-900">Terms of Service</h1>
           </div>
-          <p className="text-slate-600">Last updated: November 7, 2026</p>
+          <p className="text-slate-600">Last updated: November 17, 2026</p>
         </div>
 
         <Card>
