@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CustomerHome from '@/components/CustomerHome';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -18,7 +19,7 @@ import QuickTestRunner from '@/components/dashboard/QuickTestRunner';
 import GettingStarted from '@/components/dashboard/GettingStarted';
 import { useAuth } from '@/lib/AuthContext';
 
-export default function Dashboard() {
+function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const { user } = useAuth();
   const isAdmin = user?.role === 'admin';
@@ -460,4 +461,11 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
+// Customers get the simple voice assistant page; admins get the full console.
+export default function Dashboard() {
+  const { user, isLoadingAuth } = useAuth();
+  if (isLoadingAuth) return null;
+  return user?.role === 'admin' ? <AdminDashboard /> : <CustomerHome />;
 }
