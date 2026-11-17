@@ -22,6 +22,11 @@ function htmlToText(html) {
   }
 }
 
+function fmtWhen(iso) {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? String(iso) : d.toLocaleString();
+}
+
 export default function VoiceWidget({ config = {} }) {
   const [phase, setPhase] = useState('idle');
   const [transcription, setTranscription] = useState('');
@@ -155,8 +160,8 @@ export default function VoiceWidget({ config = {} }) {
               const draft = [
                 r.subject && `Subject: ${r.subject}`,
                 r.meeting_subject && `Meeting: ${r.meeting_subject}`,
-                r.meeting_start && `Starts: ${r.meeting_start}`,
-                r.meeting_end && `Ends: ${r.meeting_end}`,
+                r.meeting_start && `Starts: ${fmtWhen(r.meeting_start)}`,
+                r.meeting_end && `Ends: ${fmtWhen(r.meeting_end)}`,
                 r.task_title && `Task added to your list: ${r.task_title}`,
                 r.body,
                 r.crm_note && `Note: ${r.crm_note}`,
