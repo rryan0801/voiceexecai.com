@@ -200,7 +200,7 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link to="/dashboard" className="flex items-center gap-2 flex-shrink-0">
+          <Link to={authUser ? '/dashboard' : '/'} className="flex items-center gap-2 flex-shrink-0">
             <img
               src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
               alt="VoiceExecAI"
