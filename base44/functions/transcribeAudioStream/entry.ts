@@ -33,9 +33,39 @@ async function requirePaidPlan(base44) {
   return Response.json({ error: 'A paid plan is needed for voice commands. See voiceexecai.com/pricing.', needs_plan: true }, { status: 402 });
 }
 
+// ---- Daily AI cap (ready-to-sell 2026-11-17). Server-side, per signed-in user, per UTC day.
+// Counts live in the admin-only AskRichyUsage table (no command text is stored). Admins are exempt.
+async function dailyCap(base44, name, limit, what) {
+  let u = null;
+  try { u = await base44.auth.me(); } catch (_e) { u = null; }
+  if (!u) return Response.json({ error: 'Please sign in.' }, { status: 401 });
+  if (u.role === 'admin') return null;
+  const day = new Date().toISOString().slice(0, 10);
+  const key = `cap:${name}:${u.id}:${day}`;
+  try {
+    const Usage = base44.asServiceRole.entities.AskRichyUsage;
+    const rows = await Usage.filter({ key });
+    const n = rows[0]?.count || 0;
+    if (n >= limit) {
+      return Response.json({
+        error: `You have reached today's limit of ${limit} ${what}. It resets at midnight UTC. Questions? Email richy@voiceexecai.com.`,
+        user_message: `You have reached today's limit of ${limit} ${what}. It resets at midnight UTC.`,
+        daily_limit: true,
+      }, { status: 429 });
+    }
+    if (rows[0]) await Usage.update(rows[0].id, { count: n + 1 });
+    else await Usage.create({ key, day, count: 1 });
+  } catch (e) {
+    console.error('Daily cap check failed:', (e as Error)?.message);
+    return Response.json({ error: 'Could not check your daily limit. Please try again in a minute.' }, { status: 503 });
+  }
+  return null;
+}
+
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
   { const denied = await requirePaidPlan(base44); if (denied) return denied; }
+  { const capped = await dailyCap(base44, 'transcribe', 60, 'recordings'); if (capped) return capped; }
   let command_id;
 
   try {
