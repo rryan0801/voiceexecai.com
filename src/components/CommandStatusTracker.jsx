@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CheckCircle2, Loader2, AlertCircle, Mic, Brain, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

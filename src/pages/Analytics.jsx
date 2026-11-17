@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line
+  Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { TrendingUp, Zap, CheckCircle2, AlertCircle, Clock, Users, BarChart2 } from 'lucide-react';
+import { Zap, CheckCircle2, AlertCircle, Clock, BarChart2 } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 import NavBar from '@/components/NavBar';
 import EmptyState from '@/components/EmptyState';

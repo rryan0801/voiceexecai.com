@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trophy, TrendingUp, DollarSign, Users, Target, Award } from 'lucide-react';
+import { Trophy, TrendingUp, DollarSign, Target, Award } from 'lucide-react';
 import SEOMetricCard from '@/components/seo/SEOMetricCard';
 import ResultsShowcase from '@/components/seo/ResultsShowcase';
 import SEOTimeline from '@/components/seo/SEOTimeline';

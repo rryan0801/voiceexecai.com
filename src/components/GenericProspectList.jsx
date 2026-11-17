@@ -7,7 +7,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Mail, Phone, Search, Users } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';

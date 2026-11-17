@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { formatDistanceToNow, format } from 'date-fns';
 import {
-  Bot, Play, Pause, Plus, Trash2, Mail, CheckSquare,
-  Clock, ArrowRight, Zap, ChevronDown, ChevronUp, AlertCircle
+  Bot, Play, Pause, Plus, Trash2, Mail, Zap, ChevronDown, ChevronUp, AlertCircle
 } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 

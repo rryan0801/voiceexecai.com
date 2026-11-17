@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
-import { Mail, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { Mail, CheckCircle2, Loader2 } from 'lucide-react';
 
 const CONNECTOR_ID = '69efbb8b3d25346a6ed84481'; // myOutlook
 

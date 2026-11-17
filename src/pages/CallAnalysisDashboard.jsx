@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Zap, TrendingUp, AlertCircle, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Loader2, Zap, AlertCircle, CheckCircle2, MessageSquare } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 
 export default function CallAnalysisDashboard() {

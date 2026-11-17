@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, TrendingUp, Award, Star, ArrowUpRight } from 'lucide-react';
+import { Trophy, Award, ArrowUpRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function ResultsShowcase({ results }) {
