@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, Phone, Target, AlertCircle, TrendingUp } from 'lucide-react';
+import { Loader2, Phone, Target, AlertCircle } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 
 export default function MeetingCopilot() {

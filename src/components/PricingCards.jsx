@@ -54,6 +54,7 @@ export default function PricingCards() {
                   <p className="text-sm font-semibold text-blue-700 mt-1">
                     ${fmtMoney(sale)}/mo for your first 3 months, then ${fmtMoney(plan.price)}/mo
                   </p>
+                  <p className="text-xs text-slate-500 mt-1">New-member price is for first-time members only. Returning members pay ${fmtMoney(plan.price)}/mo.</p>
                 </div>
               ) : (
                 <div className="flex items-end gap-1 mb-2">

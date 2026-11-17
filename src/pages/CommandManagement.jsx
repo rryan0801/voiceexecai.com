@@ -80,7 +80,7 @@ export default function CommandManagement() {
               <CardContent>
                 <div className="space-y-3">
                   {commands.length === 0 ? (
-                    <p className="text-slate-500 text-center py-8">No commands yet. Use the widget to record.</p>
+                    <p className="text-slate-500 text-center py-8">No commands yet. Use the voice assistant on your dashboard to record one.</p>
                   ) : (
                     commands.map((cmd) => {
                       const live = liveUpdates[cmd.id] || cmd;

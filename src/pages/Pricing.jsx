@@ -9,12 +9,13 @@ import { SUPPORT_EMAIL } from '@/lib/plans';
 
 const FAQS = [
   { q: 'Is there a free plan or free trial?', a: 'No. VoiceExecAI has paid plans only.' },
-  { q: 'What is the new-member price?', a: 'Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time. It is applied automatically at checkout on the monthly Pro plan.' },
-  { q: 'Does VoiceExecAI answer my phone calls?', a: 'No. It does not answer or make phone calls. It acts when you give it a voice or typed command.' },
+  { q: 'What is the new-member price?', a: 'Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time. It is for first-time members only and is applied automatically at checkout on the monthly Pro plan. If you have had a VoiceExecAI plan before, checkout shows the regular $49/month price.' },
+  { q: 'Does VoiceExecAI answer my phone calls?', a: 'No. It does not answer or make phone calls. It acts when you give it a voice command.' },
   { q: 'Does it send emails or book meetings for me?', a: 'Not yet. It drafts the email or the meeting details, and you send or book them yourself. It does not log anything into your CRM.' },
   { q: 'Can I change plans later?', a: `Yes. Email ${SUPPORT_EMAIL} and we will switch your plan.` },
   { q: 'How do I cancel?', a: `Email ${SUPPORT_EMAIL} before your next billing date and we will cancel your plan.` },
   { q: 'What about refunds?', a: 'Refunds are handled case by case — email us.' },
+  { q: 'Is there a usage limit?', a: 'Yes. Each Pro member can run up to 50 voice commands and 20 proposal drafts a day. The count resets at midnight UTC.' },
   { q: 'How do I pay?', a: 'By card through Stripe. We never see your full card number.' },
 ];
 

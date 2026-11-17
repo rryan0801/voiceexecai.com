@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 export default function SEOMetricCard({ title, value, change, trend, icon, subtitle, color = 'from-blue-500 to-violet-600' }) {

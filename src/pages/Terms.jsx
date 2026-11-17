@@ -13,7 +13,7 @@ export default function Terms() {
             <FileText className="w-8 h-8 text-blue-600" />
             <h1 className="text-3xl font-bold text-slate-900">Terms of Service</h1>
           </div>
-          <p className="text-slate-600">Last updated: November 7, 2026</p>
+          <p className="text-slate-600">Last updated: November 17, 2026</p>
         </div>
 
         <Card>
@@ -80,7 +80,8 @@ export default function Terms() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>Fees are billed monthly in advance through Stripe</li>
                 <li>There is no free plan and no free trial</li>
-                <li>Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time.</li>
+                <li>Special pricing for new members: 50% off your first 3 months. We may end or change this offer at any time. This offer is for first-time members only.</li>
+                <li>Pro includes up to 50 voice commands and 20 proposal drafts per day</li>
                 <li>Failed payments may result in suspension of service</li>
                 <li>Price changes will be communicated 30 days in advance</li>
                 <li>You can cancel by emailing richy@voiceexecai.com before your next billing date; access continues through the end of the paid period</li>

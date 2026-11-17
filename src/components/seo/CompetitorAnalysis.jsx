@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, Target, ExternalLink, Award } from 'lucide-react';
+import { Target, ExternalLink, Award } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function CompetitorAnalysis({ websiteId, competitors }) {

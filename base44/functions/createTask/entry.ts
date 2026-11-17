@@ -32,7 +32,7 @@ async function __gatePaid(req) {
       const h = { Authorization: `Bearer ${key}` };
       const c = await (await fetch(`https://api.stripe.com/v1/customers?email=${encodeURIComponent(email)}&limit=3`, { headers: h })).json();
       for (const cu of c?.data || []) {
-        const s = await (await fetch(`https://api.stripe.com/v1/subscriptions?customer=${cu.id}&status=active&limit=1`, { headers: h })).json();
+        const s = await (await fetch(`https://api.stripe.com/v1/subscriptions?customer=${cu.id}&status=active&price=price_1TdNAuIcky2cOtqj5Yz6Xu82&limit=1`, { headers: h })).json();
         if ((s?.data || []).length > 0) return null;
       }
     }
@@ -41,7 +41,7 @@ async function __gatePaid(req) {
 }
 
 Deno.serve(async (req) => {
-  { const __denied = await __gateUser(req); if (__denied) return __denied; } // audit 2026-11-07, second pass
+  { const __denied = await __gatePaid(req); if (__denied) return __denied; } // paid plan required (ready-to-sell 2026-11-17)
 
   try {
     const base44 = createClientFromRequest(req);

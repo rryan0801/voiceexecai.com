@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import CustomerHome from '@/components/CustomerHome';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Copy, Settings, BarChart3, Zap, RefreshCw, TrendingUp, ExternalLink, ArrowLeft, Sparkles } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Settings, BarChart3, Zap, TrendingUp, ExternalLink, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import ClientsList from '@/components/dashboard/ClientsList';
@@ -18,7 +19,7 @@ import QuickTestRunner from '@/components/dashboard/QuickTestRunner';
 import GettingStarted from '@/components/dashboard/GettingStarted';
 import { useAuth } from '@/lib/AuthContext';
 
-export default function Dashboard() {
+function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const { user } = useAuth();
   const isAdmin = user?.role === 'admin';
@@ -460,4 +461,11 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
+// Customers get the simple voice assistant page; admins get the full console.
+export default function Dashboard() {
+  const { user, isLoadingAuth } = useAuth();
+  if (isLoadingAuth) return null;
+  return user?.role === 'admin' ? <AdminDashboard /> : <CustomerHome />;
 }

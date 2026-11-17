@@ -17,7 +17,7 @@ const NAV_GROUPS = [
   {
     label: 'Overview',
     items: [
-      { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { path: '/dashboard', label: 'Voice assistant', icon: LayoutDashboard },
       { path: '/analytics', label: 'Analytics', icon: BarChart3 },
       { path: '/actions', label: 'Actions', icon: Zap },
       { path: '/leaderboard', label: 'Leaderboard', icon: TrendingUp },
@@ -65,7 +65,7 @@ const NAV_GROUPS = [
     items: [
       { path: '/prospects', label: 'Prospects', icon: Users },
       { path: '/team', label: 'Team', icon: UsersRound },
-      { path: '/commands', label: 'Commands', icon: Zap },
+      { path: '/commands', label: 'Command history', icon: Zap },
       { path: '/crm-adapter', label: 'CRM Adapter', icon: Settings },
       { path: '/seo-automator', label: 'SEO Automator', icon: Globe, badge: 'NEW' },
       { path: '/seo-results', label: 'SEO Results', icon: Trophy, badge: 'HOT' },
@@ -131,7 +131,16 @@ function UserMenu() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  if (!user) return null;
+  if (!user) {
+    return (
+      <button
+        onClick={() => base44.auth.redirectToLogin(window.location.origin + '/dashboard')}
+        className="text-sm font-medium text-blue-600 hover:text-blue-800 px-3 py-1.5 rounded-lg hover:bg-blue-50"
+      >
+        Sign in
+      </button>
+    );
+  }
 
   const initials = user.full_name
     ? user.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
@@ -179,16 +188,19 @@ export default function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user: authUser } = useAuth();
   const isAdmin = authUser?.role === 'admin';
-  const groups = NAV_GROUPS
+  // Signed-out visitors (e.g. on /pricing) see no app menus, just Home page and Sign in.
+  const groups = (authUser ? NAV_GROUPS : [])
     .map((g) => ({ ...g, items: g.items.filter((i) => isAdmin || CUSTOMER_PATHS.has(i.path)) }))
-    .filter((g) => g.items.length > 0);
+    .filter((g) => g.items.length > 0)
+    // Customers see one short menu instead of admin group names.
+    .map((g) => (isAdmin ? g : { ...g, label: g.label === 'Overview' ? 'Assistant' : 'My account' }));
 
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link to="/dashboard" className="flex items-center gap-2 flex-shrink-0">
+          <Link to={authUser ? '/dashboard' : '/'} className="flex items-center gap-2 flex-shrink-0">
             <img
               src="https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png"
               alt="VoiceExecAI"
@@ -212,7 +224,7 @@ export default function NavBar() {
               to="/"
               className="hidden md:inline-flex text-xs text-slate-500 hover:text-slate-800 transition-colors px-2 py-1 rounded hover:bg-slate-100"
             >
-              ← Landing
+              ← Home page
             </Link>
             <UserMenu />
             {/* Mobile menu button */}

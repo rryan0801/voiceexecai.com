@@ -37,7 +37,7 @@ export default function PageNotFound() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col items-center justify-center p-6">
             {/* Logo */}
-            <Link to="/dashboard" className="flex items-center gap-2 mb-12">
+            <Link to="/" className="flex items-center gap-2 mb-12">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
                     <Mic className="w-4 h-4 text-white" />
                 </div>
@@ -82,10 +82,10 @@ export default function PageNotFound() {
                         <ArrowLeft className="w-4 h-4" /> Go Back
                     </button>
                     <Link
-                        to="/dashboard"
+                        to="/"
                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl transition-colors"
                     >
-                        <Home className="w-4 h-4" /> Dashboard
+                        <Home className="w-4 h-4" /> Home page
                     </Link>
                 </div>
             </div>

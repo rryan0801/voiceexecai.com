@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, TrendingUp, Award, Loader2 } from 'lucide-react';
+import { MessageCircle, Award, Loader2 } from 'lucide-react';
 import NavBar from '@/components/NavBar';
 
 export default function ConversationAnalytics() {

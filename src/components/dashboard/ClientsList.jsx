@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Copy, Eye, Edit, Trash2, RefreshCw } from 'lucide-react';
+import { Copy, Eye, Edit } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function ClientsList({ clients, loading, onClientSelect, onRefresh }) {

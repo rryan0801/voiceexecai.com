@@ -36,7 +36,7 @@ export default function Contact() {
       
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+      toast.error('Your message did not go through. Please email richy@voiceexecai.com instead.');
     } finally {
       setLoading(false);
     }
