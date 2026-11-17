@@ -32,6 +32,10 @@ export default async function(req: Request): Promise<Response> {
 
     // Paid features check the admin-only Subscription entity, written ONLY here
     // (service role). Tips (mode 'payment') never create or change a plan.
+    // Only VoiceExecAI plans count. If this Stripe account is shared with other sites,
+    // their subscriptions must never unlock VoiceExecAI (ready-to-sell 2026-11-17).
+    const OUR_PRICES = new Set(['price_1TdNAuIcky2cOtqj5Yz6Xu82']);
+    const isOurs = (sub) => (sub?.items?.data || []).some((i) => OUR_PRICES.has(i?.price?.id));
     const Subs = base44.asServiceRole.entities.Subscription;
     const upsert = async (subscriptionId, data) => {
       const found = await Subs.filter({ stripe_subscription_id: subscriptionId });
@@ -46,6 +50,10 @@ export default async function(req: Request): Promise<Response> {
           break;
         }
         const sub = await stripe.subscriptions.retrieve(session.subscription);
+        if (!isOurs(sub)) {
+          console.log('Ignoring checkout for a non-VoiceExecAI price:', session.id);
+          break;
+        }
         await upsert(sub.id, {
           user_email: (session.metadata?.user_email || session.customer_email || session.client_reference_id || '').toLowerCase(),
           plan_name: session.metadata?.plan_name || 'Pro',
@@ -59,6 +67,10 @@ export default async function(req: Request): Promise<Response> {
       case 'customer.subscription.updated':
       case 'customer.subscription.deleted': {
         const sub = event.data.object;
+        if (!isOurs(sub)) {
+          console.log('Ignoring subscription event for a non-VoiceExecAI price:', sub.id);
+          break;
+        }
         console.log('Subscription event:', event.type, 'id:', sub.id, 'status:', sub.status);
         await upsert(sub.id, {
           ...(sub.metadata?.user_email ? { user_email: String(sub.metadata.user_email).toLowerCase() } : {}),
