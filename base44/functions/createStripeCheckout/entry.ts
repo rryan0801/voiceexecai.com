@@ -143,6 +143,14 @@ Deno.serve(async (req) => {
       }, { status: 503 });
     }
 
+    // Already on a plan? Don't sell a second one.
+    try {
+      const mine = await base44.asServiceRole.entities.Subscription.filter({ user_email: user.email.toLowerCase() });
+      if (mine.some((s: any) => ['active', 'past_due', 'trialing'].includes(s.status))) {
+        return Response.json({ error: 'You already have a VoiceExecAI plan. Open your dashboard, or email richy@voiceexecai.com to change it.' }, { status: 409 });
+      }
+    } catch (_e) { /* no record: carry on */ }
+
     // Returning members pay the regular price (deal is first-time members only).
     let firstTime = false;
     try {
