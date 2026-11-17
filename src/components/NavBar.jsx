@@ -188,7 +188,8 @@ export default function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user: authUser } = useAuth();
   const isAdmin = authUser?.role === 'admin';
-  const groups = NAV_GROUPS
+  // Signed-out visitors (e.g. on /pricing) see no app menus, just Home page and Sign in.
+  const groups = (authUser ? NAV_GROUPS : [])
     .map((g) => ({ ...g, items: g.items.filter((i) => isAdmin || CUSTOMER_PATHS.has(i.path)) }))
     .filter((g) => g.items.length > 0)
     // Customers see one short menu instead of admin group names.
