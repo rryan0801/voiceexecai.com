@@ -5,7 +5,7 @@ import ActNowDealBox from '@/components/ActNowDealBox';
 import PricingCards from '@/components/PricingCards';
 import TipBox from '@/components/TipBox';
 import MadeByRichyRyan from '@/components/MadeByRichyRyan';
-import { BUSINESS_LINE, SUPPORT_EMAIL } from '@/lib/plans';
+import { BUSINESS_LINE, SUPPORT_EMAIL, PLANS } from '@/lib/plans';
 import { ArrowRight, Menu, X, Mic, Mail, Calendar, ListTodo, FileText, Info } from 'lucide-react';
 
 const LOGO = 'https://media.base44.com/images/public/69f271da3dbd30c56bc97f06/7cf925e7b_generated_image.png';
@@ -68,7 +68,7 @@ export default function Landing() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-200 rounded-full text-blue-700 text-xs font-semibold mb-8">
             <Mic className="w-3 h-3" /> A voice assistant for sales reps
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
             Say it once.<br />
             <span className="text-blue-600">Your follow-up gets drafted.</span>
           </h1>
@@ -76,6 +76,10 @@ export default function Landing() {
             VoiceExecAI turns a spoken command into a drafted email, drafted meeting details or a follow-up task —
             so you spend less time clicking and more time selling.
           </p>
+          <p className="text-base text-slate-700 max-w-2xl mx-auto -mt-6 mb-3">
+            For B2B sales reps who are tired of typing follow-ups after every call. Everything it writes is an AI draft that you check and send yourself.
+          </p>
+          <p className="text-lg font-semibold text-slate-900 mb-10">Pro: ${PLANS[0].price}/month · cancel anytime</p>
           <div className="max-w-2xl mx-auto mb-10 grid sm:grid-cols-2 gap-3 text-left">
             {EXAMPLES.map((t) => (
               <div key={t} className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 font-medium">{t}</div>
