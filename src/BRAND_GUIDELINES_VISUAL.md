@@ -815,6 +815,6 @@ Tweet 5: [Summary + CTA]
 
 ---
 
-**Questions?** Contact: richy@folderwiseai.com
+**Questions?** Contact: richy@voiceexecai.com
 
 **Last Updated:** June 10, 2026

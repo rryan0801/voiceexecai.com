@@ -16,7 +16,7 @@
   - Acceptable use guidelines
   - Stripe-compliant refund/cancellation terms
 - ✅ **Cookie Consent** - Handled by Base44 platform
-- ✅ **Contact Email Visible** - `support@voiceexec.ai` in footer
+- ✅ **Contact Email Visible** - `richy@voiceexecai.com` in footer
 
 ### Product & UX
 - ✅ **Landing Page** - Complete with all sections:
@@ -76,7 +76,7 @@
   - Website URL (add voiceexec.ai)
 - [ ] **Custom Domain** - Configure in Base44 dashboard
 - [ ] **SSL Certificate** - Auto-provisioned by Base44
-- [ ] **Email DNS Records** - SPF, DKIM for support@voiceexec.ai
+- [ ] **Email DNS Records** - SPF, DKIM for richy@voiceexecai.com
 - [ ] **Test Payment Flow** - Run through full subscription cycle
 - [ ] **Load Testing** - Ensure infrastructure handles traffic
 

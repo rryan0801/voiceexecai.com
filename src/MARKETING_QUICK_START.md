@@ -80,7 +80,7 @@ You now have **4 comprehensive marketing documents**:
 3. [ ] Copy 3 DNS records
 4. [ ] Add DNS records at your domain registrar
 5. [ ] Wait 15–30 minutes for verification
-6. [ ] Send test email to: richy@folderwiseai.com
+6. [ ] Send test email to: richy@voiceexecai.com
 
 **Done:** ✅ Email system ready
 
@@ -430,14 +430,14 @@ Something every day. Blog post, social post, email, feature — doesn't matter. 
 Growth takes time. Focus on activation (first connection), not just signups.
 
 ### 6. Ask for Help
-Stuck? Email me: richy@folderwiseai.com
+Stuck? Email me: richy@voiceexecai.com
 
 ---
 
 ## 📞 CONTACT
 
 **Questions?**
-- Email: richy@folderwiseai.com
+- Email: richy@voiceexecai.com
 - Support: richy@voiceexecai.com
 
 **Resources:**

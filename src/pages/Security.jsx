@@ -110,7 +110,7 @@ export default function Security() {
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span>Communications</span>
-                <span className="font-medium">Email and SMS providers</span>
+                <span className="font-medium">Email provider</span>
               </div>
               <div className="flex justify-between items-center py-2">
                 <span>Infrastructure</span>

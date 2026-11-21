@@ -586,12 +586,12 @@ A: Yes. All data encrypted in transit (HTTPS) and at rest. OAuth scopes limit wh
 **Have Questions?**
 - Check Dashboard Help (? icon)
 - Contact your Sales Manager
-- Email: support@voicerep.ai
+- Email: richy@voiceexecai.com
 
 **Report a Bug:**
 - Note the time and command
 - Screenshot the error
-- Email ops@voicerep.ai
+- Email richy@voiceexecai.com
 
 ---
 

@@ -52,7 +52,7 @@ export default function CommandManagement() {
     send_email: '📧 Send Email',
     schedule_meeting: '📅 Schedule Meeting',
     create_task: '✅ Create Task',
-    log_crm: '📊 Log CRM',
+    log_crm: '📊 CRM note (draft)',
     generate_document: '📄 Generate Doc',
     other: '💬 Other'
   };

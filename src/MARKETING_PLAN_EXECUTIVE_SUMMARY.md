@@ -328,7 +328,7 @@ className="font-['Inter'] font-800 text-48px"  // H1
 - Action Checklist: `30_DAY_MARKETING_CHECKLIST.md`
 
 **Contact:**
-- Email: richy@folderwiseai.com
+- Email: richy@voiceexecai.com
 - Support: richy@voiceexecai.com
 
 **Tools:**

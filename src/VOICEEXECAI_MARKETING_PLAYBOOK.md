@@ -797,7 +797,7 @@ gtag('event', 'connect_email', { method: 'resend' });
 ## 📞 CONTACT & SUPPORT
 
 **Questions?** Reach out:
-- **Email:** richy@folderwiseai.com
+- **Email:** richy@voiceexecai.com
 - **Support:** richy@voiceexecai.com
 - **LinkedIn:** linkedin.com/company/voiceexecai
 - **Twitter:** @voiceexecai

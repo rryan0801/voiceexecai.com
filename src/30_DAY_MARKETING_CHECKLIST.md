@@ -73,7 +73,7 @@
 
 **Test Email:**
 1. [ ] Create first email template in Resend
-2. [ ] Send test email to: richy@folderwiseai.com
+2. [ ] Send test email to: richy@voiceexecai.com
 3. [ ] Verify delivery (check spam folder)
 
 **Done for the day:** ✅ Domain verified, test email sent
@@ -232,7 +232,7 @@
 
 **Set Up Automation:**
 1. [ ] Configure 7-day delay sequence
-2. [ ] Test with your email: richy@folderwiseai.com
+2. [ ] Test with your email: richy@voiceexecai.com
 3. [ ] Verify all 5 emails arrive on schedule
 
 **Done for the day:** ✅ Welcome sequence built & tested
@@ -587,7 +587,7 @@ THIS WEEK'S FOCUS:
 - Email Templates: Playbook Section 7
 
 **Contact:**
-- Email: richy@folderwiseai.com
+- Email: richy@voiceexecai.com
 - Support: richy@voiceexecai.com
 
 ---

@@ -536,7 +536,7 @@ const res = await base44.functions.invoke('functionName', {
 2. Review function-specific error messages
 3. Test with sample data in API explorer
 
-**Recommended Contact:** ops@voicerep.ai
+**Recommended Contact:** richy@voiceexecai.com
 
 ---
 
