@@ -87,7 +87,7 @@ export default function Landing() {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#pricing" className="flex items-center gap-2 px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-lg shadow-xl w-full sm:w-auto justify-center">
-              See plans <ArrowRight className="w-5 h-5" />
+              Subscribe — see plans <ArrowRight className="w-5 h-5" />
             </a>
             <a href="#demo" className="px-8 py-5 border border-slate-200 text-slate-700 font-semibold rounded-xl text-lg hover:bg-slate-50 w-full sm:w-auto text-center">
               Watch an example
