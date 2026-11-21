@@ -17,7 +17,7 @@ export const PLANS = [
     price: 49,
     period: '/month',
     priceId: 'price_1TdNAuIcky2cOtqj5Yz6Xu82',
-    description: 'For a sales rep who wants to update the busywork by voice.',
+    description: 'For a sales rep who wants to handle follow-up busywork by voice.',
     features: PRO_FEATURES,
     cta: 'Get Pro',
     checkout: true,
